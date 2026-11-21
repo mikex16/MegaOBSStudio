@@ -1,11 +1,11 @@
 {
     "connection_status": "stopped",
     "connection_message": "Multicast listener stopped.",
-    "mode": "multicast",
-    "show_running": false,
+    "mode": "manual_web",
+    "show_running": true,
     "is_black": false,
-    "is_clear": false,
-    "cur_slide_no": 13,
+    "is_clear": true,
+    "cur_slide_no": 6,
     "total_slides": 14,
     "alert_text": "",
     "item": {
@@ -99,18 +99,18 @@
         ]
     },
     "active_slide": {
-        "slide_no": 13,
-        "section": "Verse 7",
-        "region1": "YA YESUS, ENGKAULAH WARISAN KEKAL\nBERI SUKACITA DAMAI YANG KEKAL",
+        "slide_no": 6,
+        "section": "Verse 3",
+        "region1": "HATI-NYA GEMBIRA MENYAMBUT ENGKAU",
         "region2": ""
     },
     "next_slide": {
-        "slide_no": 14,
-        "section": "Verse 7",
-        "region1": "BERI SUKACITA DAMAI YANG KEKAL",
+        "slide_no": 7,
+        "section": "Verse 4",
+        "region1": "BAGAIKAN KESUMBA MERAH DOSAMU\nDARAH-NYA TERCURAH MENGUDUSKANMU",
         "region2": ""
     },
-    "updated_at_ms": 1795275722576,
+    "updated_at_ms": 1795276922278,
     "daemon_running": false,
     "daemon_pid": 15172,
     "host": "127.0.0.1",

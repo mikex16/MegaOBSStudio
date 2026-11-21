@@ -1009,10 +1009,10 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
 <div class="app-shell">
   <!-- ==================== TOP MASTER BROADCAST HEADER ==================== -->
   <header class="topbar">
-    <div class="brand-group" style="cursor:pointer;" onclick="openAboutUsModal()" title="Klik untuk info About Us, Lesen & Sumber Projek">
+    <div class="brand-group" style="cursor:pointer;" onclick="openAboutUsModal()" title="Klik untuk info About Us, pprz.net, Lesen & Sumber Projek">
       <div class="brand-logo">MEGA</div>
       <div class="brand-title">
-        <span>MEGA OBS STUDIO <span style="font-size:9.5px; color:var(--gold); font-weight:700;">by mikex16</span></span>
+        <span>MEGA OBS STUDIO <span style="font-size:9.5px; color:var(--gold); font-weight:700;">by MIKE • pprz.net</span></span>
         <span class="brand-sub" id="obsVersionText">OBS WS v5 • Church HUD • 28 Lyric DBs</span>
       </div>
     </div>
@@ -1869,7 +1869,7 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
         <div class="brand-logo" style="width:36px; height:36px; font-size:11px;">MEGA</div>
         <div>
           <strong style="font-size:14px; color:#fff;">MEGA OBS STUDIO — Unified One-Screen Church Broadcast System</strong>
-          <div style="font-size:11px; color:var(--gold); font-weight:700;">Created by MIKE (mikex16) • Co-developed with Antigravity AI</div>
+          <div style="font-size:11px; color:var(--gold); font-weight:700;">Created by MIKE (mikex16) • Official Website: <a href="https://pprz.net" target="_blank" style="color:#38bdf8; text-decoration:underline;">pprz.net</a> • Co-developed with Antigravity AI</div>
         </div>
       </div>
       <button class="btn btn-sm" onclick="closeModalById('aboutUsModal')">✕</button>
@@ -1897,36 +1897,44 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
         <span style="background:rgba(245,194,66,0.18); border:1px solid var(--gold); color:var(--gold); font-size:10.5px; font-weight:800; padding:2px 8px; border-radius:99px;">👋 Just Call Me "MIKE"</span>
       </div>
 
-      <!-- Contact Details Bar -->
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-        <div style="background:#080d18; border:1px solid rgba(16,185,129,0.35); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px;">
+      <!-- Contact Details Bar (Website pprz.net, WhatsApp, Email) -->
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+        <div style="background:linear-gradient(135deg, rgba(245,194,66,0.16), #080d18); border:1px solid rgba(245,194,66,0.55); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:6px;">
           <div>
-            <div style="font-size:9.5px; font-weight:800; color:#34d399; text-transform:uppercase;">💬 WhatsApp (WhatsApp Only)</div>
-            <div style="font-size:13px; font-weight:800; color:#fff; font-family:var(--font-mono);">0166841604</div>
+            <div style="font-size:9.5px; font-weight:800; color:var(--gold); text-transform:uppercase;">🌐 Official Website</div>
+            <div style="font-size:13.5px; font-weight:900; color:#fff; font-family:var(--font-mono);">pprz.net</div>
           </div>
-          <a href="https://wa.me/60166841604" target="_blank" class="btn btn-success btn-xs" style="text-decoration:none;">Chat WhatsApp ↗</a>
+          <a href="https://pprz.net" target="_blank" class="btn btn-gold btn-xs" style="text-decoration:none;">Visit ↗</a>
         </div>
-        <div style="background:#080d18; border:1px solid rgba(59,130,246,0.35); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px;">
+        <div style="background:#080d18; border:1px solid rgba(16,185,129,0.35); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:6px;">
+          <div>
+            <div style="font-size:9.5px; font-weight:800; color:#34d399; text-transform:uppercase;">💬 WhatsApp Only</div>
+            <div style="font-size:12.5px; font-weight:800; color:#fff; font-family:var(--font-mono);">0166841604</div>
+          </div>
+          <a href="https://wa.me/60166841604" target="_blank" class="btn btn-success btn-xs" style="text-decoration:none;">Chat ↗</a>
+        </div>
+        <div style="background:#080d18; border:1px solid rgba(59,130,246,0.35); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:6px;">
           <div>
             <div style="font-size:9.5px; font-weight:800; color:#60a5fa; text-transform:uppercase;">✉️ Email Address</div>
-            <div style="font-size:12.5px; font-weight:800; color:#fff; font-family:var(--font-mono);">mikex16@gmail.com</div>
+            <div style="font-size:11.5px; font-weight:800; color:#fff; font-family:var(--font-mono);">mikex16@gmail.com</div>
           </div>
-          <a href="mailto:mikex16@gmail.com" class="btn btn-primary btn-xs" style="text-decoration:none;">Send Email ↗</a>
+          <a href="mailto:mikex16@gmail.com" class="btn btn-primary btn-xs" style="text-decoration:none;">Email ↗</a>
         </div>
       </div>
 
       <!-- Custom Development Services Ad (BM + EN) -->
       <div style="background:rgba(8,13,24,0.75); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:9px 11px; display:flex; flex-direction:column; gap:5px;">
         <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:2px;">
+          <a href="https://pprz.net" target="_blank" style="background:rgba(245,194,66,0.2); border:1px solid var(--gold); color:var(--gold); font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px; text-decoration:none;">🚀 Layari Website Baru: pprz.net ↗</a>
           <span style="background:rgba(59,130,246,0.18); border:1px solid rgba(59,130,246,0.45); color:#93c5fd; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">🌐 Website Design &amp; Web Systems</span>
           <span style="background:rgba(139,92,246,0.18); border:1px solid rgba(139,92,246,0.45); color:#c4b5fd; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">📱 Custom App &amp; Software Dev</span>
           <span style="background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.45); color:#fcd34d; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">🔌 Electronic &amp; IoT Remote Control Projects</span>
         </div>
         <p style="font-size:11.5px; color:#e2e8f0; line-height:1.5;">
-          🇲🇾 <strong>BM:</strong> Saya menerima tempahan pembangunan projek kustom — bermula daripada <strong>reka bentuk laman web (Website Design)</strong>, <strong>membuat aplikasi (Web / Mobile / Desktop App)</strong>, sehinggalah <strong>membangunkan projek elektronik untuk mengawal sesuatu peralatan atau sistem secara IoT (Internet of Things)</strong>. Hubungi saya, <strong>MIKE</strong>!
+          🇲🇾 <strong>BM:</strong> Jemput layari laman web rasmi baru saya di <a href="https://pprz.net" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:underline;">pprz.net</a>! Saya menerima tempahan pembangunan projek kustom — bermula daripada <strong>reka bentuk laman web (Website Design)</strong>, <strong>membuat aplikasi (Web / Mobile / Desktop App)</strong>, sehinggalah <strong>membangunkan projek elektronik untuk mengawal sesuatu peralatan atau sistem secara IoT (Internet of Things)</strong>. Hubungi saya, <strong>MIKE</strong>!
         </p>
         <p style="font-size:11.2px; color:#94a3b8; line-height:1.45; border-top:1px dashed rgba(148,163,184,0.2); padding-top:4px;">
-          🇬🇧 <strong>EN:</strong> Open for custom project commissions &amp; freelance orders — ranging from <strong>Website Design</strong> and <strong>Custom Application Development</strong> to <strong>Electronic Hardware Engineering &amp; IoT (Internet of Things) Remote Control Systems</strong>. Feel free to reach out — just call me <strong>MIKE</strong>!
+          🇬🇧 <strong>EN:</strong> Check out my new official website at <a href="https://pprz.net" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:underline;">pprz.net</a>! Open for custom project commissions &amp; freelance orders — ranging from <strong>Website Design</strong> and <strong>Custom Application Development</strong> to <strong>Electronic Hardware Engineering &amp; IoT (Internet of Things) Remote Control Systems</strong>. Feel free to reach out — just call me <strong>MIKE</strong>!
         </p>
       </div>
     </div>
@@ -1969,7 +1977,7 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
     </div>
 
     <div style="display:flex; justify-content:space-between; align-items:center; padding-top:4px; flex-wrap:wrap; gap:8px;">
-      <span style="font-size:10.5px; color:var(--text-muted);">© 2026 <strong>MIKE (mikex16)</strong> • WhatsApp: <strong>0166841604</strong> • Email: <strong>mikex16@gmail.com</strong> • Tuhan Yesus Memberkati!</span>
+      <span style="font-size:10.5px; color:var(--text-muted);">© 2026 <strong>MIKE (mikex16)</strong> • 🌐 <a href="https://pprz.net" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:none;">pprz.net</a> • WhatsApp: <strong>0166841604</strong> • Email: <strong>mikex16@gmail.com</strong> • Tuhan Yesus Memberkati!</span>
       <button class="btn btn-gold" onclick="closeModalById('aboutUsModal')">Tutup / Close</button>
     </div>
   </div>
