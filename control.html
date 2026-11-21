@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIB Pekan Papar - Live Studio Control Deck</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #070b14;
+      --bg-card: #0f1626;
+      --bg-card-hover: #162035;
+      --bg-input: #151e33;
+      --border: #22304d;
+      --border-gold: rgba(245, 194, 66, 0.4);
+      --primary-gold: #f5c242;
+      --gold-glow: rgba(245, 194, 66, 0.35);
+      --accent-cyan: #38bdf8;
+      --live-red: #ef4444;
+      --success-green: #10b981;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-gold: #fde68a;
+      --font-serif: 'Cinzel', serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-dark);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .deck-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, rgba(245, 194, 66, 0.25), rgba(245, 194, 66, 0.05));
+      border: 1px solid var(--primary-gold);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-gold);
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    .brand-icon svg { width: 26px; height: 26px; fill: currentColor; }
+
+    .brand-text h1 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: var(--primary-gold);
+      text-transform: uppercase;
+    }
+
+    .deck-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--success-green);
+      color: #6ee7b7;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .status-pill.status-hidden {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: var(--live-red);
+      color: #fca5a5;
+    }
+
+    .status-pill.status-warning {
+      background: rgba(245, 194, 66, 0.15);
+      border-color: var(--primary-gold);
+      color: var(--text-gold);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success-green);
+      box-shadow: 0 0 8px var(--success-green);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--bg-input);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      border-color: var(--primary-gold);
+      background: var(--bg-card-hover);
+      color: var(--primary-gold);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #f5c242, #d4af37);
+      color: #0b0f19;
+      border: none;
+      font-weight: 800;
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #ffd700, #f5c242);
+      color: #000;
+      box-shadow: 0 0 20px rgba(245, 194, 66, 0.5);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+    }
+
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.35);
+      border-color: var(--live-red);
+      color: #fff;
+    }
+
+    .btn-sm {
+      padding: 5px 12px;
+      font-size: 0.78rem;
+    }
+
+    /* Grid Layout */
+    .deck-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+
+    @media (max-width: 1024px) {
+      .col-8, .col-6, .col-4 { grid-column: span 12; }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Scene Switcher Buttons */
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .scene-btn {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text);
+    }
+
+    .scene-btn:hover {
+      border-color: var(--primary-gold);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .scene-btn.active {
+      border-color: var(--primary-gold);
+      background: rgba(245, 194, 66, 0.12);
+      box-shadow: 0 0 20px rgba(245, 194, 66, 0.2);
+    }
+
+    .scene-btn-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--primary-gold);
+      text-transform: uppercase;
+    }
+
+    .scene-btn-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .scene-btn-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Form Controls */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .form-control {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-gold);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Countdown Display */
+    .timer-display-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border-gold);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .timer-time {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary-gold);
+      line-height: 1;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(245, 194, 66, 0.4);
+    }
+
+    .timer-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Lyrics Prompter Box */
+    .lyrics-deck-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      max-height: 220px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .lyric-line-item {
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
+    }
+
+    .lyric-line-item:hover {
+      background: rgba(245, 194, 66, 0.1);
+      border-color: rgba(245, 194, 66, 0.3);
+    }
+
+    .lyric-line-item.active {
+      background: rgba(245, 194, 66, 0.2);
+      border-color: var(--primary-gold);
+      color: var(--primary-gold);
+      font-weight: 700;
+    }
+
+    /* Quick Links Box */
+    .obs-links-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .obs-link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    .obs-link-code {
+      font-family: monospace;
+      color: var(--accent-cyan);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 65%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="deck-header">
+      <div class="brand-group">
+        <div class="brand-icon" style="background: #ffffff; border-radius: 50%; overflow: hidden; padding: 2px; border: 1.5px solid var(--primary-gold); box-shadow: 0 0 12px rgba(245,194,66,0.35); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
+          <img src="./assets/logo-sib.png" alt="Logo SIB Pekan Papar" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="brand-text">
+          <h1>SIB PEKAN PAPAR</h1>
+          <p>KEBAKTIAN NATAL &amp; GRADUASI PKK &bull; LIVE STUDIO CONTROLLER</p>
+        </div>
+      </div>
+
+      <div class="deck-top-actions">
+        <div id="networkStatusPill" class="status-pill">
+          <span class="pulse-dot"></span>
+          <span id="networkStatusText">OBS SYNC OK (WIFI)</span>
+        </div>
+        <a href="./index.php" class="btn">
+          &larr; Master One-Screen Console
+        </a>
+        <a href="./hud.php" target="_blank" class="btn btn-gold">
+          Open Live Overlay Window &rarr;
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Deck Grid -->
+    <div class="deck-grid">
+
+      <!-- =========================================================
+           BANNER EVENT SPOTLIGHT CARD
+           ========================================================= -->
+      <div class="card col-12" style="background: linear-gradient(135deg, rgba(13, 27, 58, 0.95), rgba(7, 13, 28, 0.95)); border: 1.5px solid var(--border-gold); padding: 16px 20px;">
+        <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+          <img src="./assets/banner-natal-pkk.jpg" style="height: 105px; max-width: 290px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-gold); box-shadow: 0 4px 15px rgba(0,0,0,0.5);" alt="Banner Natal PKK 2026">
+          <div style="flex: 1; min-width: 260px;">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
+              <span class="status-pill" style="padding: 2px 10px; font-size: 0.75rem;">📅 22 NOV 2026 (AHAD)</span>
+              <span class="status-pill" style="padding: 2px 10px; font-size: 0.75rem;">⏰ 9.30 PAGI</span>
+              <span class="status-pill status-warning" style="padding: 2px 10px; font-size: 0.75rem;">📍 GEREJA SIB KAYAU</span>
+              <span class="status-pill" style="padding: 2px 10px; font-size: 0.75rem; background: rgba(29, 78, 216, 0.35); border-color: #38bdf8; color: #bae6fd;">👔 WARNA BAJU: BIRU</span>
+            </div>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: 1px;">
+              KEBAKTIAN NATAL &amp; GRADUASI PKK 2026
+            </h2>
+            <div style="font-size: 0.85rem; color: var(--text-gold); font-weight: 700; margin-top: 2px;">
+              Tema: "Aku Kecil, Aku Berharga" (Mikha 5:1–3) &bull; Pengkhotbah: Pta. Tinggih Sulog
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end;">
+            <button class="btn btn-gold btn-sm" onclick="pushQuickNatalPreset()">
+              ⚡ Push Full Natal Preset Live
+            </button>
+            <span style="font-size: 0.74rem; color: var(--text-muted);">Pengerusi: Welter Lainor</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           1. SCENE SWITCHER PAD
+           ========================================================= -->
+      <div class="card col-12">
+        <div class="card-header">
+          <span class="card-title">🎬 LIVE SCENE SWITCHER (TRANSITIONS)</span>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Hotkeys: 1, 2, 3, 4, 5</span>
+        </div>
+        <div class="scene-grid">
+          <button class="scene-btn active" data-scene="landing" onclick="switchSceneRemote('landing')">
+            <span class="scene-btn-tag">SCENE 1 (KEY 1)</span>
+            <span class="scene-btn-title">🚀 STARTING SOON</span>
+            <span class="scene-btn-desc">Welcome title, countdown dial &amp; scripture of the day.</span>
+          </button>
+
+          <button class="scene-btn" data-scene="title" onclick="switchSceneRemote('title')">
+            <span class="scene-btn-tag">SCENE 2 (KEY 2)</span>
+            <span class="scene-btn-title">📖 SERMON TITLE</span>
+            <span class="scene-btn-desc">Sermon title intro, scripture reading &amp; speaker card.</span>
+          </button>
+
+          <button class="scene-btn" data-scene="overlay" onclick="switchSceneRemote('overlay')">
+            <span class="scene-btn-tag">SCENE 3 (KEY 3)</span>
+            <span class="scene-btn-title">🎥 CAMERA HUD OVERLAY</span>
+            <span class="scene-btn-desc">Transparent lower-thirds, scripture HUD &amp; worship lyrics prompter.</span>
+          </button>
+
+          <button class="scene-btn" data-scene="break" onclick="switchSceneRemote('break')">
+            <span class="scene-btn-tag">SCENE 4 (KEY 4)</span>
+            <span class="scene-btn-title">☕ BREAK &amp; OFFERING</span>
+            <span class="scene-btn-desc">Intermission, tithes &amp; offering bank details card.</span>
+          </button>
+
+          <button class="scene-btn" data-scene="ending" onclick="switchSceneRemote('ending')">
+            <span class="scene-btn-tag">SCENE 5 (KEY 5)</span>
+            <span class="scene-btn-title">🏁 STREAM ENDING</span>
+            <span class="scene-btn-desc">Closing benediction scripture, schedule &amp; socials.</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           2. COUNTDOWN TIMER CONTROLLER
+           ========================================================= -->
+      <div class="card col-4">
+        <div class="card-header">
+          <span class="card-title">⏳ COUNTDOWN TIMER</span>
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Spacebar: Start/Pause</span>
+        </div>
+
+        <div class="timer-display-box">
+          <span id="deckTimerDisplay" class="timer-time">05:00</span>
+          <div class="timer-actions">
+            <button class="btn btn-gold btn-sm" onclick="timerAction('START')">▶ Start</button>
+            <button class="btn btn-sm" onclick="timerAction('PAUSE')">⏸ Pause</button>
+            <button class="btn btn-danger btn-sm" onclick="timerAction('RESET', 300)">↺ Reset (5m)</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">QUICK PRESETS</label>
+          <div style="display: flex; gap: 6px;">
+            <button class="btn btn-sm" style="flex: 1;" onclick="timerAction('RESET', 180)">3 Min</button>
+            <button class="btn btn-sm" style="flex: 1;" onclick="timerAction('RESET', 300)">5 Min</button>
+            <button class="btn btn-sm" style="flex: 1;" onclick="timerAction('RESET', 600)">10 Min</button>
+            <button class="btn btn-sm" style="flex: 1;" onclick="timerAction('RESET', 900)">15 Min</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ADJUST TIME</label>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-sm" style="flex: 1;" onclick="timerAction('ADD_TIME', 60)">+1 Min</button>
+            <button class="btn btn-sm" style="flex: 1;" onclick="timerAction('ADD_TIME', -60)">-1 Min</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           3. LIVE LOWER-THIRDS QUICK TOGGLES
+           ========================================================= -->
+      <div class="card col-4">
+        <div class="card-header">
+          <span class="card-title">✨ LOWER-THIRD TOGGLES</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border);">
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem;">Speaker Lower-Third</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Pastor / Speaker banner (Hotkey: L)</div>
+            </div>
+            <button id="btnToggleSpeakerLt" class="btn btn-gold btn-sm" onclick="toggleSpeakerLt()">Show</button>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border);">
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem;">Scripture Verse Card</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Ayat Firman Tuhan HUD (Hotkey: S)</div>
+            </div>
+            <button id="btnToggleScripture" class="btn btn-gold btn-sm" onclick="toggleScriptureHud()">Show</button>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border);">
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem;">Worship Song Lyrics</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Lirik Lagu Pujian (Hotkey: W)</div>
+            </div>
+            <button id="btnToggleWorship" class="btn btn-gold btn-sm" onclick="toggleWorshipHud()">Show</button>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border);">
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem;">Offering &amp; QR Lower-Third</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">DuitNow QR &amp; Bank Info (Hotkey: O)</div>
+            </div>
+            <button id="btnToggleGivingQuick" class="btn btn-gold btn-sm" onclick="toggleGivingLtRemote()">Show</button>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-input); border-radius: 8px; border: 1px solid var(--border);">
+            <div>
+              <div style="font-weight: 700; font-size: 0.9rem;">Marquee Ticker (Info Gereja)</div>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Running marquee text bar (Hotkey: T)</div>
+            </div>
+            <button id="btnToggleTickerQuick" class="btn btn-gold btn-sm" onclick="toggleTickerRemote()">Show</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 6px;">
+          <label class="form-label">THEME COLOR PALETTE</label>
+          <select id="themeSelector" class="form-control" onchange="changeThemeRemote(this.value)">
+            <option value="natal-blue">Natal &amp; Graduasi PKK (Royal Blue &amp; Gold - Default)</option>
+            <option value="celestial-gold">Celestial Gold &amp; Midnight Navy</option>
+            <option value="royal-purple">Royal Majesty Purple</option>
+            <option value="heavenly-blue">Heavenly Sky &amp; Sapphire</option>
+            <option value="sacred-crimson">Sacred Crimson &amp; Amber</option>
+            <option value="minimal-slate">Minimal Clean Slate</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           4. RUNNING TICKER & QUICK INFO (SHOW/HIDE TOGGLE)
+           ========================================================= -->
+      <div class="card col-4">
+        <div class="card-header">
+          <span class="card-title">📢 MARQUEE TICKER ("INFO GEREJA")</span>
+          <span id="tickerStatusBadge" class="status-pill">DIPAPARKAN (SHOWN)</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <button id="btnToggleTicker" class="btn btn-danger" style="width: 100%; padding: 12px; font-weight: 800; font-size: 0.92rem; letter-spacing: 0.5px;" onclick="toggleTickerRemote()">
+            👁️ Sembunyikan Marquee (Hide Info Gereja)
+          </button>
+          <div style="font-size: 0.74rem; color: var(--text-muted); text-align: center;">
+            Tekan butang di atas atau kekunci <kbd>T</kbd> untuk sembunyikan/tampilkan segera pada OBS.
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="grid-column: span 2;">
+            <label class="form-label">TAJUK BADGE MARQUEE</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="tickerBadgeInput" class="form-control" value="INFO NATAL &amp; PKK" style="flex: 1;">
+              <button class="btn btn-sm" onclick="pushTickerBadge()">Update Badge</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">TEKS PENGUMUMAN MARQUEE</label>
+          <textarea id="tickerTextInput" class="form-control" rows="3">Shalom! Selamat Datang ke Kebaktian Natal &amp; Graduasi PKK SIB Kawasan Papar 2026 • Tema: "Aku Kecil, Aku Berharga" (Mikha 5:1–3) • Tempat: Gereja SIB Kayau • Pengkhotbah: Pta. Tinggih Sulog • Tarikh: 22 Nov 2026 (Ahad 9.30 Pagi) • Warna Baju: Biru • Pengerusi PKK: Welter Lainor • Tuhan Yesus Memberkati!</textarea>
+        </div>
+
+        <button class="btn btn-gold btn-sm" onclick="pushTickerText()">
+          Push Ticker Text Live
+        </button>
+      </div>
+
+      <!-- =========================================================
+           5. SERMON & SPEAKER MANAGER
+           ========================================================= -->
+      <div class="card col-6">
+        <div class="card-header">
+          <span class="card-title">📖 SERMON &amp; SPEAKER SETUP</span>
+          <select id="sermonPresetsSelect" class="form-control" style="width: auto; padding: 4px 8px; font-size: 0.8rem;" onchange="loadSermonPreset(this.value)">
+            <option value="">-- Load Sermon Preset --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">SERMON TITLE (TAJUK KHUTBAH)</label>
+          <input type="text" id="sermonTitleInput" class="form-control" value="Aku Kecil, Aku Berharga">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">SPEAKER NAME (PENGKHOTBAH)</label>
+            <input type="text" id="speakerNameInput" class="form-control" value="Pta. Tinggih Sulog">
+          </div>
+          <div class="form-group">
+            <label class="form-label">SPEAKER ROLE / TITLE</label>
+            <input type="text" id="speakerRoleInput" class="form-control" value="Pengkhotbah Kebaktian Natal &amp; Graduasi PKK">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">SCRIPTURE REFERENCE (PETIKAN)</label>
+            <input type="text" id="sermonScriptureInput" class="form-control" value="Mikha 5:1–3">
+          </div>
+          <div class="form-group">
+            <label class="form-label">SERMON SERIES (SIRI ACARA)</label>
+            <input type="text" id="sermonSeriesInput" class="form-control" value="Sambutan Natal &amp; Graduasi PKK SIB Kawasan Papar 2026">
+          </div>
+        </div>
+
+        <button class="btn btn-gold" onclick="pushSermonInfo()">
+          Push Sermon &amp; Speaker Info Live
+        </button>
+      </div>
+
+      <!-- =========================================================
+           6. SCRIPTURE VERSE HUD PROMPTER
+           ========================================================= -->
+      <div class="card col-6">
+        <div class="card-header">
+          <span class="card-title">📜 SCRIPTURE VERSE PROMPTER</span>
+          <select id="scripturePresetsSelect" class="form-control" style="width: auto; padding: 4px 8px; font-size: 0.8rem;" onchange="loadScripturePreset(this.value)">
+            <option value="">-- Quick Bible Presets --</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">BIBLE REFERENCE (CONTOH: MIKHA 5:1–3)</label>
+            <input type="text" id="scriptureRefInput" class="form-control" value="Mikha 5:1–3">
+          </div>
+          <div class="form-group">
+            <label class="form-label">BIBLE VERSION (VERSI)</label>
+            <input type="text" id="scriptureVersionInput" class="form-control" value="Alkitab TB">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">VERSE TEXT (AYAT ALKITAB)</label>
+          <textarea id="scriptureTextInput" class="form-control" rows="3">Tetapi engkau, hai Betlehem Efrata, hai yang terkecil di antara kaum-kaum Yehuda, dari padamu akan bangkit bagi-Ku seorang yang akan memerintah Israel, yang permulaannya sudah sejak purbakala, sejak dahulu kala.</textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-gold" style="flex: 1;" onclick="pushScriptureLive()">
+            Push Scripture Live &amp; Show
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="toggleScriptureHud(false)">
+            Hide Verse
+          </button>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           7. WORSHIP SONG LYRICS PROMPTER
+           ========================================================= -->
+      <div class="card col-8">
+        <div class="card-header">
+          <span class="card-title">🎵 WORSHIP SONG LYRICS PROMPTER</span>
+          <select id="worshipSongsSelect" class="form-control" style="width: auto; padding: 4px 8px; font-size: 0.8rem;" onchange="loadSongPreset(this.value)">
+            <option value="">-- Select Worship Song --</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">SONG TITLE</label>
+            <input type="text" id="songTitleInput" class="form-control" value="Malam Kudus (Silent Night)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">ARTIST / LEADER</label>
+            <input type="text" id="songArtistInput" class="form-control" value="Lagu Natal Tradisional">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">CLICK ANY LINE TO PUSH LIVE (OR USE ARROW KEYS)</label>
+          <div id="lyricsDeckBox" class="lyrics-deck-box">
+            <!-- Populated via script -->
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-sm" onclick="navSongLine(-1)">&larr; Previous Line</button>
+            <button class="btn btn-sm" onclick="navSongLine(1)">Next Line &rarr;</button>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-gold btn-sm" onclick="toggleWorshipHud(true)">Show Lyrics</button>
+            <button class="btn btn-danger btn-sm" onclick="toggleWorshipHud(false)">Hide Lyrics</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           8. OFFERING & GIVING SETTINGS
+           ========================================================= -->
+      <!-- =========================================================
+           8. OFFERING & TITHE SETUP (WITH DUITNOW QR)
+           ========================================================= -->
+      <div class="card col-4">
+        <div class="card-header">
+          <span class="card-title">💰 OFFERING &amp; DUITNOW QR</span>
+          <button id="btnToggleGivingLt" class="btn btn-gold btn-sm" onclick="toggleGivingLtRemote()">
+            Show QR HUD (O)
+          </button>
+        </div>
+
+        <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 14px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid var(--border-gold);">
+          <img src="./assets/qr-offering.jpg" style="width: 72px; height: 72px; object-fit: contain; background: #fff; padding: 3px; border-radius: 6px; box-shadow: 0 0 10px rgba(245,194,66,0.3);" alt="QR Code">
+          <div style="flex: 1;">
+            <div style="font-weight: 700; color: #fff; font-size: 0.88rem;">PUBLIC BANK</div>
+            <div style="font-family: var(--font-display); font-size: 1.15rem; color: var(--primary-gold); font-weight: 800; letter-spacing: 1px;">3235424420</div>
+            <div style="font-size: 0.74rem; color: var(--text-muted);">SIB PEKAN PAPAR</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">BANK NAME</label>
+          <input type="text" id="givingBankInput" class="form-control" value="Public Bank">
+        </div>
+        <div class="form-group">
+          <label class="form-label">ACCOUNT NUMBER</label>
+          <input type="text" id="givingAccountInput" class="form-control" value="3235424420">
+        </div>
+        <div class="form-group">
+          <label class="form-label">ACCOUNT NAME</label>
+          <input type="text" id="givingNameInput" class="form-control" value="SIB PEKAN PAPAR">
+        </div>
+        <div class="form-group">
+          <label class="form-label">PAYMENT REFERENCE</label>
+          <input type="text" id="givingRefInput" class="form-control" value="Persembahan / Perpuluhan">
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-gold btn-sm" style="flex: 1;" onclick="pushGivingDetails()">
+            Update Giving Info
+          </button>
+          <button class="btn btn-sm" onclick="toggleGivingLtRemote()">
+            Toggle Live HUD
+          </button>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           9. OBS QUICK URL HELPER
+           ========================================================= -->
+      <div class="card col-12">
+        <div class="card-header">
+          <span class="card-title">🔗 OBS BROWSER SOURCE URLS (1-CLICK COPY)</span>
+          <span style="font-size: 0.78rem; color: var(--text-gold);">OBS Setup: Width: 1920 &bull; Height: 1080 &bull; FPS: 60</span>
+        </div>
+
+        <div class="obs-links-box">
+          <div class="obs-link-row">
+            <div>
+              <strong>🚀 Starting Soon Overlay:</strong>
+              <div class="obs-link-code" id="linkLanding">http://localhost:8000/church-hud/landing.html</div>
+            </div>
+            <button class="btn btn-sm" onclick="copyUrl('linkLanding')">Copy URL</button>
+          </div>
+
+          <div class="obs-link-row">
+            <div>
+              <strong>📖 Sermon Title Overlay:</strong>
+              <div class="obs-link-code" id="linkTitle">http://localhost:8000/church-hud/title.html</div>
+            </div>
+            <button class="btn btn-sm" onclick="copyUrl('linkTitle')">Copy URL</button>
+          </div>
+
+          <div class="obs-link-row">
+            <div>
+              <strong>🎥 Live Camera Transparent HUD (Lower-Thirds):</strong>
+              <div class="obs-link-code" id="linkOverlay">http://localhost:8000/church-hud/lowerthird.html</div>
+            </div>
+            <button class="btn btn-sm" onclick="copyUrl('linkOverlay')">Copy URL</button>
+          </div>
+
+          <div class="obs-link-row">
+            <div>
+              <strong>☕ Break &amp; Offering Overlay:</strong>
+              <div class="obs-link-code" id="linkBreak">http://localhost:8000/church-hud/break.html</div>
+            </div>
+            <button class="btn btn-sm" onclick="copyUrl('linkBreak')">Copy URL</button>
+          </div>
+
+          <div class="obs-link-row">
+            <div>
+              <strong>🏁 Closing &amp; Benediction Overlay:</strong>
+              <div class="obs-link-code" id="linkEnding">http://localhost:8000/church-hud/ending.html</div>
+            </div>
+            <button class="btn btn-sm" onclick="copyUrl('linkEnding')">Copy URL</button>
+          </div>
+
+          <div class="obs-link-row">
+            <div>
+              <strong>🎛️ Control Deck (For OBS Custom Browser Dock):</strong>
+              <div class="obs-link-code" id="linkDock">http://localhost:8000/church-hud/control.html</div>
+            </div>
+            <button class="btn btn-sm" onclick="copyUrl('linkDock')">Copy URL</button>
+          </div>
+
+          <div class="obs-link-row" style="background: rgba(245, 194, 66, 0.08); border-color: rgba(245, 194, 66, 0.4);">
+            <div>
+              <strong style="color: var(--primary-gold);">📱 Tablet / Smartphone Wi-Fi Control URL:</strong>
+              <div class="obs-link-code" id="linkTablet" style="color: #fff; font-weight: 700;">http://192.168.5.109:8000/church-hud/control.html</div>
+            </div>
+            <button class="btn btn-gold btn-sm" onclick="copyUrl('linkTablet')">Copy Tablet URL</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./js/presets.js"></script>
+  <script>
+    let broadcastChannel = null;
+    let activeSongIndex = 0;
+    let activeLineIndex = 0;
+    let isSpeakerLtVisible = false;
+    let isScriptureVisible = false;
+    let isWorshipVisible = false;
+    let isTickerVisible = true;
+
+    // Connect to BroadcastChannel (for same PC / OBS Dock)
+    if ('BroadcastChannel' in window) {
+      broadcastChannel = new BroadcastChannel('sib_church_hud_sync');
+      broadcastChannel.onmessage = (event) => {
+        handleIncomingStateSync(event.data);
+      };
+    }
+
+    // Connect to Server SSE for real-time remote updates
+    if ('EventSource' in window) {
+      try {
+        const sse = new EventSource('/api/events');
+        sse.addEventListener('churchSync', (e) => {
+          if (e.data) {
+            try {
+              const data = JSON.parse(e.data);
+              handleIncomingStateSync(data);
+            } catch (err) {}
+          }
+        });
+        sse.onopen = () => {
+          setNetworkSyncStatus(true, 'OBS SYNC OK (SSE LIVE)');
+        };
+      } catch (e) {}
+    }
+
+    function setNetworkSyncStatus(connected, customText) {
+      const pill = document.getElementById('networkStatusPill');
+      const text = document.getElementById('networkStatusText');
+      if (!pill || !text) return;
+
+      if (connected) {
+        pill.className = 'status-pill';
+        text.textContent = customText || 'CONNECTED TO OBS (SYNC OK)';
+      } else {
+        pill.className = 'status-pill status-warning';
+        text.textContent = 'CONNECTING TO OBS...';
+      }
+    }
+
+    // Core Remote Send Function (Standalone PHP + BroadcastChannel + localStorage)
+    async function sendRemote(msg) {
+      fetch('./sync.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(msg)
+      }).then(res => {
+        if (res.ok) setNetworkSyncStatus(true, 'APACHE SYNC OK');
+      }).catch(() => {
+        setNetworkSyncStatus(false);
+      });
+
+      if (broadcastChannel) {
+        broadcastChannel.postMessage(msg);
+      }
+
+      try {
+        localStorage.setItem('sib_church_hud_sync_event', JSON.stringify({ ...msg, _t: Date.now() }));
+      } catch (e) {}
+    }
+
+    function switchSceneRemote(sceneName) {
+      document.querySelectorAll('.scene-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-scene') === sceneName);
+      });
+      sendRemote({ action: 'SWITCH_SCENE', scene: sceneName });
+    }
+
+    function timerAction(command, seconds) {
+      sendRemote({ action: 'TIMER_ACTION', command, seconds });
+    }
+
+    function changeThemeRemote(themeName) {
+      sendRemote({ action: 'SET_THEME', theme: themeName });
+    }
+
+    function toggleTickerRemote(val) {
+      const willShow = (val !== undefined) ? !!val : !isTickerVisible;
+      updateLowerThirdUi(willShow ? 'ticker' : null);
+      sendRemote({ action: 'TOGGLE_TICKER', visible: willShow });
+    }
+
+    function updateTickerUi() {
+      const btn = document.getElementById('btnToggleTicker');
+      const btnQuick = document.getElementById('btnToggleTickerQuick');
+      const badge = document.getElementById('tickerStatusBadge');
+
+      if (btn) {
+        btn.textContent = isTickerVisible ? '👁️ Sembunyikan Marquee (Hide Info Gereja)' : '👁️ Tampilkan Marquee (Show Info Gereja)';
+        btn.className = isTickerVisible ? 'btn btn-danger' : 'btn btn-gold';
+      }
+      if (btnQuick) {
+        btnQuick.textContent = isTickerVisible ? 'Hide' : 'Show';
+        btnQuick.className = isTickerVisible ? 'btn btn-danger btn-sm' : 'btn btn-gold btn-sm';
+      }
+      if (badge) {
+        badge.textContent = isTickerVisible ? 'DIPAPARKAN (SHOWN)' : 'DISEMBUNYIKAN (HIDDEN)';
+        badge.className = isTickerVisible ? 'status-pill' : 'status-pill status-hidden';
+      }
+    }
+
+    function pushTickerBadge() {
+      const badgeText = document.getElementById('tickerBadgeInput').value;
+      sendRemote({ action: 'UPDATE_TICKER_BADGE', badge: badgeText });
+      alert('Ticker badge updated to: ' + badgeText);
+    }
+
+    function pushTickerText() {
+      const text = document.getElementById('tickerTextInput').value;
+      sendRemote({ action: 'UPDATE_FIELD', field: 'tickerText', value: text });
+      alert('Ticker text updated live on OBS!');
+    }
+
+    function pushQuickNatalPreset() {
+      const payload = {
+        churchName: "SIB KAWASAN PAPAR 2026",
+        serviceTitle: "KEBAKTIAN NATAL & GRADUASI PKK",
+        serviceSubtitle: "SAMBUTAN NATAL & GRADUASI KANAK-KANAK 2026",
+        churchMotto: "Aku Kecil, Aku Berharga (Mikha 5:1–3)",
+        landingTitle: "KEBAKTIAN NATAL & GRADUASI PKK",
+        landingSubtitle: "AKU KECIL, AKU BERHARGA • GEREJA SIB KAYAU",
+        sermonTitle: "Aku Kecil, Aku Berharga",
+        sermonSeries: "Sambutan Natal & Graduasi PKK SIB Kawasan Papar 2026",
+        speakerName: "Pta. Tinggih Sulog",
+        speakerRole: "Pengkhotbah Kebaktian Natal & Graduasi PKK",
+        sermonScripture: "Mikha 5:1–3",
+        scriptureRef: "Mikha 5:1–3",
+        scriptureVersion: "Alkitab TB",
+        scriptureText: "Tetapi engkau, hai Betlehem Efrata, hai yang terkecil di antara kaum-kaum Yehuda, dari padamu akan bangkit bagi-Ku seorang yang akan memerintah Israel, yang permulaannya sudah sejak purbakala, sejak dahulu kala.",
+        worshipSongTitle: "Malam Kudus (Silent Night)",
+        worshipArtist: "Lagu Natal Tradisional",
+        worshipLine1: "Malam kudus, sunyi senyap, bintang-Mu gemerlap",
+        worshipLine2: "Jurus'lamat manusia ada datang di dunia",
+        tickerText: "Shalom! Selamat Datang ke Kebaktian Natal & Graduasi PKK SIB Kawasan Papar 2026 • Tema: 'Aku Kecil, Aku Berharga' (Mikha 5:1–3) • Tempat: Gereja SIB Kayau • Pengkhotbah: Pta. Tinggih Sulog • Tarikh: 22 Nov 2026 (Ahad 9.30 Pagi) • Warna Baju: Biru • Pengerusi PKK: Welter Lainor • Tuhan Yesus Memberkati!",
+        tickerBadge: "INFO NATAL & PKK",
+        theme: "natal-blue",
+        givingBank: "Public Bank",
+        givingAccount: "3235424420",
+        givingName: "SIB PEKAN PAPAR",
+        givingRef: "Persembahan / Perpuluhan"
+      };
+
+      document.getElementById('sermonTitleInput').value = payload.sermonTitle;
+      document.getElementById('sermonSeriesInput').value = payload.sermonSeries;
+      document.getElementById('speakerNameInput').value = payload.speakerName;
+      document.getElementById('speakerRoleInput').value = payload.speakerRole;
+      document.getElementById('sermonScriptureInput').value = payload.sermonScripture;
+      document.getElementById('scriptureRefInput').value = payload.scriptureRef;
+      document.getElementById('scriptureTextInput').value = payload.scriptureText;
+      document.getElementById('tickerBadgeInput').value = payload.tickerBadge;
+      document.getElementById('tickerTextInput').value = payload.tickerText;
+      document.getElementById('givingBankInput').value = payload.givingBank;
+      document.getElementById('givingAccountInput').value = payload.givingAccount;
+      document.getElementById('givingNameInput').value = payload.givingName;
+      document.getElementById('givingRefInput').value = payload.givingRef;
+      document.getElementById('themeSelector').value = 'natal-blue';
+
+      sendRemote({ action: 'UPDATE_BULK', payload });
+      sendRemote({ action: 'SET_THEME', theme: 'natal-blue' });
+      alert('Event Natal & Graduasi PKK 2026 loaded & pushed to OBS!');
+    }
+
+    let isGivingLtVisible = false;
+
+    function updateLowerThirdUi(activeType) {
+      isTickerVisible = (activeType === 'ticker');
+      isSpeakerLtVisible = (activeType === 'speaker');
+      isScriptureVisible = (activeType === 'scripture');
+      isWorshipVisible = (activeType === 'worship');
+      isGivingLtVisible = (activeType === 'giving');
+
+      updateTickerUi();
+
+      const btnSp = document.getElementById('btnToggleSpeakerLt');
+      if (btnSp) {
+        btnSp.textContent = isSpeakerLtVisible ? 'Hide' : 'Show';
+        btnSp.className = isSpeakerLtVisible ? 'btn btn-danger btn-sm' : 'btn btn-gold btn-sm';
+      }
+
+      const btnSc = document.getElementById('btnToggleScripture');
+      if (btnSc) {
+        btnSc.textContent = isScriptureVisible ? 'Hide' : 'Show';
+        btnSc.className = isScriptureVisible ? 'btn btn-danger btn-sm' : 'btn btn-gold btn-sm';
+      }
+
+      const btnW = document.getElementById('btnToggleWorship');
+      if (btnW) {
+        btnW.textContent = isWorshipVisible ? 'Hide' : 'Show';
+        btnW.className = isWorshipVisible ? 'btn btn-danger btn-sm' : 'btn btn-gold btn-sm';
+      }
+
+      const btnG = document.getElementById('btnToggleGivingLt');
+      if (btnG) {
+        btnG.textContent = isGivingLtVisible ? 'Hide QR HUD (O)' : 'Show QR HUD (O)';
+        btnG.className = isGivingLtVisible ? 'btn btn-danger btn-sm' : 'btn btn-gold btn-sm';
+      }
+
+      const btnGQuick = document.getElementById('btnToggleGivingQuick');
+      if (btnGQuick) {
+        btnGQuick.textContent = isGivingLtVisible ? 'Hide' : 'Show';
+        btnGQuick.className = isGivingLtVisible ? 'btn btn-danger btn-sm' : 'btn btn-gold btn-sm';
+      }
+    }
+
+    function toggleSpeakerLt(val) {
+      const willShow = (val !== undefined) ? !!val : !isSpeakerLtVisible;
+      updateLowerThirdUi(willShow ? 'speaker' : null);
+      sendRemote({ action: 'TOGGLE_SPEAKER_LT', visible: willShow });
+    }
+
+    function toggleScriptureHud(val) {
+      const willShow = (val !== undefined) ? !!val : !isScriptureVisible;
+      updateLowerThirdUi(willShow ? 'scripture' : null);
+      sendRemote({ action: 'TOGGLE_SCRIPTURE_HUD', visible: willShow });
+    }
+
+    function toggleWorshipHud(val) {
+      const willShow = (val !== undefined) ? !!val : !isWorshipVisible;
+      updateLowerThirdUi(willShow ? 'worship' : null);
+      sendRemote({ action: 'TOGGLE_WORSHIP_HUD', visible: willShow });
+    }
+
+    function toggleGivingLtRemote(val) {
+      const willShow = (val !== undefined) ? !!val : !isGivingLtVisible;
+      updateLowerThirdUi(willShow ? 'giving' : null);
+      sendRemote({ action: 'TOGGLE_GIVING_LT', visible: willShow });
+    }
+
+    function pushSermonInfo() {
+      const payload = {
+        sermonTitle: document.getElementById('sermonTitleInput').value,
+        sermonSeries: document.getElementById('sermonSeriesInput').value,
+        speakerName: document.getElementById('speakerNameInput').value,
+        speakerRole: document.getElementById('speakerRoleInput').value,
+        sermonScripture: document.getElementById('sermonScriptureInput').value
+      };
+      sendRemote({ action: 'UPDATE_BULK', payload });
+      alert('Sermon info pushed to OBS overlay!');
+    }
+
+    function pushScriptureLive() {
+      const ref = document.getElementById('scriptureRefInput').value;
+      const version = document.getElementById('scriptureVersionInput').value;
+      const text = document.getElementById('scriptureTextInput').value;
+
+      updateLowerThirdUi('scripture');
+      sendRemote({
+        action: 'PUSH_SCRIPTURE',
+        ref,
+        version,
+        text
+      });
+      alert('Scripture verse pushed live to HUD!');
+    }
+
+    function pushGivingDetails() {
+      const payload = {
+        givingBank: document.getElementById('givingBankInput').value,
+        givingAccount: document.getElementById('givingAccountInput').value,
+        givingName: document.getElementById('givingNameInput').value,
+        givingRef: document.getElementById('givingRefInput').value
+      };
+      sendRemote({ action: 'UPDATE_BULK', payload });
+      alert('Giving & Offering details updated!');
+    }
+
+    function handleIncomingStateSync(msg) {
+      if (!msg) return;
+      const state = msg.state || msg;
+
+      // Mutually Exclusive Lower-Thirds & Marquee Ticker UI Sync (Ticker, Speaker, Scripture, Lyrics, Giving QR)
+      if (state.tickerVisible) {
+        updateLowerThirdUi('ticker');
+      } else if (state.speakerLtVisible) {
+        updateLowerThirdUi('speaker');
+      } else if (state.scriptureVisible) {
+        updateLowerThirdUi('scripture');
+      } else if (state.worshipVisible) {
+        updateLowerThirdUi('worship');
+      } else if (state.givingLtVisible) {
+        updateLowerThirdUi('giving');
+      } else if (state.tickerVisible === false &&
+                 state.speakerLtVisible === false &&
+                 state.scriptureVisible === false &&
+                 state.worshipVisible === false &&
+                 state.givingLtVisible === false) {
+        updateLowerThirdUi(null);
+      }
+
+      if (state.scene) {
+        document.querySelectorAll('.scene-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-scene') === state.scene);
+        });
+      }
+    }
+
+    // Polling server state to keep UI accurate
+    async function syncUiWithServer() {
+      try {
+        let res = await fetch('/api/church/state').catch(() => null);
+        if (!res || !res.ok) {
+          res = await fetch('./sync.php').catch(() => null);
+        }
+        if (res && res.ok) {
+          const data = await res.json();
+          handleIncomingStateSync(data.state || data);
+          setNetworkSyncStatus(true, 'OBS SYNC OK (WIFI)');
+        }
+      } catch (e) {
+        setNetworkSyncStatus(false);
+      }
+    }
+
+    // Populate Presets
+    function initPresets() {
+      const presets = window.SIBChurchPresets || {};
+
+      // Sermons
+      const sermonSel = document.getElementById('sermonPresetsSelect');
+      if (presets.sermonPresets) {
+        presets.sermonPresets.forEach((s, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx;
+          opt.textContent = `${s.title} (${s.speaker})`;
+          sermonSel.appendChild(opt);
+        });
+      }
+
+      // Scriptures
+      const scriptSel = document.getElementById('scripturePresetsSelect');
+      if (presets.scripturePresets) {
+        presets.scripturePresets.forEach((sc, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx;
+          opt.textContent = `${sc.ref} (${sc.text.substring(0, 32)}...)`;
+          scriptSel.appendChild(opt);
+        });
+      }
+
+      // Worship Songs
+      const songSel = document.getElementById('worshipSongsSelect');
+      if (presets.worshipSongs) {
+        presets.worshipSongs.forEach((sg, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx;
+          opt.textContent = sg.title;
+          songSel.appendChild(opt);
+        });
+        loadSongPreset(0);
+      }
+    }
+
+    function loadSermonPreset(idx) {
+      if (idx === '') return;
+      const s = window.SIBChurchPresets.sermonPresets[idx];
+      if (!s) return;
+      document.getElementById('sermonTitleInput').value = s.title;
+      document.getElementById('speakerNameInput').value = s.speaker;
+      document.getElementById('speakerRoleInput').value = s.role;
+      document.getElementById('sermonScriptureInput').value = s.scripture;
+      document.getElementById('sermonSeriesInput').value = s.series;
+    }
+
+    function loadScripturePreset(idx) {
+      if (idx === '') return;
+      const sc = window.SIBChurchPresets.scripturePresets[idx];
+      if (!sc) return;
+      document.getElementById('scriptureRefInput').value = sc.ref;
+      document.getElementById('scriptureVersionInput').value = sc.version || 'Alkitab TB';
+      document.getElementById('scriptureTextInput').value = sc.text;
+    }
+
+    function loadSongPreset(idx) {
+      if (idx === '') return;
+      activeSongIndex = parseInt(idx, 10);
+      activeLineIndex = 0;
+      const song = window.SIBChurchPresets.worshipSongs[activeSongIndex];
+      if (!song) return;
+
+      document.getElementById('songTitleInput').value = song.title;
+      document.getElementById('songArtistInput').value = song.artist;
+
+      const deck = document.getElementById('lyricsDeckBox');
+      deck.innerHTML = '';
+
+      song.lines.forEach((line, lIdx) => {
+        const div = document.createElement('div');
+        div.className = `lyric-line-item ${lIdx === 0 ? 'active' : ''}`;
+        div.innerHTML = `<div>${line.l1}</div><div style="opacity: 0.75; font-size: 0.78rem;">${line.l2}</div>`;
+        div.onclick = () => selectLyricLine(lIdx);
+        deck.appendChild(div);
+      });
+
+      pushActiveLyric();
+    }
+
+    function selectLyricLine(lIdx) {
+      activeLineIndex = lIdx;
+      document.querySelectorAll('.lyric-line-item').forEach((el, idx) => {
+        el.classList.toggle('active', idx === lIdx);
+      });
+      pushActiveLyric();
+    }
+
+    function navSongLine(step) {
+      const song = window.SIBChurchPresets.worshipSongs[activeSongIndex];
+      if (!song || !song.lines) return;
+
+      let next = activeLineIndex + step;
+      if (next < 0) next = 0;
+      if (next >= song.lines.length) next = song.lines.length - 1;
+
+      selectLyricLine(next);
+    }
+
+    function pushActiveLyric() {
+      const song = window.SIBChurchPresets.worshipSongs[activeSongIndex];
+      if (!song || !song.lines) return;
+      const line = song.lines[activeLineIndex] || { l1: '', l2: '' };
+
+      updateLowerThirdUi('worship');
+      sendRemote({
+        action: 'PUSH_WORSHIP_LYRIC',
+        songTitle: song.title,
+        artist: song.artist,
+        l1: line.l1,
+        l2: line.l2
+      });
+    }
+
+    function copyUrl(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.textContent.trim();
+      const fallback = () => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.top = '-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+        if (ok) alert('Copied to clipboard: ' + text);
+        else prompt('Copy this URL for OBS Browser Source:', text);
+      };
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function' && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Copied to clipboard: ' + text);
+        }).catch(fallback);
+      } else {
+        fallback();
+      }
+    }
+
+    // Keyboard Shortcuts for Controller
+    window.addEventListener('keydown', (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        navSongLine(1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        navSongLine(-1);
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        timerAction('START');
+      } else if (e.key === 'l' || e.key === 'L') {
+        toggleSpeakerLt();
+      } else if (e.key === 's' || e.key === 'S') {
+        toggleScriptureHud();
+      } else if (e.key === 'w' || e.key === 'W') {
+        toggleWorshipHud();
+      } else if (e.key === 't' || e.key === 'T') {
+        toggleTickerRemote();
+      } else if (e.key === 'o' || e.key === 'O') {
+        toggleGivingLtRemote();
+      } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
+        const scenes = ['landing', 'title', 'overlay', 'break', 'ending'];
+        switchSceneRemote(scenes[parseInt(e.key, 10) - 1]);
+      }
+    });
+
+    // Populate current host and setup sync on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      initPresets();
+      updateTickerUi();
+      syncUiWithServer();
+
+      // Poll periodically to ensure multi-device synchronization
+      setInterval(syncUiWithServer, 2000);
+
+      const host = window.location.host;
+      const base = `${window.location.protocol}//${host}/church-hud/`;
+
+      document.getElementById('linkLanding').textContent = base + 'landing.html';
+      document.getElementById('linkTitle').textContent = base + 'title.html';
+      document.getElementById('linkOverlay').textContent = base + 'lowerthird.html';
+      document.getElementById('linkBreak').textContent = base + 'break.html';
+      document.getElementById('linkEnding').textContent = base + 'ending.html';
+      document.getElementById('linkDock').textContent = base + 'control.html';
+      
+      const tabletEl = document.getElementById('linkTablet');
+      if (tabletEl) {
+        tabletEl.textContent = `http://192.168.5.109:8000/church-hud/control.html`;
+      }
+    });
+  </script>
+</body>
+</html>

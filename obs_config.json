@@ -1,0 +1,18 @@
+{
+    "host": "192.168.0.155",
+    "port": 9701,
+    "service_type": 1,
+    "password": "",
+    "nickname": "OBS-Overlay",
+    "enabled": true,
+    "theme": "gradient",
+    "font_size": 57,
+    "show_title": true,
+    "show_section": false,
+    "show_region2": true,
+    "position": "bottom",
+    "bg_opacity": 0.35,
+    "text_color": "#ffffff",
+    "accent_color": "#f97316",
+    "sync_church_hud": false
+}

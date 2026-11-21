@@ -1,0 +1,99 @@
+{
+    "host": "192.168.0.13",
+    "port": 4455,
+    "password": "tfe73rv1jpVWKqVF",
+    "previewFps": 8,
+    "previewWidth": 960,
+    "previewFormat": "jpg",
+    "connectionMode": "auto",
+    "showGrid": true,
+    "showSafeZones": true,
+    "showBoxes": true,
+    "showOsd": true,
+    "macros": [
+        {
+            "id": "macro_live_start",
+            "label": "GO LIVE + REC",
+            "color": "#ef4444",
+            "icon": "broadcast",
+            "actions": [
+                {
+                    "type": "StartStream",
+                    "data": []
+                },
+                {
+                    "type": "StartRecord",
+                    "data": []
+                }
+            ]
+        },
+        {
+            "id": "macro_cut_transition",
+            "label": "QUICK CUT",
+            "color": "#3b82f6",
+            "icon": "cut",
+            "actions": [
+                {
+                    "type": "TriggerStudioModeTransition",
+                    "data": []
+                }
+            ]
+        },
+        {
+            "id": "macro_save_replay",
+            "label": "SAVE REPLAY",
+            "color": "#10b981",
+            "icon": "replay",
+            "actions": [
+                {
+                    "type": "SaveReplayBuffer",
+                    "data": []
+                }
+            ]
+        },
+        {
+            "id": "macro_mute_all",
+            "label": "MUTE MIC/AUX",
+            "color": "#f59e0b",
+            "icon": "mute",
+            "actions": [
+                {
+                    "type": "CustomMuteAll",
+                    "data": {
+                        "mute": true
+                    }
+                }
+            ]
+        },
+        {
+            "id": "macro_unmute_all",
+            "label": "UNMUTE ALL",
+            "color": "#06b6d4",
+            "icon": "unmute",
+            "actions": [
+                {
+                    "type": "CustomMuteAll",
+                    "data": {
+                        "mute": false
+                    }
+                }
+            ]
+        },
+        {
+            "id": "macro_stop_all",
+            "label": "END STREAM+REC",
+            "color": "#8b5cf6",
+            "icon": "stop",
+            "actions": [
+                {
+                    "type": "StopStream",
+                    "data": []
+                },
+                {
+                    "type": "StopRecord",
+                    "data": []
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "scripturePresets": [
+        {
+            "id": "sc_1",
+            "ref": "Mikha 5:1–3",
+            "version": "Alkitab TB",
+            "text": "Tetapi engkau, hai Betlehem Efrata, hai yang terkecil di antara kaum-kaum Yehuda, dari padamu akan bangkit bagi-Ku seorang yang akan memerintah Israel, yang permulaannya sudah sejak purbakala, sejak dahulu kala."
+        },
+        {
+            "id": "sc_2",
+            "ref": "Matius 19:14",
+            "version": "Alkitab TB",
+            "text": "Tetapi Yesus berkata: 'Biarkanlah anak-anak itu, janganlah menghalang-halangi mereka datang kepada-Ku; sebab orang-orang yang seperti itulah yang empunya Kerajaan Sorga.'"
+        },
+        {
+            "id": "sc_3",
+            "ref": "Lukas 2:10–11",
+            "version": "Alkitab TB",
+            "text": "Lalu kata malaikat itu kepada mereka: 'Jangan takut, sebab sesungguhnya aku memberitakan kepadamu kesukaan besar untuk seluruh bangsa: Hari ini telah lahir bagimu Juruselamat, yaitu Kristus, Tuhan, di kota Daud.'"
+        },
+        {
+            "id": "sc_4",
+            "ref": "Amsal 22:6",
+            "version": "Alkitab TB",
+            "text": "Didiklah orang muda menurut jalan yang patut baginya, maka pada masa tuanya pun ia tidak akan menyimpang dari pada jalan itu."
+        },
+        {
+            "id": "sc_5",
+            "ref": "Mazmur 139:13–14",
+            "version": "Alkitab TB",
+            "text": "Sebab Engkaulah yang membentuk buah pinggangku, menenun aku dalam kandungan ibuku. Aku bersyukur kepada-Mu oleh karena kejadianku dahsyat dan ajaib; ajaib apa yang Kaubuat, dan jiwaku benar-benar menyadarinya."
+        },
+        {
+            "id": "sc_6",
+            "ref": "Yesaya 9:5",
+            "version": "Alkitab TB",
+            "text": "Sebab seorang anak telah lahir untuk kita, seorang putera telah diberikan untuk kita; lambang pemerintahan ada di atas bahunya, dan namanya disebutkan orang: Penasihat Ajaib, Allah yang Perkasa, Bapa yang Kekal, Raja Damai."
+        },
+        {
+            "id": "sc_7",
+            "ref": "Bilangan 6:24–26",
+            "version": "Alkitab TB",
+            "text": "TUHAN memberkati engkau dan melindungi engkau; TUHAN menyinari engkau dengan wajah-Nya dan memberi engkau kasih karunia; TUHAN menghadapkan wajah-Nya kepadamu dan memberi engkau damai sejahtera."
+        }
+    ],
+    "sermonPresets": [
+        {
+            "id": "sr_1",
+            "title": "Aku Kecil, Aku Berharga",
+            "speaker": "Pta. Tinggih Sulog",
+            "role": "Pengkhotbah Kebaktian Natal & Graduasi PKK",
+            "scripture": "Mikha 5:1–3",
+            "series": "Sambutan Natal & Graduasi PKK 2026"
+        },
+        {
+            "id": "sr_2",
+            "title": "Ucapan & Amanat Graduasi PKK",
+            "speaker": "Welter Lainor",
+            "role": "Pengerusi PKK SIB Kawasan Papar",
+            "scripture": "Amsal 22:6",
+            "series": "Graduasi Kanak-Kanak 2026"
+        },
+        {
+            "id": "sr_3",
+            "title": "Kanak-Kanak di Mata Yesus",
+            "speaker": "Pta. Tinggih Sulog",
+            "role": "Pengkhotbah Jemputan",
+            "scripture": "Matius 19:13–15",
+            "series": "Siri Kasih Kristus"
+        },
+        {
+            "id": "sr_4",
+            "title": "Terang Bintang Betlehem",
+            "speaker": "Pemimpin Ibadah",
+            "role": "Pelayanan Kanak-Kanak SIB",
+            "scripture": "Lukas 2:10–14",
+            "series": "Khabar Sukacita Natal"
+        }
+    ],
+    "tickerPresets": [
+        {
+            "id": "tk_1",
+            "title": "Pengumuman Utama Natal & Graduasi PKK 2026",
+            "badge": "INFO NATAL & PKK",
+            "text": "Shalom! Selamat Datang ke Kebaktian Natal & Graduasi PKK SIB Kawasan Papar 2026 • Tema: \"Aku Kecil, Aku Berharga\" (Mikha 5:1–3) • Tempat: Gereja SIB Kayau • Pengkhotbah: Pta. Tinggih Sulog • Tarikh: 22 Nov 2026 (Ahad 9.30 Pagi) • Warna Baju: Biru • Pengerusi PKK: Welter Lainor • Tuhan Yesus Memberkati!"
+        },
+        {
+            "id": "tk_2",
+            "title": "Ucapan Selamat Datang Jemaat",
+            "badge": "SELAMAT DATANG",
+            "text": "Shalom & Selamat Datang kepada semua Ibu Bapa, Guru-Guru Sekolah Minggu, dan Kanak-Kanak PKK SIB Kawasan Papar • Sila pastikan telefon bimbit anda berada dalam mod senyap sepanjang ibadah berlangsung."
+        },
+        {
+            "id": "tk_3",
+            "title": "Info Persembahan Kasih & Perpuluhan",
+            "badge": "PERSEMBAHAN KASIH",
+            "text": "Anda boleh menyalurkan Persembahan Kasih & Perpuluhan melalui Public Bank: 3235424420 (SIB PEKAN PAPAR) atau imbas kod QR DuitNow yang tertera di skrin • Tuhan memberkati pemberian anda!"
+        },
+        {
+            "id": "tk_4",
+            "title": "Tahniah Graduan PKK 2026",
+            "badge": "TAHNIAH GRADUAN",
+            "text": "Tahniah & Syabas kepada semua Graduan Pelayanan Kanak-Kanak (PKK) SIB Kawasan Papar Tahun 2026! • \"Didiklah orang muda menurut jalan yang patut baginya...\" (Amsal 22:6) • Tuhan Yesus Memberkati!"
+        }
+    ]
+}

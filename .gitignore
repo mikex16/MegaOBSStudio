@@ -1,0 +1,5 @@
+obs_daemon.pid
+*.tmp
+*.lock
+config.local.php
+snapshots/*.png

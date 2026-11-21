@@ -1,0 +1,118 @@
+{
+    "connection_status": "stopped",
+    "connection_message": "Multicast listener stopped.",
+    "mode": "multicast",
+    "show_running": false,
+    "is_black": false,
+    "is_clear": false,
+    "cur_slide_no": 13,
+    "total_slides": 14,
+    "alert_text": "",
+    "item": {
+        "title1": "TERBUKALAH SURGA - BN 176",
+        "author": "BN 176",
+        "slides": [
+            {
+                "slide_no": 1,
+                "section": "Verse 1",
+                "region1": "TERBUKALAH SORGA, SEBAB APAKAH?\nS’BAB YESUS T’LAH DATANG MEMBUKAKANNYA",
+                "region2": ""
+            },
+            {
+                "slide_no": 2,
+                "section": "Verse 1",
+                "region1": "S’BAB YESUS T’LAH DATANG MEMBUKAKANNYA",
+                "region2": ""
+            },
+            {
+                "slide_no": 3,
+                "section": "Verse 2",
+                "region1": "DIA SUDAH MENANGGUNG MAUT DI GOLGOTA\nMENEBUS DOSAMU DENGAN DARAH-NYA",
+                "region2": ""
+            },
+            {
+                "slide_no": 4,
+                "section": "Verse 2",
+                "region1": "MENEBUS DOSAMU DENGAN DARAH-NYA",
+                "region2": ""
+            },
+            {
+                "slide_no": 5,
+                "section": "Verse 3",
+                "region1": "JIWAKU DATANGLAH PADA TUHANMU\nHATI-NYA GEMBIRA MENYAMBUT ENGKAU",
+                "region2": ""
+            },
+            {
+                "slide_no": 6,
+                "section": "Verse 3",
+                "region1": "HATI-NYA GEMBIRA MENYAMBUT ENGKAU",
+                "region2": ""
+            },
+            {
+                "slide_no": 7,
+                "section": "Verse 4",
+                "region1": "BAGAIKAN KESUMBA MERAH DOSAMU\nDARAH-NYA TERCURAH MENGUDUSKANMU",
+                "region2": ""
+            },
+            {
+                "slide_no": 8,
+                "section": "Verse 4",
+                "region1": "DARAH-NYA TERCURAH MENGUDUSKANMU",
+                "region2": ""
+            },
+            {
+                "slide_no": 9,
+                "section": "Verse 5",
+                "region1": "DI KALA JIWAMU LETIH DAN LESU\nSERAHKAN PADA-NYA PERGUMULANMU",
+                "region2": ""
+            },
+            {
+                "slide_no": 10,
+                "section": "Verse 5",
+                "region1": "SERAHKAN PADA-NYA PERGUMULANMU",
+                "region2": ""
+            },
+            {
+                "slide_no": 11,
+                "section": "Verse 6",
+                "region1": "DERITA DAN LARA DISEMBUHKAN-NYA\nLANGKAHMU DIBIMBING KE SURGA BAKA",
+                "region2": ""
+            },
+            {
+                "slide_no": 12,
+                "section": "Verse 6",
+                "region1": "LANGKAHMU DIBIMBING KE SURGA BAKA",
+                "region2": ""
+            },
+            {
+                "slide_no": 13,
+                "section": "Verse 7",
+                "region1": "YA YESUS, ENGKAULAH WARISAN KEKAL\nBERI SUKACITA DAMAI YANG KEKAL",
+                "region2": ""
+            },
+            {
+                "slide_no": 14,
+                "section": "Verse 7",
+                "region1": "BERI SUKACITA DAMAI YANG KEKAL",
+                "region2": ""
+            }
+        ]
+    },
+    "active_slide": {
+        "slide_no": 13,
+        "section": "Verse 7",
+        "region1": "YA YESUS, ENGKAULAH WARISAN KEKAL\nBERI SUKACITA DAMAI YANG KEKAL",
+        "region2": ""
+    },
+    "next_slide": {
+        "slide_no": 14,
+        "section": "Verse 7",
+        "region1": "BERI SUKACITA DAMAI YANG KEKAL",
+        "region2": ""
+    },
+    "updated_at_ms": 1795275722576,
+    "daemon_running": false,
+    "daemon_pid": 15172,
+    "host": "127.0.0.1",
+    "port": 9701
+}

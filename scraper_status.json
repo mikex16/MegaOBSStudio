@@ -1,0 +1,11 @@
+{
+    "state": "completed",
+    "target_db": "Alkitab.app Songbooks (2 DBs)",
+    "completed_at": "2026-11-19 16:26:54",
+    "total": 624,
+    "processed": 624,
+    "saved": 624,
+    "failed": 0,
+    "elapsed_sec": 185.2,
+    "message": "Completed! 624 songs saved across 2 songbook .db files (185.2s)."
+}
