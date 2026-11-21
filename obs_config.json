@@ -6,7 +6,7 @@
     "nickname": "OBS-Overlay",
     "enabled": true,
     "theme": "gradient",
-    "font_size": 57,
+    "font_size": 42,
     "show_title": true,
     "show_section": false,
     "show_region2": true,

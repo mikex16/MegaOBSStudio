@@ -292,26 +292,78 @@ body.scene-is-overlay .church-bottom-bar {
 }
 
 /* =========================================================
-   TOP HEADER HUD BAR
+   TOP HEADER HUD BAR (SCALABLE & HIGH-CONTRAST FOR MOBILE)
    ========================================================= */
 .church-top-bar {
+  --header-font-size: 24px;
+  --header-bg-opacity: 0.94;
   position: absolute;
-  top: 36px;
-  left: 60px;
-  right: 60px;
-  height: 60px;
+  top: 28px;
+  left: 52px;
+  right: 52px;
+  min-height: calc(var(--header-font-size, 24px) * 2.85 + 14px);
+  height: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 10;
-  padding: 0 24px;
-  background: rgba(14, 21, 38, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-gold);
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: 26;
+  padding: 10px 28px;
+  background: rgba(10, 16, 32, var(--header-bg-opacity, 0.94));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 2px solid var(--primary-gold);
+  border-radius: 14px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.82), 0 0 22px rgba(var(--primary-gold-rgb), 0.28);
+  transition: top 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.church-top-bar.hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(-40px) !important;
+}
+
+/* Header Style Variant: Full-Width TV Broadcast Bar */
+.church-top-bar[data-header-style="full-top-bar"] {
+  top: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid var(--primary-gold);
+  padding: 12px 48px;
+  background: linear-gradient(90deg, rgba(6, 10, 22, var(--header-bg-opacity, 0.96)) 0%, rgba(16, 28, 56, var(--header-bg-opacity, 0.96)) 50%, rgba(6, 10, 22, var(--header-bg-opacity, 0.96)) 100%);
+}
+
+/* Header Style Variant: Royal Blue & Gold Gradient */
+.church-top-bar[data-header-style="royal-gradient"] {
+  background: linear-gradient(135deg, rgba(12, 24, 54, var(--header-bg-opacity, 0.95)) 0%, rgba(28, 52, 108, var(--header-bg-opacity, 0.95)) 50%, rgba(10, 18, 42, var(--header-bg-opacity, 0.95)) 100%);
+  border: 2px solid var(--primary-gold);
+  border-radius: 999px;
+  padding: 10px 34px;
+}
+
+/* Header Style Variant: Cinema Clean Floating (No Box) */
+.church-top-bar[data-header-style="cinema-clean"] {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.church-top-bar[data-header-style="cinema-clean"] .church-name-text,
+.church-top-bar[data-header-style="cinema-clean"] .church-sub-text,
+.church-top-bar[data-header-style="cinema-clean"] .clock-time-val,
+.church-top-bar[data-header-style="cinema-clean"] .clock-date-val {
+  text-shadow:
+    -2px -2px 0 #000,
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000,
+     0 4px 14px rgba(0, 0, 0, 0.98);
 }
 
 .church-brand-group {
@@ -321,30 +373,31 @@ body.scene-is-overlay .church-bottom-bar {
 }
 
 .church-cross-logo {
-  width: 44px;
-  height: 44px;
+  width: calc(var(--header-font-size, 24px) * 2.0);
+  height: calc(var(--header-font-size, 24px) * 2.0);
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, rgba(var(--primary-gold-rgb), 0.25), rgba(var(--primary-gold-rgb), 0.05));
-  border: 1px solid var(--primary-gold);
+  border: 1.5px solid var(--primary-gold);
   border-radius: 50%;
   box-shadow: var(--shadow-gold-sm);
   color: var(--primary-gold);
 }
 
 .church-logo-badge {
-  width: 46px;
-  height: 46px;
+  width: calc(var(--header-font-size, 24px) * 2.15);
+  height: calc(var(--header-font-size, 24px) * 2.15);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  border: 2px solid var(--primary-gold);
-  box-shadow: 0 0 16px rgba(var(--primary-gold-rgb), 0.45);
+  border: 2.5px solid var(--primary-gold);
+  box-shadow: 0 0 18px rgba(var(--primary-gold-rgb), 0.55);
   overflow: hidden;
   flex-shrink: 0;
+  transition: width 0.25s ease, height 0.25s ease;
 }
 
 .church-logo-img {
@@ -363,103 +416,121 @@ body.scene-is-overlay .church-bottom-bar {
 .church-title-wrap {
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 
 .church-name-text {
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-family: var(--font-sans);
+  font-size: var(--header-font-size, 24px);
+  font-weight: 800;
+  letter-spacing: 1.4px;
   color: #ffffff;
   text-transform: uppercase;
+  line-height: 1.15;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  transition: font-size 0.25s ease;
 }
 
 .church-sub-text {
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 1.5px;
+  font-size: calc(var(--header-font-size, 24px) * 0.60);
+  font-weight: 700;
+  letter-spacing: 1.4px;
   color: var(--primary-gold);
   text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  transition: font-size 0.25s ease;
 }
 
 .header-center-info {
   display: flex;
   align-items: center;
   gap: 14px;
-  font-size: 0.85rem;
-  letter-spacing: 1.2px;
-  color: var(--text-muted);
 }
 
 .header-service-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
-  background: rgba(245, 194, 66, 0.12);
-  border: 1px solid rgba(245, 194, 66, 0.3);
-  border-radius: 20px;
-  color: var(--text-gold);
-  font-size: 0.8rem;
-  font-weight: 600;
+  padding: 6px 20px;
+  background: rgba(245, 194, 66, 0.22);
+  border: 1.5px solid var(--primary-gold);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: calc(var(--header-font-size, 24px) * 0.72);
+  font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  transition: font-size 0.25s ease;
 }
 
 .header-right-telemetry {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
 }
 
 .live-badge-glow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  background: rgba(var(--live-red-rgb), 0.16);
-  border: 1px solid rgba(var(--live-red-rgb), 0.5);
-  border-radius: 6px;
+  gap: 9px;
+  padding: 7px 16px;
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  border: 1.5px solid #fca5a5;
+  border-radius: 8px;
   color: #ffffff;
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: calc(var(--header-font-size, 24px) * 0.72);
+  font-weight: 900;
   letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.65), 0 4px 12px rgba(0, 0, 0, 0.7);
+  transition: font-size 0.25s ease;
 }
 
 .pulse-dot-red {
-  width: 9px;
-  height: 9px;
+  width: calc(var(--header-font-size, 24px) * 0.45);
+  height: calc(var(--header-font-size, 24px) * 0.45);
+  min-width: 9px;
+  min-height: 9px;
   border-radius: 50%;
-  background: var(--live-red);
-  box-shadow: 0 0 10px var(--live-red);
-  animation: livePulse 1.8s infinite;
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff;
+  animation: livePulse 1.6s infinite;
 }
 
 @keyframes livePulse {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(var(--live-red-rgb), 0.7); }
-  70% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(var(--live-red-rgb), 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(var(--live-red-rgb), 0); }
+  0% { transform: scale(0.92); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.85); }
+  70% { transform: scale(1.18); box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { transform: scale(0.92); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
 }
 
 .clock-telemetry {
   display: flex;
   flex-direction: column;
   text-align: right;
+  gap: 1px;
 }
 
 .clock-time-val {
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-size: calc(var(--header-font-size, 24px) * 1.05);
+  font-weight: 800;
+  letter-spacing: 1.2px;
   color: #ffffff;
+  line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  transition: font-size 0.25s ease;
 }
 
 .clock-date-val {
-  font-size: 0.68rem;
-  letter-spacing: 1px;
-  color: var(--text-muted);
+  font-size: calc(var(--header-font-size, 24px) * 0.56);
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  color: var(--primary-gold);
   text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  transition: font-size 0.25s ease;
 }
 
 /* =========================================================

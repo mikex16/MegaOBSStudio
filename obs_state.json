@@ -1,16 +1,22 @@
 {
-    "connection_status": "stopped",
-    "connection_message": "Multicast listener stopped.",
-    "mode": "manual_web",
+    "connection_status": "connected",
+    "connection_message": "Connected to Easyslides (192.168.0.155:9701) as OBS-Overlay",
+    "mode": "multicast",
     "show_running": true,
     "is_black": false,
-    "is_clear": true,
-    "cur_slide_no": 6,
+    "is_clear": false,
+    "cur_slide_no": 14,
     "total_slides": 14,
     "alert_text": "",
     "item": {
+        "remote_item_id": 10,
+        "type": "D",
         "title1": "TERBUKALAH SURGA - BN 176",
+        "title2": "Na Mungkap Do Surgo (BL No. 3)",
         "author": "BN 176",
+        "copyright": "Buku Nyanyian HKBP (c) Huria Kristen Batak Protestan",
+        "songkey": "B",
+        "capo": "-1",
         "slides": [
             {
                 "slide_no": 1,
@@ -99,20 +105,15 @@
         ]
     },
     "active_slide": {
-        "slide_no": 6,
-        "section": "Verse 3",
-        "region1": "HATI-NYA GEMBIRA MENYAMBUT ENGKAU",
+        "slide_no": 14,
+        "section": "Verse 7",
+        "region1": "BERI SUKACITA DAMAI YANG KEKAL",
         "region2": ""
     },
-    "next_slide": {
-        "slide_no": 7,
-        "section": "Verse 4",
-        "region1": "BAGAIKAN KESUMBA MERAH DOSAMU\nDARAH-NYA TERCURAH MENGUDUSKANMU",
-        "region2": ""
-    },
-    "updated_at_ms": 1795276922278,
+    "next_slide": null,
+    "updated_at_ms": 1795281839987,
     "daemon_running": false,
-    "daemon_pid": 15172,
+    "daemon_pid": 18288,
     "host": "127.0.0.1",
     "port": 9701
 }

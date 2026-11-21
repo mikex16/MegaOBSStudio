@@ -40,9 +40,19 @@
         transparentBg: false,
 
         churchName: church.name || 'SIB KAWASAN PAPAR 2026',
-        churchMotto: church.motto || 'Tema: "Aku Kecil, Aku Berharga" â€¢ Mikha 5:1â€“3',
+        churchMotto: church.motto || 'Tema: "Aku Kecil, Aku Berharga" • Mikha 5:1–3',
         serviceTitle: church.serviceTitle || 'KEBAKTIAN NATAL & GRADUASI PKK',
-        serviceSubtitle: church.serviceSubtitle || 'GEREJA SIB KAYAU â€¢ 22 NOV 2026',
+        serviceSubtitle: church.serviceSubtitle || 'GEREJA SIB KAYAU • 22 NOV 2026',
+
+        // Top Header Bar (LIVE Badge, Clock & Branding)
+        headerVisible: true,
+        headerFontSize: 24,
+        headerOpacity: 0.94,
+        headerStyle: 'solid-gold',
+        liveBadgeText: 'LIVE',
+        headerShowClock: true,
+        headerShowLive: true,
+        headerShowCenterPill: true,
 
         // Landing Scene
         landingTitle: 'KEBAKTIAN NATAL & GRADUASI PKK',
@@ -226,7 +236,10 @@
 
           // Merge fields safely
           const allowedFields = [
-            'theme', 'churchName', 'serviceTitle', 'sermonTitle', 'sermonSeries',
+            'theme', 'churchName', 'churchMotto', 'serviceTitle', 'serviceSubtitle',
+            'headerVisible', 'headerFontSize', 'headerOpacity', 'headerStyle',
+            'liveBadgeText', 'headerShowClock', 'headerShowLive', 'headerShowCenterPill',
+            'sermonTitle', 'sermonSeries',
             'speakerName', 'speakerRole', 'sermonScripture', 'scriptureRef',
             'scriptureVersion', 'scriptureText', 'scriptureVisible',
             'scriptureFontSize', 'scriptureFontFamily', 'scriptureStyle',
@@ -362,6 +375,9 @@
 
       // Textual & layout fields
       const textFields = [
+        'churchName', 'churchMotto', 'serviceTitle', 'serviceSubtitle',
+        'headerVisible', 'headerFontSize', 'headerOpacity', 'headerStyle',
+        'liveBadgeText', 'headerShowClock', 'headerShowLive', 'headerShowCenterPill',
         'tickerText', 'tickerBadge', 'tickerFontSize', 'tickerDuration',
         'sermonTitle', 'sermonSeries', 'speakerName',
         'speakerRole', 'sermonScripture', 'scriptureRef', 'scriptureVersion',
@@ -457,6 +473,12 @@
 
         case 'TOGGLE_WORSHIP_HUD':
           this.setWorshipHudVisibility(msg.visible !== undefined ? msg.visible : !this.state.worshipVisible);
+          break;
+
+        case 'TOGGLE_HEADER_BAR':
+          this.state.headerVisible = (msg.visible !== undefined) ? !!msg.visible : (this.state.headerVisible === false);
+          this.syncVisibilityClasses();
+          this.saveState();
           break;
 
         case 'PUSH_SCRIPTURE':
@@ -563,16 +585,12 @@
     }
 
     updateSceneTopBarState(scene) {
-      const topBar = document.querySelector('.church-top-bar');
       const bottomBar = document.querySelector('.church-bottom-bar');
-      const ticker = document.querySelector('.church-ticker-wrap');
 
-      // In camera overlay scene, keep top watermark subtle or full based on user preference
+      // In camera overlay scene, hide bottom bar while top header is controlled by headerVisible
       if (scene === 'overlay') {
-        if (topBar) topBar.style.transform = 'translateY(-10px)';
         if (bottomBar) bottomBar.style.transform = 'translateY(100px)';
       } else {
-        if (topBar) topBar.style.transform = 'none';
         if (bottomBar) bottomBar.style.transform = 'none';
       }
     }
@@ -581,6 +599,9 @@
       // Church Name
       document.querySelectorAll('.data-church-name').forEach(el => {
         el.textContent = this.state.churchName;
+      });
+      document.querySelectorAll('.data-live-badge').forEach(el => {
+        el.textContent = this.state.liveBadgeText || 'LIVE';
       });
 
       // Church Motto
@@ -700,6 +721,23 @@
     }
 
     syncVisibilityClasses() {
+      const topBar = document.querySelector('.church-top-bar');
+      if (topBar) {
+        topBar.classList.toggle('hidden', this.state.headerVisible === false);
+        const hSize = Math.max(14, Math.min(54, Number(this.state.headerFontSize || 24)));
+        const hOpac = Math.max(0.2, Math.min(1, Number(this.state.headerOpacity ?? 0.94)));
+        topBar.style.setProperty('--header-font-size', `${hSize}px`);
+        topBar.style.setProperty('--header-bg-opacity', String(hOpac));
+        topBar.setAttribute('data-header-style', this.state.headerStyle || 'solid-gold');
+
+        const centerPillWrap = document.getElementById('headerCenterPillWrap');
+        if (centerPillWrap) centerPillWrap.style.display = (this.state.headerShowCenterPill === false) ? 'none' : 'flex';
+        const liveWrap = document.getElementById('headerLiveBadgeWrap');
+        if (liveWrap) liveWrap.style.display = (this.state.headerShowLive === false) ? 'none' : 'inline-flex';
+        const clockWrap = document.getElementById('headerClockWrap');
+        if (clockWrap) clockWrap.style.display = (this.state.headerShowClock === false) ? 'none' : 'flex';
+      }
+
       const speakerLt = document.getElementById('speakerLowerThird');
       if (speakerLt) {
         speakerLt.classList.toggle('visible', !!this.state.speakerLtVisible);

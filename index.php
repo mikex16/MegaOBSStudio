@@ -1296,10 +1296,10 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
             </div>
           </div>
 
-          <!-- 4 Mutually Exclusive Lower-Third Toggles (Hotkeys L, S, O, T) -->
+          <!-- 4 Mutually Exclusive Lower-Third Toggles + Independent Top Header Bar (Hotkeys L, S, O, T, H) -->
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
-              <span class="field-label">LIVE LOWER-THIRD OVERLAYS (HOTKEYS: L, S, O, T)</span>
+              <span class="field-label">LIVE OVERLAYS &amp; TOP HEADER (HOTKEYS: L, S, O, T, H)</span>
             </div>
             <div class="lt-matrix" style="grid-template-columns: repeat(2, 1fr);">
               <button class="lt-pad" id="ltBtnSpeaker" onclick="toggleHudLt('speaker')">
@@ -1318,26 +1318,30 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
                 <span>📢 Ticker (T)</span>
                 <span class="lt-status-tag" id="ltTagTicker">OFF</span>
               </button>
-              <button class="lt-pad" style="grid-column: span 2; justify-content:center; border-color:rgba(239,68,68,0.45); color:#fca5a5;" onclick="hideAllHudLt()">
-                <span>🚫 Hide All Church HUD Lower-Thirds</span>
+              <button class="lt-pad on" id="ltBtnHeader" onclick="toggleHudHeaderBar()" title="Show/Hide Top Header Bar (Church Name, LIVE Badge & Clock)">
+                <span>🏛️ Top Header (H)</span>
+                <span class="lt-status-tag" id="ltTagHeader">LIVE</span>
+              </button>
+              <button class="lt-pad" style="justify-content:center; border-color:rgba(239,68,68,0.45); color:#fca5a5;" onclick="hideAllHudLt()" title="Clear all bottom lower-thirds">
+                <span>🚫 Clear LTs</span>
                 <span class="lt-status-tag">CLR</span>
               </button>
             </div>
 
-            <!-- Master All-Overlays Unified Size Preset Bar (Syncs Verse, Sermon, Ticker, QR & Lyric Together) -->
+            <!-- Master All-Overlays Unified Size Preset Bar (Syncs Header, Verse, Sermon, Ticker, QR & Lyric Together) -->
             <div style="margin-top:5px; background:linear-gradient(135deg, rgba(245,194,66,0.12), rgba(15,23,42,0.92)); border:1px solid rgba(245,194,66,0.38); border-radius:6px; padding:5px 7px; display:flex; flex-direction:column; gap:4px;">
               <div style="display:flex; justify-content:space-between; align-items:center; gap:4px;">
-                <span style="font-size:9px; font-weight:800; color:var(--gold); letter-spacing:0.4px;">📐 SKALA SEMUA OVERLAY SERENTAK (ALL-IN-ONE SIZE):</span>
+                <span style="font-size:9px; font-weight:800; color:var(--gold); letter-spacing:0.4px;">📐 SKALA SEMUA OVERLAY SERENTAK (HEADER + LT):</span>
                 <label style="font-size:8.8px; color:#cbd5e1; display:flex; align-items:center; gap:3px; cursor:pointer;" title="Tukar saiz tulisan Lirik Easyslides sekali gus">
                   <input type="checkbox" id="chkSyncLyricMasterScale" checked style="accent-color:var(--gold);"> +Lirik
                 </label>
               </div>
               <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:3px;">
-                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="S" onclick="applyMasterOverlaySizePreset('S')" title="Small / TV (Verse 24px, Sermon 24px, Ticker 20px, QR 96px)">S (TV)</button>
-                <button type="button" class="btn btn-xs master-scale-btn active-toggle" data-scale-key="M" onclick="applyMasterOverlaySizePreset('M')" title="Medium / Standard HD (Verse 32px, Sermon 32px, Ticker 26px, QR 125px)">M (Std)</button>
-                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="L" onclick="applyMasterOverlaySizePreset('L')" title="Large / Mesra Telefon (Verse 40px, Sermon 40px, Ticker 34px, QR 175px)">L 📱</button>
-                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="XL" onclick="applyMasterOverlaySizePreset('XL')" title="Extra Large / Max Telefon (Verse 50px, Sermon 48px, Ticker 42px, QR 225px)">XL 🔥</button>
-                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="XXL" onclick="applyMasterOverlaySizePreset('XXL')" title="Ultra Large / Pentas (Verse 58px, Sermon 56px, Ticker 50px, QR 275px)">XXL</button>
+                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="S" onclick="applyMasterOverlaySizePreset('S')" title="Small / TV (Header 18px, Verse 24px, Sermon 24px, Ticker 20px, QR 96px)">S (TV)</button>
+                <button type="button" class="btn btn-xs master-scale-btn active-toggle" data-scale-key="M" onclick="applyMasterOverlaySizePreset('M')" title="Medium / Standard HD (Header 24px, Verse 32px, Sermon 32px, Ticker 26px, QR 125px)">M (Std)</button>
+                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="L" onclick="applyMasterOverlaySizePreset('L')" title="Large / Mesra Telefon (Header 30px, Verse 40px, Sermon 40px, Ticker 34px, QR 175px)">L 📱</button>
+                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="XL" onclick="applyMasterOverlaySizePreset('XL')" title="Extra Large / Max Telefon (Header 36px, Verse 50px, Sermon 48px, Ticker 42px, QR 225px)">XL 🔥</button>
+                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="XXL" onclick="applyMasterOverlaySizePreset('XXL')" title="Ultra Large / Pentas (Header 42px, Verse 58px, Sermon 56px, Ticker 50px, QR 275px)">XXL</button>
               </div>
             </div>
           </div>
@@ -1359,13 +1363,14 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
             </div>
           </div>
 
-          <!-- Tabbed Content Editors (Scripture | Sermon/Speaker | Ticker | Giving/QR) -->
+          <!-- Tabbed Content Editors (Scripture | Sermon/Speaker | Ticker | Giving/QR | Top Header) -->
           <div class="panel" style="flex:1; background:#0b111e; border-color:#1e2c46;">
-            <div class="subtabs-nav" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="subtabs-nav" style="grid-template-columns: repeat(5, 1fr);">
               <button class="subtab-btn active" onclick="switchHudSubtab('scripture', this)">📜 Verse</button>
               <button class="subtab-btn" onclick="switchHudSubtab('sermon', this)">🎤 Sermon</button>
               <button class="subtab-btn" onclick="switchHudSubtab('ticker', this)">📢 Ticker</button>
               <button class="subtab-btn" onclick="switchHudSubtab('giving', this)">💰 QR/Bank</button>
+              <button class="subtab-btn" onclick="switchHudSubtab('header', this)">🏛️ Header</button>
             </div>
 
             <div class="panel-body">
@@ -1648,9 +1653,83 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
                   </div>
                 </div>
                 <div style="display:flex; gap:4px;">
-                  <button class="btn btn-gold" style="flex:1;" onclick="pushHudGivingInfo(true)">⚡ Update & Show QR Live</button>
+                  <button class="btn btn-gold" style="flex:1;" onclick="pushHudGivingInfo(true)">⚡ Update &amp; Show QR Live</button>
                   <button class="btn btn-sm" onclick="centerQrSpotlight()" title="One-click show large QR in the middle of the screen">🎯 Middle Spotlight</button>
                   <button class="btn btn-danger btn-sm" onclick="toggleHudLt('giving', false)">Hide</button>
+                </div>
+              </div>
+
+              <!-- SUBTAB 5: TOP HEADER BAR, LIVE BADGE & CLOCK EDITOR -->
+              <div class="subtab-pane" id="hudPane-header">
+                <div class="grid-2">
+                  <div class="field-group">
+                    <label class="field-label">Tajuk Utama Gereja (Church Name)</label>
+                    <input type="text" id="hudChurchName" class="input-compact" value="SIB KAWASAN PAPAR 2026">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Sub-Tajuk / Tempat &amp; Tarikh</label>
+                    <input type="text" id="hudServiceSubtitle" class="input-compact" value="GEREJA SIB KAYAU • 22 NOV 2026">
+                  </div>
+                </div>
+
+                <div class="grid-2">
+                  <div class="field-group">
+                    <label class="field-label">Lencana Tengah (Event Badge)</label>
+                    <input type="text" id="hudServiceTitle" class="input-compact" value="KEBAKTIAN NATAL & GRADUASI PKK">
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label">Teks Lencana LIVE (LIVE Badge)</label>
+                    <input type="text" id="hudLiveBadgeText" class="input-compact" value="LIVE">
+                  </div>
+                </div>
+
+                <!-- Header Size, Opacity & Style Controls -->
+                <div style="background:#080c15; border:1px solid var(--border); border-radius:6px; padding:7px 8px; display:flex; flex-direction:column; gap:6px;">
+                  <div class="field-group">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                      <label class="field-label">Saiz Tulisan Header (LIVE &amp; Masa): <span id="headerSizeValText" style="color:var(--gold); font-family:var(--font-mono);">24px</span></label>
+                      <div style="display:flex; gap:3px;">
+                        <button type="button" class="btn btn-xs" onclick="setQuickHeaderSize(18)" title="Small (18px)">S</button>
+                        <button type="button" class="btn btn-xs" onclick="setQuickHeaderSize(24)" title="Medium Default (24px)">M</button>
+                        <button type="button" class="btn btn-xs" onclick="setQuickHeaderSize(30)" title="Large Phone-Friendly (30px)">L</button>
+                        <button type="button" class="btn btn-xs" onclick="setQuickHeaderSize(36)" title="Extra Large (36px)">XL</button>
+                      </div>
+                    </div>
+                    <input type="range" id="hudHeaderFontSize" min="16" max="44" step="1" value="24" oninput="onHeaderStyleChange()" style="width:100%; accent-color:var(--gold); cursor:pointer;">
+                  </div>
+
+                  <div class="grid-2">
+                    <div class="field-group">
+                      <label class="field-label">Kelegapan Kotak (Opacity): <span id="headerOpacityValText" style="color:var(--gold); font-family:var(--font-mono);">94%</span></label>
+                      <input type="range" id="hudHeaderOpacity" min="0.40" max="1.00" step="0.02" value="0.94" oninput="onHeaderStyleChange()" style="width:100%; accent-color:var(--gold); cursor:pointer;">
+                    </div>
+                    <div class="field-group">
+                      <label class="field-label">Gaya Header (Header Style)</label>
+                      <select id="hudHeaderStyle" class="select-compact" onchange="onHeaderStyleChange()">
+                        <option value="solid-gold" selected>Solid Navy &amp; Gold Card (Jelas)</option>
+                        <option value="full-top-bar">Full-Width TV Top Banner</option>
+                        <option value="royal-gradient">Royal Blue Capsule Pill</option>
+                        <option value="cinema-clean">Cinema Shadow (Tanpa Kotak)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style="display:flex; gap:10px; flex-wrap:wrap; padding-top:2px; border-top:1px dashed rgba(255,255,255,0.08);">
+                    <label style="font-size:10px; color:#e2e8f0; display:flex; align-items:center; gap:4px; cursor:pointer;">
+                      <input type="checkbox" id="chkHeaderShowLive" checked onchange="onHeaderStyleChange()" style="accent-color:#ef4444;"> 🔴 Tunjuk LIVE
+                    </label>
+                    <label style="font-size:10px; color:#e2e8f0; display:flex; align-items:center; gap:4px; cursor:pointer;">
+                      <input type="checkbox" id="chkHeaderShowClock" checked onchange="onHeaderStyleChange()" style="accent-color:var(--gold);"> 🕒 Tunjuk Masa &amp; Tarikh
+                    </label>
+                    <label style="font-size:10px; color:#e2e8f0; display:flex; align-items:center; gap:4px; cursor:pointer;">
+                      <input type="checkbox" id="chkHeaderShowCenterPill" checked onchange="onHeaderStyleChange()" style="accent-color:var(--gold);"> 🏷️ Lencana Tengah
+                    </label>
+                  </div>
+                </div>
+
+                <div style="display:flex; gap:4px;">
+                  <button class="btn btn-gold" style="flex:1;" onclick="pushHudHeaderInfo(true)">⚡ Update &amp; Tunjuk Top Header</button>
+                  <button class="btn btn-danger btn-sm" onclick="toggleHudHeaderBar(false)">Hide Header</button>
                 </div>
               </div>
             </div>
@@ -3922,6 +4001,7 @@ let hudChannel = ('BroadcastChannel' in window) ? new BroadcastChannel('sib_chur
 let hudState = {
   scene: 'overlay',
   theme: 'natal-blue',
+  headerVisible: true,
   tickerVisible: false,
   speakerLtVisible: false,
   scriptureVisible: false,
@@ -4000,6 +4080,73 @@ function hideAllHudLt() {
   renderHudControlsUi();
   sendHudCommand({ action: 'HIDE_ALL_LT' });
   showToast('Cleared all Church HUD Lower-Thirds', '#ef4444');
+}
+
+function toggleHudHeaderBar(forceVal) {
+  const next = (forceVal !== undefined) ? !!forceVal : !hudState.headerVisible;
+  hudState.headerVisible = next;
+  renderHudControlsUi();
+  sendHudCommand({ action: 'TOGGLE_HEADER_BAR', visible: next });
+  showToast(`Top Header Bar (LIVE & Clock): ${next ? 'SHOWN' : 'HIDDEN'}`, next ? '#f5c242' : '#64748b');
+}
+
+let headerStyleDebounce = null;
+
+function pushHudHeaderInfo(andShow = true) {
+  const payload = {
+    churchName: document.getElementById('hudChurchName').value,
+    serviceSubtitle: document.getElementById('hudServiceSubtitle').value,
+    serviceTitle: document.getElementById('hudServiceTitle').value,
+    liveBadgeText: document.getElementById('hudLiveBadgeText').value || 'LIVE',
+    headerFontSize: Number(document.getElementById('hudHeaderFontSize')?.value || 24),
+    headerOpacity: Number(document.getElementById('hudHeaderOpacity')?.value || 0.94),
+    headerStyle: document.getElementById('hudHeaderStyle')?.value || 'solid-gold',
+    headerShowLive: !!document.getElementById('chkHeaderShowLive')?.checked,
+    headerShowClock: !!document.getElementById('chkHeaderShowClock')?.checked,
+    headerShowCenterPill: !!document.getElementById('chkHeaderShowCenterPill')?.checked
+  };
+  if (andShow) {
+    payload.headerVisible = true;
+    hudState.headerVisible = true;
+    renderHudControlsUi();
+  }
+  sendHudCommand({ action: 'UPDATE_BULK', payload });
+  showToast('Top Header, LIVE & Clock Updated!', '#f5c242');
+}
+
+function onHeaderStyleChange() {
+  const fontSize = Number(document.getElementById('hudHeaderFontSize')?.value || 24);
+  const opacity = Number(document.getElementById('hudHeaderOpacity')?.value || 0.94);
+  const style = document.getElementById('hudHeaderStyle')?.value || 'solid-gold';
+  const showLive = !!document.getElementById('chkHeaderShowLive')?.checked;
+  const showClock = !!document.getElementById('chkHeaderShowClock')?.checked;
+  const showCenterPill = !!document.getElementById('chkHeaderShowCenterPill')?.checked;
+
+  const szEl = document.getElementById('headerSizeValText');
+  if (szEl) szEl.textContent = `${fontSize}px`;
+  const opEl = document.getElementById('headerOpacityValText');
+  if (opEl) opEl.textContent = `${Math.round(opacity * 100)}%`;
+
+  const payload = {
+    headerFontSize: fontSize,
+    headerOpacity: opacity,
+    headerStyle: style,
+    headerShowLive: showLive,
+    headerShowClock: showClock,
+    headerShowCenterPill: showCenterPill
+  };
+  if (hudChannel) hudChannel.postMessage({ action: 'UPDATE_BULK', payload });
+
+  clearTimeout(headerStyleDebounce);
+  headerStyleDebounce = setTimeout(() => {
+    sendHudCommand({ action: 'UPDATE_BULK', payload });
+  }, 120);
+}
+
+function setQuickHeaderSize(px) {
+  const el = document.getElementById('hudHeaderFontSize');
+  if (el) el.value = px;
+  onHeaderStyleChange();
 }
 
 function hudTimerAction(command, seconds) {
@@ -4146,19 +4293,25 @@ function moveSpeakerToLowerSecond() {
 }
 
 /* ============================================================================
- * MASTER OVERLAY SIZE PRESET (SYNCS ALL LIVE OVERLAYS IN ONE CLICK)
+ * MASTER OVERLAY SIZE PRESET (SYNCS HEADER, VERSE, SERMON, TICKER, QR & LYRIC)
  * ============================================================================ */
 const MASTER_OVERLAY_SCALE_PRESETS = {
-  S:   { label: 'S (TV / Kecil)',        verse: 24, sermon: 24, ticker: 20, qr: 96,  lyric: 34 },
-  M:   { label: 'M (Standard HD)',       verse: 32, sermon: 32, ticker: 26, qr: 125, lyric: 42 },
-  L:   { label: 'L (Mesra Telefon 📱)',  verse: 40, sermon: 40, ticker: 34, qr: 175, lyric: 50 },
-  XL:  { label: 'XL (Max Telefon 📱🔥)', verse: 50, sermon: 48, ticker: 42, qr: 225, lyric: 60 },
-  XXL: { label: 'XXL (Pentas / Ultra)',  verse: 58, sermon: 56, ticker: 50, qr: 275, lyric: 70 }
+  S:   { label: 'S (TV / Kecil)',        header: 18, verse: 24, sermon: 24, ticker: 20, qr: 96,  lyric: 34 },
+  M:   { label: 'M (Standard HD)',       header: 24, verse: 32, sermon: 32, ticker: 26, qr: 125, lyric: 42 },
+  L:   { label: 'L (Mesra Telefon 📱)',  header: 30, verse: 40, sermon: 40, ticker: 34, qr: 175, lyric: 50 },
+  XL:  { label: 'XL (Max Telefon 📱🔥)', header: 36, verse: 50, sermon: 48, ticker: 42, qr: 225, lyric: 60 },
+  XXL: { label: 'XXL (Pentas / Ultra)',  header: 42, verse: 58, sermon: 56, ticker: 50, qr: 275, lyric: 70 }
 };
 
 function applyMasterOverlaySizePreset(presetKey) {
   const p = MASTER_OVERLAY_SCALE_PRESETS[presetKey];
   if (!p) return;
+
+  // 0. Update Top Header (LIVE & Clock) Slider & Readout
+  const hdEl = document.getElementById('hudHeaderFontSize');
+  const hdTxt = document.getElementById('headerSizeValText');
+  if (hdEl) hdEl.value = p.header;
+  if (hdTxt) hdTxt.textContent = `${p.header}px`;
 
   // 1. Update Verse Slider & Readout
   const scEl = document.getElementById('hudScriptureFontSize');
@@ -4191,6 +4344,7 @@ function applyMasterOverlaySizePreset(presetKey) {
 
   // 5. Broadcast & Sync all Church HUD Overlay sizes immediately
   const payload = {
+    headerFontSize: p.header,
     scriptureFontSize: p.verse,
     speakerFontSize: p.sermon,
     tickerFontSize: p.ticker,
@@ -4213,7 +4367,7 @@ function applyMasterOverlaySizePreset(presetKey) {
   }
 
   showToast(
-    `📐 Skala Semua Overlay [${p.label}]: Verse ${p.verse}px • Sermon ${p.sermon}px • Ticker ${p.ticker}px • QR ${p.qr}px` +
+    `📐 Skala Semua Overlay [${p.label}]: Header ${p.header}px • Verse ${p.verse}px • Sermon ${p.sermon}px • Ticker ${p.ticker}px • QR ${p.qr}px` +
     (syncLyric ? ` • Lirik ${p.lyric}px` : ''),
     '#f5c242'
   );
@@ -4456,11 +4610,57 @@ function applyIncomingHudState(st) {
   const s = st.state || st;
   if (s.scene) hudState.scene = s.scene;
   if (s.theme) hudState.theme = s.theme;
+  if (s.headerVisible !== undefined) hudState.headerVisible = !!s.headerVisible;
   if (s.tickerVisible !== undefined) hudState.tickerVisible = !!s.tickerVisible;
   if (s.speakerLtVisible !== undefined) hudState.speakerLtVisible = !!s.speakerLtVisible;
   if (s.scriptureVisible !== undefined) hudState.scriptureVisible = !!s.scriptureVisible;
   if (s.worshipVisible !== undefined) hudState.worshipVisible = !!s.worshipVisible;
   if (s.givingLtVisible !== undefined) hudState.givingLtVisible = !!s.givingLtVisible;
+
+  if (s.churchName && document.activeElement !== document.getElementById('hudChurchName')) {
+    const el = document.getElementById('hudChurchName');
+    if (el) el.value = s.churchName;
+  }
+  if (s.serviceSubtitle && document.activeElement !== document.getElementById('hudServiceSubtitle')) {
+    const el = document.getElementById('hudServiceSubtitle');
+    if (el) el.value = s.serviceSubtitle;
+  }
+  if (s.serviceTitle && document.activeElement !== document.getElementById('hudServiceTitle')) {
+    const el = document.getElementById('hudServiceTitle');
+    if (el) el.value = s.serviceTitle;
+  }
+  if (s.liveBadgeText && document.activeElement !== document.getElementById('hudLiveBadgeText')) {
+    const el = document.getElementById('hudLiveBadgeText');
+    if (el) el.value = s.liveBadgeText;
+  }
+  if (s.headerFontSize && document.activeElement !== document.getElementById('hudHeaderFontSize')) {
+    const el = document.getElementById('hudHeaderFontSize');
+    if (el) el.value = s.headerFontSize;
+    const txt = document.getElementById('headerSizeValText');
+    if (txt) txt.textContent = `${s.headerFontSize}px`;
+  }
+  if (s.headerOpacity !== undefined && document.activeElement !== document.getElementById('hudHeaderOpacity')) {
+    const el = document.getElementById('hudHeaderOpacity');
+    if (el) el.value = s.headerOpacity;
+    const txt = document.getElementById('headerOpacityValText');
+    if (txt) txt.textContent = `${Math.round(Number(s.headerOpacity) * 100)}%`;
+  }
+  if (s.headerStyle && document.activeElement !== document.getElementById('hudHeaderStyle')) {
+    const el = document.getElementById('hudHeaderStyle');
+    if (el) el.value = s.headerStyle;
+  }
+  if (s.headerShowLive !== undefined) {
+    const el = document.getElementById('chkHeaderShowLive');
+    if (el) el.checked = !!s.headerShowLive;
+  }
+  if (s.headerShowClock !== undefined) {
+    const el = document.getElementById('chkHeaderShowClock');
+    if (el) el.checked = !!s.headerShowClock;
+  }
+  if (s.headerShowCenterPill !== undefined) {
+    const el = document.getElementById('chkHeaderShowCenterPill');
+    if (el) el.checked = !!s.headerShowCenterPill;
+  }
 
   if (s.givingPosMode && document.activeElement !== document.getElementById('hudGivingPosMode')) {
     document.getElementById('hudGivingPosMode').value = s.givingPosMode;
@@ -4543,6 +4743,7 @@ function renderHudControlsUi() {
   bindLt('ltBtnScripture', 'ltTagScripture', hudState.scriptureVisible);
   bindLt('ltBtnGiving', 'ltTagGiving', hudState.givingLtVisible);
   bindLt('ltBtnTicker', 'ltTagTicker', hudState.tickerVisible);
+  bindLt('ltBtnHeader', 'ltTagHeader', hudState.headerVisible !== false);
 }
 
 /* ============================================================================
@@ -5650,6 +5851,8 @@ window.addEventListener('keydown', (e) => {
     toggleHudLt('giving');
   } else if (e.key === 't' || e.key === 'T') {
     toggleHudLt('ticker');
+  } else if (e.key === 'h' || e.key === 'H') {
+    toggleHudHeaderBar();
   } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
     const hudScenes = ['landing', 'title', 'overlay', 'break', 'ending'];
     switchHudScene(hudScenes[parseInt(e.key, 10) - 1]);

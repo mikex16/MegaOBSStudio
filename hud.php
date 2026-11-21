@@ -73,7 +73,7 @@
     <!-- =========================================================
          TOP HEADER HUD BAR
          ========================================================= -->
-    <header class="church-top-bar">
+    <header id="churchTopBar" class="church-top-bar">
       <div class="church-brand-group">
         <div class="church-logo-badge" title="SIB Pekan Papar">
           <img src="./assets/logo-sib.png" alt="Logo SIB Pekan Papar" class="church-logo-img data-church-logo">
@@ -84,18 +84,18 @@
         </div>
       </div>
 
-      <div class="header-center-info">
+      <div class="header-center-info" id="headerCenterPillWrap">
         <div class="header-service-pill">
           <span class="data-service-title">NATAL &amp; GRADUASI PKK</span>
         </div>
       </div>
 
       <div class="header-right-telemetry">
-        <div class="live-badge-glow">
+        <div class="live-badge-glow" id="headerLiveBadgeWrap">
           <span class="pulse-dot-red"></span>
-          <span>LIVE</span>
+          <span class="data-live-badge">LIVE</span>
         </div>
-        <div class="clock-telemetry">
+        <div class="clock-telemetry" id="headerClockWrap">
           <span class="clock-time-val data-clock-time">09:30:00</span>
           <span class="clock-date-val data-clock-date">AHAD, 22 NOV 2026</span>
         </div>

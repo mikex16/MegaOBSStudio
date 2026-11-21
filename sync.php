@@ -148,6 +148,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $state['timerTimestamp'] = round(microtime(true) * 1000);
         } elseif ($data['action'] === 'UPDATE_TICKER_BADGE' && isset($data['badge'])) {
             $state['tickerBadge'] = $data['badge'];
+        } elseif ($data['action'] === 'TOGGLE_HEADER_BAR') {
+            $nextVal = isset($data['visible']) ? (bool)$data['visible'] : !(($state['headerVisible'] ?? true) !== false);
+            $state['headerVisible'] = $nextVal;
         } elseif ($data['action'] === 'HIDE_ALL_LT') {
             $state['tickerVisible'] = false;
             $state['speakerLtVisible'] = false;
