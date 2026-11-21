@@ -1860,125 +1860,433 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
 </div>
 
 <!-- ============================================================================
-     MODAL 5: ABOUT US, CONTACT US (MIKE), SERVICES, LICENSE & SOURCES (BM + EN)
+     MODAL 5: TABBED ABOUT US, LICENSE, SOURCES, CONTACT MIKE & DATA MANAGER
      ============================================================================ -->
-<div class="modal-backdrop" id="aboutUsModal">
-  <div class="modal-card" style="width:780px; max-width:96vw; max-height:92vh; overflow-y:auto;">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:10px;">
+<style>
+  .about-tabs-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    background: #080d18;
+    padding: 5px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+  }
+  .about-tab-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 7px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.15s ease;
+  }
+  .about-tab-btn:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.04);
+  }
+  .about-tab-btn.active {
+    background: linear-gradient(135deg, rgba(245,194,66,0.22), rgba(30,58,138,0.45));
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 2px 10px rgba(245,194,66,0.15);
+  }
+  .about-tab-pane {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .about-tab-pane.active {
+    display: flex;
+  }
+  #aboutUsModal[data-lang="bm"] .lang-en { display: none !important; }
+  #aboutUsModal[data-lang="en"] .lang-bm { display: none !important; }
+  .lang-pill-group {
+    display: inline-flex;
+    background: #080d18;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px;
+    gap: 2px;
+  }
+  .lang-pill-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 3px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .lang-pill-btn.active {
+    background: var(--gold);
+    color: #000;
+  }
+</style>
+
+<div class="modal-backdrop" id="aboutUsModal" data-lang="both">
+  <div class="modal-card" style="width:820px; max-width:96vw; max-height:92vh; overflow-y:auto;">
+    <!-- Modal Header with Language Switcher -->
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:10px; flex-wrap:wrap; gap:8px;">
       <div style="display:flex; align-items:center; gap:10px;">
         <div class="brand-logo" style="width:36px; height:36px; font-size:11px;">MEGA</div>
         <div>
           <strong style="font-size:14px; color:#fff;">MEGA OBS STUDIO — Unified One-Screen Church Broadcast System</strong>
-          <div style="font-size:11px; color:var(--gold); font-weight:700;">Created by MIKE (mikex16) • Official Website: <a href="https://pprz.net" target="_blank" style="color:#38bdf8; text-decoration:underline;">pprz.net</a> • Co-developed with Antigravity AI</div>
+          <div style="font-size:11px; color:var(--gold); font-weight:700;">
+            Created by <span class="about-dyn-name">MIKE</span> (<span class="about-dyn-handle">mikex16</span>) • Official Website:
+            <a href="https://pprz.net" target="_blank" class="about-dyn-web-link" style="color:#38bdf8; text-decoration:underline;">pprz.net</a>
+          </div>
         </div>
       </div>
-      <button class="btn btn-sm" onclick="closeModalById('aboutUsModal')">✕</button>
-    </div>
-
-    <!-- 1. Tujuan Projek Sukarela / About Us & Ministry Purpose (BM + EN) -->
-    <div style="background:linear-gradient(135deg, rgba(30,58,138,0.28), rgba(15,23,42,0.85)); border:1px solid rgba(245,194,66,0.4); border-radius:7px; padding:11px 14px; display:flex; flex-direction:column; gap:6px;">
-      <div style="font-size:11.5px; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:0.5px;">⛪ Tentang Projek Ini / About Us &amp; Ministry Purpose</div>
-      <p style="font-size:11.8px; color:#e2e8f0; line-height:1.5;">
-        🇲🇾 <strong>BM:</strong> Aplikasi <strong>MegaOBS Studio</strong> ini dibangunkan secara <strong>sukarela</strong> untuk kegunaan gereja supaya urusan siaran langsung (<strong>"LIVE"</strong>) menjadi lebih mudah, kemas, dan dapat dikawal sepenuhnya dalam <strong>satu skrin oleh seorang operator sahaja</strong> (menggabungkan Kawalan Jauh OBS Studio, HUD Lower-Third Gereja, serta Pangkalan Data Lirik Lagu &amp; Easyslides Multicast).
-      </p>
-      <p style="font-size:11.3px; color:#94a3b8; line-height:1.5; border-top:1px dashed rgba(148,163,184,0.2); padding-top:5px;">
-        🇬🇧 <strong>EN:</strong> <strong>MegaOBS Studio</strong> was created <strong>voluntarily</strong> for church media ministry to make <strong>"LIVE"</strong> broadcasting easier, cleaner, and fully controllable on a <strong>single screen by a single operator</strong> (unifying OBS Studio Remote Control, Church Broadcast HUD &amp; Lower-Thirds, and the 28-SQLite Lyric Database &amp; Easyslides Multicast engine).
-      </p>
-      <div style="display:flex; align-items:center; gap:8px; margin-top:2px; flex-wrap:wrap;">
-        <span style="font-size:11px; color:var(--text-muted);">GitHub Repository:</span>
-        <a href="https://github.com/mikex16/MegaOBSStudio" target="_blank" style="color:#38bdf8; font-family:var(--font-mono); font-size:11.5px; font-weight:700; text-decoration:none;">https://github.com/mikex16/MegaOBSStudio.git</a>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <div class="lang-pill-group" title="Pilihan Bahasa / Language Filter">
+          <button type="button" class="lang-pill-btn active" onclick="setAboutModalLang('both', this)">BM + EN</button>
+          <button type="button" class="lang-pill-btn" onclick="setAboutModalLang('bm', this)">🇲🇾 BM</button>
+          <button type="button" class="lang-pill-btn" onclick="setAboutModalLang('en', this)">🇬🇧 EN</button>
+        </div>
+        <button class="btn btn-sm" onclick="closeModalById('aboutUsModal')">✕</button>
       </div>
     </div>
 
-    <!-- 2. Hubungi Kami & Tempahan Projek / Contact Us & Custom Development Services (MIKE) -->
-    <div style="background:linear-gradient(135deg, rgba(16,185,129,0.14), rgba(15,23,42,0.92)); border:1px solid rgba(16,185,129,0.45); border-left:4px solid #10b981; border-radius:7px; padding:12px 14px; display:flex; flex-direction:column; gap:8px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-        <div style="font-size:11.5px; font-weight:800; color:#34d399; text-transform:uppercase; letter-spacing:0.5px;">📞 Hubungi Kami &amp; Tempahan Projek / Contact Us &amp; Custom Services</div>
-        <span style="background:rgba(245,194,66,0.18); border:1px solid var(--gold); color:var(--gold); font-size:10.5px; font-weight:800; padding:2px 8px; border-radius:99px;">👋 Just Call Me "MIKE"</span>
-      </div>
+    <!-- 4-Tab Navigation Bar (Separating License/About from Contact Us & Data Manager) -->
+    <div class="about-tabs-bar">
+      <button type="button" class="about-tab-btn active" id="aboutTabBtn-license" onclick="switchAboutModalTab('license')">
+        <span>⛪ Tentang &amp; Lesen</span>
+      </button>
+      <button type="button" class="about-tab-btn" id="aboutTabBtn-sources" onclick="switchAboutModalTab('sources')">
+        <span>📚 Sumber &amp; Teknologi</span>
+      </button>
+      <button type="button" class="about-tab-btn" id="aboutTabBtn-contact" onclick="switchAboutModalTab('contact')">
+        <span>📞 Hubungi Kami (MIKE)</span>
+      </button>
+      <button type="button" class="about-tab-btn" id="aboutTabBtn-data" onclick="switchAboutModalTab('data')">
+        <span>🗄️ Pengurusan Data</span>
+      </button>
+    </div>
 
-      <!-- Contact Details Bar (Website pprz.net, WhatsApp, Email) -->
-      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
-        <div style="background:linear-gradient(135deg, rgba(245,194,66,0.16), #080d18); border:1px solid rgba(245,194,66,0.55); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:6px;">
-          <div>
-            <div style="font-size:9.5px; font-weight:800; color:var(--gold); text-transform:uppercase;">🌐 Official Website</div>
-            <div style="font-size:13.5px; font-weight:900; color:#fff; font-family:var(--font-mono);">pprz.net</div>
-          </div>
-          <a href="https://pprz.net" target="_blank" class="btn btn-gold btn-xs" style="text-decoration:none;">Visit ↗</a>
-        </div>
-        <div style="background:#080d18; border:1px solid rgba(16,185,129,0.35); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:6px;">
-          <div>
-            <div style="font-size:9.5px; font-weight:800; color:#34d399; text-transform:uppercase;">💬 WhatsApp Only</div>
-            <div style="font-size:12.5px; font-weight:800; color:#fff; font-family:var(--font-mono);">0166841604</div>
-          </div>
-          <a href="https://wa.me/60166841604" target="_blank" class="btn btn-success btn-xs" style="text-decoration:none;">Chat ↗</a>
-        </div>
-        <div style="background:#080d18; border:1px solid rgba(59,130,246,0.35); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:6px;">
-          <div>
-            <div style="font-size:9.5px; font-weight:800; color:#60a5fa; text-transform:uppercase;">✉️ Email Address</div>
-            <div style="font-size:11.5px; font-weight:800; color:#fff; font-family:var(--font-mono);">mikex16@gmail.com</div>
-          </div>
-          <a href="mailto:mikex16@gmail.com" class="btn btn-primary btn-xs" style="text-decoration:none;">Email ↗</a>
-        </div>
-      </div>
-
-      <!-- Custom Development Services Ad (BM + EN) -->
-      <div style="background:rgba(8,13,24,0.75); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:9px 11px; display:flex; flex-direction:column; gap:5px;">
-        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:2px;">
-          <a href="https://pprz.net" target="_blank" style="background:rgba(245,194,66,0.2); border:1px solid var(--gold); color:var(--gold); font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px; text-decoration:none;">🚀 Layari Website Baru: pprz.net ↗</a>
-          <span style="background:rgba(59,130,246,0.18); border:1px solid rgba(59,130,246,0.45); color:#93c5fd; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">🌐 Website Design &amp; Web Systems</span>
-          <span style="background:rgba(139,92,246,0.18); border:1px solid rgba(139,92,246,0.45); color:#c4b5fd; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">📱 Custom App &amp; Software Dev</span>
-          <span style="background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.45); color:#fcd34d; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">🔌 Electronic &amp; IoT Remote Control Projects</span>
-        </div>
-        <p style="font-size:11.5px; color:#e2e8f0; line-height:1.5;">
-          🇲🇾 <strong>BM:</strong> Jemput layari laman web rasmi baru saya di <a href="https://pprz.net" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:underline;">pprz.net</a>! Saya menerima tempahan pembangunan projek kustom — bermula daripada <strong>reka bentuk laman web (Website Design)</strong>, <strong>membuat aplikasi (Web / Mobile / Desktop App)</strong>, sehinggalah <strong>membangunkan projek elektronik untuk mengawal sesuatu peralatan atau sistem secara IoT (Internet of Things)</strong>. Hubungi saya, <strong>MIKE</strong>!
+    <!-- =========================================================================
+         TAB 1: TENTANG PROJEK, LESEN OPEN SOURCE & PENAFIAN (ABOUT & LICENSE)
+         ========================================================================= -->
+    <div class="about-tab-pane active" id="aboutTabPane-license">
+      <!-- 1. Tujuan Projek Sukarela / About Us & Ministry Purpose -->
+      <div style="background:linear-gradient(135deg, rgba(30,58,138,0.28), rgba(15,23,42,0.85)); border:1px solid rgba(245,194,66,0.4); border-radius:7px; padding:12px 14px; display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:11.5px; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:0.5px;">⛪ Tentang Projek Ini / About Us &amp; Ministry Purpose</div>
+        <p class="lang-bm" style="font-size:11.8px; color:#e2e8f0; line-height:1.55;">
+          🇲🇾 <strong>BM:</strong> Aplikasi <strong>MegaOBS Studio</strong> ini dibangunkan secara <strong>sukarela</strong> untuk kegunaan gereja supaya urusan siaran langsung (<strong>"LIVE"</strong>) menjadi lebih mudah, kemas, dan dapat dikawal sepenuhnya dalam <strong>satu skrin oleh seorang operator sahaja</strong> (menggabungkan Kawalan Jauh OBS Studio, HUD Lower-Third Gereja, serta Pangkalan Data Lirik Lagu &amp; Easyslides Multicast).
         </p>
-        <p style="font-size:11.2px; color:#94a3b8; line-height:1.45; border-top:1px dashed rgba(148,163,184,0.2); padding-top:4px;">
-          🇬🇧 <strong>EN:</strong> Check out my new official website at <a href="https://pprz.net" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:underline;">pprz.net</a>! Open for custom project commissions &amp; freelance orders — ranging from <strong>Website Design</strong> and <strong>Custom Application Development</strong> to <strong>Electronic Hardware Engineering &amp; IoT (Internet of Things) Remote Control Systems</strong>. Feel free to reach out — just call me <strong>MIKE</strong>!
+        <p class="lang-en" style="font-size:11.4px; color:#94a3b8; line-height:1.55; border-top:1px dashed rgba(148,163,184,0.2); padding-top:5px;">
+          🇬🇧 <strong>EN:</strong> <strong>MegaOBS Studio</strong> was created <strong>voluntarily</strong> for church media ministry to make <strong>"LIVE"</strong> broadcasting easier, cleaner, and fully controllable on a <strong>single screen by a single operator</strong> (unifying OBS Studio Remote Control, Church Broadcast HUD &amp; Lower-Thirds, and the 28-SQLite Lyric Database &amp; Easyslides Multicast engine).
+        </p>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:4px; flex-wrap:wrap; background:#080d18; padding:7px 10px; border-radius:5px; border:1px solid var(--border);">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="font-size:10.5px; color:var(--text-muted); font-weight:700;">GitHub Repository:</span>
+            <a href="https://github.com/mikex16/MegaOBSStudio" target="_blank" id="aboutGithubRepoUrl" style="color:#38bdf8; font-family:var(--font-mono); font-size:11.5px; font-weight:700; text-decoration:none;">https://github.com/mikex16/MegaOBSStudio.git</a>
+          </div>
+          <button type="button" class="btn btn-xs" onclick="copyTextById('aboutGithubRepoUrl')">📋 Copy Git URL</button>
+        </div>
+      </div>
+
+      <!-- 2. Syarat Lesen Open Source / Open Source License & Attribution -->
+      <div style="background:#0a101d; border:1px solid var(--border); border-left:4px solid #3b82f6; border-radius:6px; padding:12px 14px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+          <div style="font-size:11px; font-weight:800; color:#60a5fa; text-transform:uppercase; letter-spacing:0.5px;">📜 Lesen Penggunaan Terbuka / Open Source License &amp; Attribution</div>
+          <button type="button" class="btn btn-xs" onclick="copyAttributionHeaderBlock()" title="Salin teks kredit rasmi untuk dikekalkan dalam skrip">📋 Copy Header Kredit</button>
+        </div>
+        <p class="lang-bm" style="font-size:11.5px; color:#cbd5e1; line-height:1.5;">
+          🇲🇾 <strong>BM:</strong> Sesiapa sahaja (gereja, pelayanan media, atau individu) bebas menggunakan, mengubah suai, dan berkongsi aplikasi/tools ini secara percuma di bawah <em>MIT License with Attribution Requirement</em>, <strong>selagi mereka bersetuju untuk TIDAK membuang nama pencipta asal (<code>MIKE</code> / <code>mikex16</code> / <code>MegaOBSStudio</code>)</strong> di dalam setiap skrip yang kami tulis serta pada ruangan kredit ini.
+        </p>
+        <p class="lang-en" style="font-size:11.2px; color:#94a3b8; line-height:1.5; border-top:1px dashed rgba(148,163,184,0.18); padding-top:5px;">
+          🇬🇧 <strong>EN:</strong> Anyone (churches, media ministries, or individuals) is free to use, modify, and distribute this software/tool free of charge under the <em>MIT License with Attribution Requirement</em>, <strong>provided that they agree NOT to remove the original creator's name and attribution headers (<code>MIKE</code> / <code>mikex16</code> / <code>MegaOBSStudio</code>)</strong> from any script or credit section.
+        </p>
+      </div>
+
+      <!-- 3. Penafian / Disclaimer -->
+      <div style="background:rgba(245, 158, 11, 0.08); border:1px solid rgba(245, 158, 11, 0.35); border-left:4px solid var(--warn-amber); border-radius:6px; padding:12px 14px; display:flex; flex-direction:column; gap:5px;">
+        <div style="font-size:11px; font-weight:800; color:#fbbf24; text-transform:uppercase; letter-spacing:0.5px;">⚠️ Penafian / Disclaimer (Gunakan Atas Risiko Sendiri / Use At Your Own Risk)</div>
+        <p class="lang-bm" style="font-size:11.5px; color:#fde68a; line-height:1.5;">
+          🇲🇾 <strong>BM:</strong> Aplikasi ini dihasilkan <strong>seadanya ("AS-IS")</strong> dan tiada jaminan ia akan berfungsi 100% sempurna dalam semua keadaan atau perkakasan. Pihak pembangun tidak bertanggungjawab atas sebarang gangguan siaran atau kehilangan data. <strong>Sila uji terlebih dahulu dan gunakan atas risiko sendiri.</strong>
+        </p>
+        <p class="lang-en" style="font-size:11.2px; color:#fcd34d; opacity:0.9; line-height:1.5; border-top:1px dashed rgba(245,158,11,0.25); padding-top:5px;">
+          🇬🇧 <strong>EN:</strong> This software is provided <strong>"AS-IS"</strong> without any warranty of 100% uninterrupted functionality across all hardware or network environments. The developers are not liable for any broadcast interruption or data loss. <strong>Please test thoroughly before live broadcast and use at your own risk.</strong>
         </p>
       </div>
     </div>
 
-    <!-- 3. Syarat Lesen Open Source / Open Source License & Attribution (BM + EN) -->
-    <div style="background:#0a101d; border:1px solid var(--border); border-left:4px solid #3b82f6; border-radius:6px; padding:10px 14px; display:flex; flex-direction:column; gap:4px;">
-      <div style="font-size:11px; font-weight:800; color:#60a5fa; text-transform:uppercase; letter-spacing:0.5px;">📜 Lesen Penggunaan Terbuka / Open Source License &amp; Attribution</div>
-      <p style="font-size:11.3px; color:#cbd5e1; line-height:1.45;">
-        🇲🇾 <strong>BM:</strong> Sesiapa sahaja bebas menggunakan, mengubah suai, dan berkongsi aplikasi/tools ini secara percuma di bawah <em>MIT License with Attribution Requirement</em>, <strong>selagi mereka bersetuju untuk TIDAK membuang nama pencipta asal (<code>MIKE</code> / <code>mikex16</code> / <code>MegaOBSStudio</code>)</strong> di dalam setiap skrip yang kami tulis serta pada ruangan kredit ini.
-      </p>
-      <p style="font-size:11px; color:#94a3b8; line-height:1.45; border-top:1px dashed rgba(148,163,184,0.18); padding-top:4px;">
-        🇬🇧 <strong>EN:</strong> Anyone is free to use, modify, and distribute this software/tool free of charge under the <em>MIT License with Attribution Requirement</em>, <strong>provided that they agree NOT to remove the original creator's name and attribution headers (<code>MIKE</code> / <code>mikex16</code> / <code>MegaOBSStudio</code>)</strong> from any script or credit section.
-      </p>
+    <!-- =========================================================================
+         TAB 2: SUMBER-SUMBER & RUJUKAN TEKNOLOGI (SOURCES & ACKNOWLEDGMENTS)
+         ========================================================================= -->
+    <div class="about-tab-pane" id="aboutTabPane-sources">
+      <div style="background:#0a101d; border:1px solid var(--border); border-radius:7px; padding:12px 14px; display:flex; flex-direction:column; gap:10px;">
+        <div style="font-size:11.5px; font-weight:800; color:#34d399; text-transform:uppercase; letter-spacing:0.5px;">📚 Senarai Sumber &amp; Rujukan Teknologi (Sources &amp; Acknowledgments)</div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <div style="background:#080c15; border:1px solid var(--border); border-radius:6px; padding:9px 11px;">
+            <div style="font-size:10.5px; font-weight:800; color:var(--gold); margin-bottom:4px;">🎛️ Enjin Siaran &amp; Protokol Kawalan</div>
+            <ul style="font-size:11px; color:#cbd5e1; line-height:1.55; padding-left:16px;">
+              <li><strong>OBS Studio &amp; OBS WebSocket v5</strong> (<code>obsproject.com</code>) — Kawalan jauh scene, kamera, transisi &amp; audio mixer.</li>
+              <li><strong>Easyslides 5.2</strong> (<code>easyslides.com</code>) — Skema SQLite <code>items</code> &amp; protokol TCP Multicast Port 9701 (XML/RSA-OAEP).</li>
+            </ul>
+          </div>
+
+          <div style="background:#080c15; border:1px solid var(--border); border-radius:6px; padding:9px 11px;">
+            <div style="font-size:10.5px; font-weight:800; color:#38bdf8; margin-bottom:4px;">🎵 28 Pangkalan Data Lirik &amp; Kidung</div>
+            <ul style="font-size:11px; color:#cbd5e1; line-height:1.55; padding-left:16px;">
+              <li><strong>JRChord.com</strong> (<code>jrchord.com</code>) — Koleksi lirik lagu rohani Kristian (diformat tanpa kord).</li>
+              <li><strong>LaguRohani.id</strong> (<code>lagurohani.id</code>) — Sumber pangkalan data lagu pujian &amp; penyembahan.</li>
+              <li><strong>Alkitab.app Songbooks</strong> (<code>alkitab.app/songs</code>) — 23 Buku Kidung (KJ, PKJ, NKB, NKI, BN, GB, dll.).</li>
+            </ul>
+          </div>
+
+          <div style="background:#080c15; border:1px solid var(--border); border-radius:6px; padding:9px 11px;">
+            <div style="font-size:10.5px; font-weight:800; color:#a78bfa; margin-bottom:4px;">📖 Sumber Alkitab &amp; HUD Gereja</div>
+            <ul style="font-size:11px; color:#cbd5e1; line-height:1.55; padding-left:16px;">
+              <li><strong>Alkitab Terjemahan Baru (TB)</strong> — Petikan ayat-ayat Firman Tuhan pada HUD Lower-Third Gereja.</li>
+              <li><strong>DuitNow QR Standard</strong> — Paparan kod QR Persembahan &amp; Perpuluhan interaktif.</li>
+            </ul>
+          </div>
+
+          <div style="background:#080c15; border:1px solid var(--border); border-radius:6px; padding:9px 11px;">
+            <div style="font-size:10.5px; font-weight:800; color:#34d399; margin-bottom:4px;">⚙️ Pelayan Mandiri &amp; Grafik 60FPS</div>
+            <ul style="font-size:11px; color:#cbd5e1; line-height:1.55; padding-left:16px;">
+              <li><strong>Google Fonts &amp; HTML5 Canvas</strong> — Tipografi siaran (<em>Cinzel, Outfit, Plus Jakarta Sans, Inter</em>).</li>
+              <li><strong>XAMPP Apache + PHP 8 SQLite</strong> — Pelayan mandiri (standalone) 100% di dalam folder projek.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- 4. Penafian / Disclaimer (BM + EN) -->
-    <div style="background:rgba(245, 158, 11, 0.08); border:1px solid rgba(245, 158, 11, 0.35); border-left:4px solid var(--warn-amber); border-radius:6px; padding:10px 14px; display:flex; flex-direction:column; gap:4px;">
-      <div style="font-size:11px; font-weight:800; color:#fbbf24; text-transform:uppercase; letter-spacing:0.5px;">⚠️ Penafian / Disclaimer (Gunakan Atas Risiko Sendiri / Use At Your Own Risk)</div>
-      <p style="font-size:11.3px; color:#fde68a; line-height:1.45;">
-        🇲🇾 <strong>BM:</strong> Aplikasi ini dihasilkan <strong>seadanya ("AS-IS")</strong> dan tiada jaminan ia akan berfungsi 100% sempurna dalam semua keadaan. <strong>Sila uji terlebih dahulu dan gunakan atas risiko sendiri.</strong>
-      </p>
-      <p style="font-size:11px; color:#fcd34d; opacity:0.88; line-height:1.45; border-top:1px dashed rgba(245,158,11,0.25); padding-top:4px;">
-        🇬🇧 <strong>EN:</strong> This software is provided <strong>"AS-IS"</strong> without any warranty of 100% uninterrupted functionality across all hardware or network environments. <strong>Please test thoroughly before live broadcast and use at your own risk.</strong>
-      </p>
+    <!-- =========================================================================
+         TAB 3: HUBUNGI KAMI & TEMPAHAN PROJEK (CONTACT MIKE & CUSTOM SERVICES)
+         ========================================================================= -->
+    <div class="about-tab-pane" id="aboutTabPane-contact">
+      <!-- Profile & Direct Contact Banner -->
+      <div style="background:linear-gradient(135deg, rgba(16,185,129,0.16), rgba(15,23,42,0.95)); border:1px solid rgba(16,185,129,0.45); border-left:4px solid #10b981; border-radius:7px; padding:12px 14px; display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+          <div>
+            <div style="font-size:12px; font-weight:800; color:#34d399; text-transform:uppercase; letter-spacing:0.5px;">📞 Hubungi Kami &amp; Tempahan Projek Kustom / Contact Us</div>
+            <div style="font-size:10.5px; color:var(--text-muted);">Berhubung terus dengan pembangun sistem untuk pertanyaan atau tempahan projek baru</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="background:rgba(245,194,66,0.18); border:1px solid var(--gold); color:var(--gold); font-size:11px; font-weight:800; padding:3px 10px; border-radius:99px;">👋 <span id="contactGreetingTag">Just Call Me "MIKE"</span></span>
+            <button type="button" class="btn btn-xs" style="border-color:#38bdf8; color:#38bdf8;" onclick="downloadMikeVCard()" title="Muat turun kad kontak telefon (.vcf)">📇 Simpan Kontak (.vcf)</button>
+          </div>
+        </div>
+
+        <!-- 3 Direct Contact Cards (Website pprz.net, WhatsApp 0166841604, Email mikex16@gmail.com) -->
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+          <div style="background:linear-gradient(135deg, rgba(245,194,66,0.16), #080d18); border:1px solid rgba(245,194,66,0.55); border-radius:6px; padding:9px 10px; display:flex; flex-direction:column; justify-content:space-between; gap:6px;">
+            <div>
+              <div style="font-size:9.5px; font-weight:800; color:var(--gold); text-transform:uppercase;">🌐 Official Website</div>
+              <div id="contactWebDisplay" style="font-size:14px; font-weight:900; color:#fff; font-family:var(--font-mono); margin-top:2px;">pprz.net</div>
+            </div>
+            <div style="display:flex; gap:4px;">
+              <a href="https://pprz.net" target="_blank" id="contactWebBtn" class="btn btn-gold btn-xs" style="flex:1; text-decoration:none;">Visit Web ↗</a>
+              <button type="button" class="btn btn-xs" onclick="copyTextById('contactWebDisplay')" title="Copy Website">📋</button>
+            </div>
+          </div>
+
+          <div style="background:#080d18; border:1px solid rgba(16,185,129,0.4); border-radius:6px; padding:9px 10px; display:flex; flex-direction:column; justify-content:space-between; gap:6px;">
+            <div>
+              <div style="font-size:9.5px; font-weight:800; color:#34d399; text-transform:uppercase;">💬 WhatsApp (WhatsApp Only)</div>
+              <div id="contactWaDisplay" style="font-size:13.5px; font-weight:900; color:#fff; font-family:var(--font-mono); margin-top:2px;">0166841604</div>
+            </div>
+            <div style="display:flex; gap:4px;">
+              <a href="https://wa.me/60166841604" target="_blank" id="contactWaBtn" class="btn btn-success btn-xs" style="flex:1; text-decoration:none;">WhatsApp ↗</a>
+              <button type="button" class="btn btn-xs" onclick="copyTextById('contactWaDisplay')" title="Copy No. WhatsApp">📋</button>
+            </div>
+          </div>
+
+          <div style="background:#080d18; border:1px solid rgba(59,130,246,0.4); border-radius:6px; padding:9px 10px; display:flex; flex-direction:column; justify-content:space-between; gap:6px;">
+            <div>
+              <div style="font-size:9.5px; font-weight:800; color:#60a5fa; text-transform:uppercase;">✉️ Email Address</div>
+              <div id="contactEmailDisplay" style="font-size:12px; font-weight:800; color:#fff; font-family:var(--font-mono); margin-top:2px; word-break:break-all;">mikex16@gmail.com</div>
+            </div>
+            <div style="display:flex; gap:4px;">
+              <a href="mailto:mikex16@gmail.com" id="contactEmailBtn" class="btn btn-primary btn-xs" style="flex:1; text-decoration:none;">Send Email ↗</a>
+              <button type="button" class="btn btn-xs" onclick="copyTextById('contactEmailDisplay')" title="Copy Email">📋</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Custom Services Pillars -->
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+          <div style="background:#080c15; border:1px solid rgba(59,130,246,0.35); border-radius:6px; padding:8px 10px;">
+            <div style="font-size:11px; font-weight:800; color:#93c5fd; margin-bottom:3px;">🌐 1. Website Design</div>
+            <p class="lang-bm" style="font-size:10.5px; color:#cbd5e1; line-height:1.45;">Reka bentuk laman web rasmi, portal gereja/korporat, e-dagang &amp; sistem pengurusan web kustom.</p>
+            <p class="lang-en" style="font-size:10px; color:#94a3b8; line-height:1.4; margin-top:3px;">Custom websites, church/corporate portals, e-commerce &amp; full-stack web dashboards.</p>
+          </div>
+          <div style="background:#080c15; border:1px solid rgba(139,92,246,0.35); border-radius:6px; padding:8px 10px;">
+            <div style="font-size:11px; font-weight:800; color:#c4b5fd; margin-bottom:3px;">📱 2. App Development</div>
+            <p class="lang-bm" style="font-size:10.5px; color:#cbd5e1; line-height:1.45;">Pembangunan aplikasi telefon (Mobile App), aplikasi desktop &amp; sistem automasi siaran LIVE.</p>
+            <p class="lang-en" style="font-size:10px; color:#94a3b8; line-height:1.4; margin-top:3px;">Mobile apps, desktop software &amp; custom live broadcast automation systems.</p>
+          </div>
+          <div style="background:#080c15; border:1px solid rgba(245,158,11,0.35); border-radius:6px; padding:8px 10px;">
+            <div style="font-size:11px; font-weight:800; color:#fcd34d; margin-bottom:3px;">🔌 3. Electronic &amp; IoT Control</div>
+            <p class="lang-bm" style="font-size:10.5px; color:#cbd5e1; line-height:1.45;">Pembangunan projek elektronik &amp; perkakasan pintar untuk mengawal sesuatu peralatan dari jauh secara IoT.</p>
+            <p class="lang-en" style="font-size:10px; color:#94a3b8; line-height:1.4; margin-top:3px;">Custom electronic hardware &amp; IoT remote control automation systems.</p>
+          </div>
+        </div>
+
+        <!-- Promo Message Box (BM + EN) -->
+        <div style="background:rgba(8,13,24,0.8); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:8px 11px; display:flex; flex-direction:column; gap:4px;">
+          <p class="lang-bm" id="contactPromoBmText" style="font-size:11.3px; color:#e2e8f0; line-height:1.5;">
+            🇲🇾 <strong>BM:</strong> Jemput layari laman web rasmi baru saya di <a href="https://pprz.net" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:underline;">pprz.net</a>! Saya menerima tempahan pembangunan projek kustom — bermula daripada <strong>reka bentuk laman web (Website Design)</strong>, <strong>membuat aplikasi (Web / Mobile / Desktop App)</strong>, sehinggalah <strong>membangunkan projek elektronik untuk mengawal sesuatu peralatan atau sistem secara IoT (Internet of Things)</strong>. Hubungi saya, <strong>MIKE</strong>!
+          </p>
+          <p class="lang-en" id="contactPromoEnText" style="font-size:11px; color:#94a3b8; line-height:1.45; border-top:1px dashed rgba(148,163,184,0.2); padding-top:4px;">
+            🇬🇧 <strong>EN:</strong> Check out my new official website at <a href="https://pprz.net" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:underline;">pprz.net</a>! Open for custom project commissions &amp; freelance orders — ranging from <strong>Website Design</strong> and <strong>Custom Application Development</strong> to <strong>Electronic Hardware Engineering &amp; IoT (Internet of Things) Remote Control Systems</strong>. Feel free to reach out — just call me <strong>MIKE</strong>!
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Quick Project Inquiry Generator & Local Logger -->
+      <div style="background:#0a101d; border:1px solid var(--border); border-radius:7px; padding:11px 14px; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:11px; font-weight:800; color:var(--gold); text-transform:uppercase;">⚡ Borang Pantas Tempahan / Pertanyaan Projek (Quick Inquiry to MIKE)</div>
+          <span style="font-size:9.5px; color:var(--text-muted);">Auto-format ke WhatsApp / Email + Simpan Rekod</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1.2fr; gap:6px;">
+          <div class="field-group">
+            <label class="field-label">Nama Anda / Organisasi</label>
+            <input type="text" id="inqClientName" class="input-compact" placeholder="Cth: Gereja SIB / Nama Anda">
+          </div>
+          <div class="field-group">
+            <label class="field-label">No. Tel / Email Anda</label>
+            <input type="text" id="inqClientContact" class="input-compact" placeholder="Cth: 012-xxxxxxx">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Kategori Projek / Tempahan</label>
+            <select id="inqCategory" class="select-compact">
+              <option value="Website Design & Sistem Web">🌐 Reka Bentuk Website / Sistem Web</option>
+              <option value="Pembangunan Aplikasi (Web/Mobile/Desktop)">📱 Pembangunan Aplikasi (App Dev)</option>
+              <option value="Projek Elektronik & Kawalan IoT">🔌 Projek Elektronik &amp; Kawalan IoT</option>
+              <option value="Setup Sistem Siaran LIVE / OBS Custom">🎬 Setup Sistem Siaran LIVE / OBS</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Ringkasan Keperluan Projek / Pertanyaan (Project Details)</label>
+          <input type="text" id="inqDetails" class="input-compact" placeholder="Terangkan secara ringkas projek yang anda ingin tempah...">
+        </div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-success btn-sm" style="flex:1;" onclick="submitMikeInquiry('whatsapp')">💬 Hantar Terus ke WhatsApp MIKE (0166841604)</button>
+          <button type="button" class="btn btn-primary btn-sm" style="flex:1;" onclick="submitMikeInquiry('email')">✉️ Hantar ke Email (mikex16@gmail.com)</button>
+          <button type="button" class="btn btn-sm" onclick="submitMikeInquiry('local')" title="Simpan pertanyaan dalam pangkalan data tempatan dahulu">💾 Simpan Rekod</button>
+        </div>
+      </div>
     </div>
 
-    <!-- 5. Senarai Sumber & Teknologi (Sources & Credits) -->
-    <div style="background:#0a101d; border:1px solid var(--border); border-radius:6px; padding:10px 14px; display:flex; flex-direction:column; gap:5px;">
-      <div style="font-size:11px; font-weight:800; color:#34d399; text-transform:uppercase; letter-spacing:0.5px;">📚 Sumber-Sumber &amp; Rujukan Teknologi / Sources &amp; Acknowledgments</div>
-      <ul style="font-size:11px; color:#cbd5e1; line-height:1.55; padding-left:18px; display:grid; grid-template-columns:1fr 1fr; gap:3px 16px;">
-        <li><strong>OBS Studio &amp; OBS WebSocket v5</strong> (<code>obsproject.com</code>) — Remote scene, camera &amp; audio mixer control.</li>
-        <li><strong>Easyslides 5.2</strong> (<code>easyslides.com</code>) — SQLite <code>items</code> schema &amp; TCP Multicast Port 9701 protocol.</li>
-        <li><strong>JRChord.com</strong> (<code>jrchord.com</code>) — Christian worship song lyrics collection (chord-stripped).</li>
-        <li><strong>LaguRohani.id</strong> (<code>lagurohani.id</code>) — Praise &amp; worship lyrics database reference.</li>
-        <li><strong>Alkitab.app Songbooks</strong> (<code>alkitab.app/songs</code>) — 23 Christian Hymnal databases (KJ, PKJ, NKB, NKI, BN, etc.).</li>
-        <li><strong>Alkitab Terjemahan Baru (TB)</strong> — Scripture verse presets &amp; lower-third references.</li>
-        <li><strong>Google Fonts &amp; HTML5 Canvas</strong> — Broadcast typography (<em>Cinzel, Outfit, Plus Jakarta Sans, Inter</em>) &amp; 60FPS graphics.</li>
-        <li><strong>XAMPP Apache + PHP 8 SQLite</strong> — 100% standalone local server engine without external dependencies.</li>
-      </ul>
+    <!-- =========================================================================
+         TAB 4: PENGURUSAN DATA & PROFIL (DATA MANAGER, PROFILE EDITOR & BACKUP)
+         ========================================================================= -->
+    <div class="about-tab-pane" id="aboutTabPane-data">
+      <!-- 1. System Data Summary & 1-Click Full Backup / Restore -->
+      <div style="background:#0a101d; border:1px solid var(--border); border-left:4px solid var(--gold); border-radius:7px; padding:11px 14px; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+          <div>
+            <div style="font-size:11px; font-weight:800; color:var(--gold); text-transform:uppercase;">📦 Pusat Pengurusan Data &amp; Backup Sistem (MegaOBS Data Center)</div>
+            <div style="font-size:10px; color:var(--text-muted);">Eksport atau pulihkan semua data konfigurasi, preset HUD, dan profil hubungan dalam satu fail JSON</div>
+          </div>
+          <div style="display:flex; gap:5px;">
+            <button type="button" class="btn btn-gold btn-xs" onclick="exportFullMegaObsBackup()">📥 Export Full Backup (.json)</button>
+            <label class="btn btn-xs" style="cursor:pointer; border-color:#38bdf8; color:#38bdf8; margin:0;">
+              📤 Import / Restore (.json)
+              <input type="file" id="importBackupFileInput" accept=".json" style="display:none;" onchange="importFullMegaObsBackup(this)">
+            </label>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:6px; text-align:center;">
+          <div style="background:#080c15; border:1px solid var(--border); border-radius:5px; padding:6px;">
+            <div style="font-size:14px; font-weight:900; color:#38bdf8; font-family:var(--font-mono);" id="statSqliteCount">28</div>
+            <div style="font-size:9px; color:var(--text-muted); font-weight:700;">SQLite Lyric DBs</div>
+          </div>
+          <div style="background:#080c15; border:1px solid var(--border); border-radius:5px; padding:6px;">
+            <div style="font-size:14px; font-weight:900; color:var(--gold); font-family:var(--font-mono);" id="statVersePresets">7</div>
+            <div style="font-size:9px; color:var(--text-muted); font-weight:700;">Verse Presets</div>
+          </div>
+          <div style="background:#080c15; border:1px solid var(--border); border-radius:5px; padding:6px;">
+            <div style="font-size:14px; font-weight:900; color:#a78bfa; font-family:var(--font-mono);" id="statSermonPresets">4</div>
+            <div style="font-size:9px; color:var(--text-muted); font-weight:700;">Sermon Presets</div>
+          </div>
+          <div style="background:#080c15; border:1px solid var(--border); border-radius:5px; padding:6px;">
+            <div style="font-size:14px; font-weight:900; color:#34d399; font-family:var(--font-mono);" id="statTickerPresets">4</div>
+            <div style="font-size:9px; color:var(--text-muted); font-weight:700;">Ticker Presets</div>
+          </div>
+          <div style="background:#080c15; border:1px solid var(--border); border-radius:5px; padding:6px;">
+            <div style="font-size:14px; font-weight:900; color:#f97316; font-family:var(--font-mono);" id="statInquiryCount">0</div>
+            <div style="font-size:9px; color:var(--text-muted); font-weight:700;">Log Tempahan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Dynamic Contact & Promo Profile Editor (data/about_contact.json) -->
+      <div style="background:#0a101d; border:1px solid var(--border); border-radius:7px; padding:11px 14px; display:flex; flex-direction:column; gap:7px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:11px; font-weight:800; color:#38bdf8; text-transform:uppercase;">✎ Kemas Kini Data Profil "Hubungi Kami" (data/about_contact.json)</div>
+          <button type="button" class="btn btn-primary btn-xs" onclick="saveMikeContactProfile()">💾 Simpan Perubahan Profil</button>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1.2fr; gap:6px;">
+          <div class="field-group">
+            <label class="field-label">Nama Panggilan</label>
+            <input type="text" id="cfgContactName" class="input-compact" value="MIKE">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Laman Web Rasmi</label>
+            <input type="text" id="cfgContactWebsite" class="input-compact" value="pprz.net">
+          </div>
+          <div class="field-group">
+            <label class="field-label">WhatsApp (Only)</label>
+            <input type="text" id="cfgContactWhatsapp" class="input-compact" value="0166841604">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email Rasmi</label>
+            <input type="text" id="cfgContactEmail" class="input-compact" value="mikex16@gmail.com">
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field-group">
+            <label class="field-label">Teks Promosi Tempahan (🇲🇾 Bahasa Melayu)</label>
+            <textarea id="cfgContactPromoBm" class="textarea-compact" rows="2">Jemput layari laman web rasmi baru saya di pprz.net! Saya menerima tempahan pembangunan projek kustom — bermula daripada reka bentuk laman web (Website Design), membuat aplikasi (Web / Mobile / Desktop App), sehinggalah membangunkan projek elektronik untuk mengawal sesuatu peralatan atau sistem secara IoT (Internet of Things). Hubungi saya, MIKE!</textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Promo Text (🇬🇧 English 2nd Language)</label>
+            <textarea id="cfgContactPromoEn" class="textarea-compact" rows="2">Visit my new official website at pprz.net! Open for custom project commissions & freelance orders — ranging from Website Design and Custom Application Development to Electronic Hardware Engineering & IoT (Internet of Things) Remote Control Systems. Feel free to reach out — just call me MIKE!</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Saved Project Inquiries Log Table (data/contact_inquiries.json) -->
+      <div style="background:#0a101d; border:1px solid var(--border); border-radius:7px; padding:10px 14px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:11px; font-weight:800; color:#34d399; text-transform:uppercase;">📋 Rekod Pertanyaan &amp; Tempahan Projek (data/contact_inquiries.json)</div>
+          <button type="button" class="btn btn-xs" onclick="exportInquiriesCsv()">📥 Export CSV</button>
+        </div>
+        <div id="inquiriesLogContainer" style="max-height:130px; overflow-y:auto; font-size:11px; color:var(--text-muted);">
+          Tiada rekod pertanyaan disimpan lagi.
+        </div>
+      </div>
     </div>
 
-    <div style="display:flex; justify-content:space-between; align-items:center; padding-top:4px; flex-wrap:wrap; gap:8px;">
-      <span style="font-size:10.5px; color:var(--text-muted);">© 2026 <strong>MIKE (mikex16)</strong> • 🌐 <a href="https://pprz.net" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:none;">pprz.net</a> • WhatsApp: <strong>0166841604</strong> • Email: <strong>mikex16@gmail.com</strong> • Tuhan Yesus Memberkati!</span>
-      <button class="btn btn-gold" onclick="closeModalById('aboutUsModal')">Tutup / Close</button>
+    <!-- Modal Footer -->
+    <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:8px; flex-wrap:wrap; gap:8px;">
+      <span style="font-size:10.5px; color:var(--text-muted);">
+        © 2026 <strong class="about-dyn-name">MIKE</strong> (<strong class="about-dyn-handle">mikex16</strong>) •
+        🌐 <a href="https://pprz.net" target="_blank" class="about-dyn-web-link" style="color:var(--gold); font-weight:800; text-decoration:none;">pprz.net</a> •
+        WhatsApp: <strong class="about-dyn-wa">0166841604</strong> •
+        Email: <strong class="about-dyn-email">mikex16@gmail.com</strong>
+      </span>
+      <div style="display:flex; gap:6px;">
+        <button type="button" class="btn btn-sm" style="border-color:#10b981; color:#34d399;" onclick="switchAboutModalTab('contact')">📞 Tab Hubungi Kami</button>
+        <button type="button" class="btn btn-gold btn-sm" onclick="closeModalById('aboutUsModal')">Tutup / Close</button>
+      </div>
     </div>
   </div>
 </div>
@@ -4391,8 +4699,352 @@ function openObsUrlsModal() {
 function openMulticastModal() {
   document.getElementById('multicastModal').classList.add('open');
 }
-function openAboutUsModal() {
+let aboutContactData = {
+  creatorName: 'MIKE',
+  handle: 'mikex16',
+  greetingTag: 'Just Call Me "MIKE"',
+  website: 'pprz.net',
+  websiteUrl: 'https://pprz.net',
+  whatsapp: '0166841604',
+  whatsappIntl: '60166841604',
+  email: 'mikex16@gmail.com',
+  promoBm: '',
+  promoEn: ''
+};
+let savedInquiriesList = [];
+
+function openAboutUsModal(initialTab = 'license') {
   document.getElementById('aboutUsModal').classList.add('open');
+  if (initialTab) switchAboutModalTab(initialTab);
+  loadAboutAndContactData();
+}
+
+function switchAboutModalTab(tabId) {
+  document.querySelectorAll('.about-tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.about-tab-pane').forEach(pane => pane.classList.remove('active'));
+  const targetBtn = document.getElementById('aboutTabBtn-' + tabId);
+  const targetPane = document.getElementById('aboutTabPane-' + tabId);
+  if (targetBtn) targetBtn.classList.add('active');
+  if (targetPane) targetPane.classList.add('active');
+}
+
+function setAboutModalLang(lang, btnEl) {
+  const modal = document.getElementById('aboutUsModal');
+  if (modal) modal.setAttribute('data-lang', lang);
+  document.querySelectorAll('.lang-pill-btn').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+}
+
+async function loadAboutAndContactData() {
+  try {
+    const res = await fetch('presets_api.php?action=get_about_data&_=' + Date.now()).then(r => r.json());
+    if (!res || !res.ok) return;
+
+    if (res.contact && typeof res.contact === 'object') {
+      aboutContactData = { ...aboutContactData, ...res.contact };
+      applyAboutContactProfileDom();
+    }
+    if (Array.isArray(res.inquiries)) {
+      savedInquiriesList = res.inquiries;
+      renderInquiriesLogTable();
+    }
+    if (res.stats) {
+      document.getElementById('statSqliteCount').textContent = res.stats.sqliteDbCount ?? 28;
+      document.getElementById('statVersePresets').textContent = res.stats.scripturePresetCount ?? 7;
+      document.getElementById('statSermonPresets').textContent = res.stats.sermonPresetCount ?? 4;
+      document.getElementById('statTickerPresets').textContent = res.stats.tickerPresetCount ?? 4;
+      document.getElementById('statInquiryCount').textContent = res.stats.inquiryCount ?? savedInquiriesList.length;
+    }
+  } catch (e) {}
+}
+
+function applyAboutContactProfileDom() {
+  const c = aboutContactData;
+  const webUrl = c.websiteUrl || ('https://' + (c.website || 'pprz.net'));
+  const waIntl = c.whatsappIntl || '60166841604';
+
+  document.querySelectorAll('.about-dyn-name').forEach(el => el.textContent = c.creatorName || 'MIKE');
+  document.querySelectorAll('.about-dyn-handle').forEach(el => el.textContent = c.handle || 'mikex16');
+  document.querySelectorAll('.about-dyn-wa').forEach(el => el.textContent = c.whatsapp || '0166841604');
+  document.querySelectorAll('.about-dyn-email').forEach(el => el.textContent = c.email || 'mikex16@gmail.com');
+  document.querySelectorAll('.about-dyn-web-link').forEach(el => {
+    el.textContent = c.website || 'pprz.net';
+    el.href = webUrl;
+  });
+
+  const greetEl = document.getElementById('contactGreetingTag');
+  if (greetEl) greetEl.textContent = `Just Call Me "${c.creatorName || 'MIKE'}"`;
+
+  const webDisp = document.getElementById('contactWebDisplay');
+  const webBtn  = document.getElementById('contactWebBtn');
+  if (webDisp) webDisp.textContent = c.website || 'pprz.net';
+  if (webBtn) webBtn.href = webUrl;
+
+  const waDisp = document.getElementById('contactWaDisplay');
+  const waBtn  = document.getElementById('contactWaBtn');
+  if (waDisp) waDisp.textContent = c.whatsapp || '0166841604';
+  if (waBtn) waBtn.href = `https://wa.me/${waIntl}`;
+
+  const emDisp = document.getElementById('contactEmailDisplay');
+  const emBtn  = document.getElementById('contactEmailBtn');
+  if (emDisp) emDisp.textContent = c.email || 'mikex16@gmail.com';
+  if (emBtn) emBtn.href = `mailto:${c.email || 'mikex16@gmail.com'}`;
+
+  if (c.promoBm) {
+    const bmEl = document.getElementById('contactPromoBmText');
+    if (bmEl) bmEl.innerHTML = `🇲🇾 <strong>BM:</strong> ${escapeHtml(c.promoBm).replace(/pprz\.net/gi, `<a href="${escapeHtml(webUrl)}" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:underline;">${escapeHtml(c.website || 'pprz.net')}</a>`)}`;
+  }
+  if (c.promoEn) {
+    const enEl = document.getElementById('contactPromoEnText');
+    if (enEl) enEl.innerHTML = `🇬🇧 <strong>EN:</strong> ${escapeHtml(c.promoEn).replace(/pprz\.net/gi, `<a href="${escapeHtml(webUrl)}" target="_blank" style="color:var(--gold); font-weight:800; text-decoration:underline;">${escapeHtml(c.website || 'pprz.net')}</a>`)}`;
+  }
+
+  // Populate editor inputs in Data Manager tab
+  const inpName = document.getElementById('cfgContactName');
+  const inpWeb  = document.getElementById('cfgContactWebsite');
+  const inpWa   = document.getElementById('cfgContactWhatsapp');
+  const inpEm   = document.getElementById('cfgContactEmail');
+  const inpBm   = document.getElementById('cfgContactPromoBm');
+  const inpEn   = document.getElementById('cfgContactPromoEn');
+
+  if (inpName && document.activeElement !== inpName) inpName.value = c.creatorName || 'MIKE';
+  if (inpWeb && document.activeElement !== inpWeb) inpWeb.value = c.website || 'pprz.net';
+  if (inpWa && document.activeElement !== inpWa) inpWa.value = c.whatsapp || '0166841604';
+  if (inpEm && document.activeElement !== inpEm) inpEm.value = c.email || 'mikex16@gmail.com';
+  if (inpBm && document.activeElement !== inpBm && c.promoBm) inpBm.value = c.promoBm;
+  if (inpEn && document.activeElement !== inpEn && c.promoEn) inpEn.value = c.promoEn;
+}
+
+async function saveMikeContactProfile() {
+  const profile = {
+    creatorName: document.getElementById('cfgContactName').value.trim() || 'MIKE',
+    website: document.getElementById('cfgContactWebsite').value.trim() || 'pprz.net',
+    whatsapp: document.getElementById('cfgContactWhatsapp').value.trim() || '0166841604',
+    email: document.getElementById('cfgContactEmail').value.trim() || 'mikex16@gmail.com',
+    promoBm: document.getElementById('cfgContactPromoBm').value.trim(),
+    promoEn: document.getElementById('cfgContactPromoEn').value.trim()
+  };
+
+  try {
+    const res = await fetch('presets_api.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'save_contact_profile', profile })
+    }).then(r => r.json());
+
+    if (res && res.ok) {
+      aboutContactData = { ...aboutContactData, ...res.contact };
+      applyAboutContactProfileDom();
+      showToast('Profil Hubungi Kami & Iklan disimpan!', '#10b981');
+    }
+  } catch (e) {
+    showToast('Gagal menyimpan profil', '#ef4444');
+  }
+}
+
+async function submitMikeInquiry(channel = 'whatsapp') {
+  const clientName = document.getElementById('inqClientName').value.trim() || 'Pelanggan MegaOBS';
+  const clientContact = document.getElementById('inqClientContact').value.trim() || '-';
+  const category = document.getElementById('inqCategory').value;
+  const details = document.getElementById('inqDetails').value.trim() || 'Ingin bertanya tentang tempahan projek.';
+
+  try {
+    const res = await fetch('presets_api.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'save_inquiry',
+        inquiry: { clientName, clientContact, category, details, channel }
+      })
+    }).then(r => r.json());
+
+    if (res && res.ok && Array.isArray(res.inquiries)) {
+      savedInquiriesList = res.inquiries;
+      renderInquiriesLogTable();
+      document.getElementById('statInquiryCount').textContent = savedInquiriesList.length;
+    }
+  } catch (e) {}
+
+  const waIntl = aboutContactData.whatsappIntl || '60166841604';
+  const emailAddr = aboutContactData.email || 'mikex16@gmail.com';
+  const msgText =
+    `Hi MIKE (${aboutContactData.website || 'pprz.net'}), saya ingin membuat pertanyaan/tempahan projek:\n` +
+    `• Nama/Organisasi: ${clientName}\n` +
+    `• Kontak: ${clientContact}\n` +
+    `• Kategori: ${category}\n` +
+    `• Keperluan: ${details}`;
+
+  if (channel === 'whatsapp') {
+    window.open(`https://wa.me/${waIntl}?text=${encodeURIComponent(msgText)}`, '_blank');
+    showToast('Membuka WhatsApp MIKE & menyimpan rekod...', '#10b981');
+  } else if (channel === 'email') {
+    const subj = `[Tempahan Projek - ${category}] daripada ${clientName}`;
+    window.location.href = `mailto:${emailAddr}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(msgText)}`;
+    showToast('Membuka aplikasi Email & menyimpan rekod...', '#3b82f6');
+  } else {
+    showToast('Rekod pertanyaan disimpan dalam Pengurusan Data!', '#f5c242');
+  }
+}
+
+function renderInquiriesLogTable() {
+  const box = document.getElementById('inquiriesLogContainer');
+  if (!box) return;
+  if (!savedInquiriesList || savedInquiriesList.length === 0) {
+    box.innerHTML = `<div style="padding:8px; text-align:center; color:var(--text-muted);">Tiada rekod pertanyaan disimpan lagi.</div>`;
+    return;
+  }
+
+  const waIntl = aboutContactData.whatsappIntl || '60166841604';
+  box.innerHTML = `
+    <table style="width:100%; border-collapse:collapse; font-size:10.5px;">
+      <thead>
+        <tr style="border-bottom:1px solid var(--border); color:var(--gold); text-align:left;">
+          <th style="padding:4px;">Tarikh</th>
+          <th style="padding:4px;">Nama / Kontak</th>
+          <th style="padding:4px;">Kategori</th>
+          <th style="padding:4px;">Ringkasan</th>
+          <th style="padding:4px; text-align:right;">Tindakan</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${savedInquiriesList.map(it => {
+          const followUpMsg = `Hi MIKE, susulan pertanyaan projek [${it.category}] daripada ${it.clientName} (${it.clientContact}): ${it.details}`;
+          return `
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
+              <td style="padding:4px; font-family:var(--font-mono); color:var(--text-muted); white-space:nowrap;">${escapeHtml(it.createdAt || '')}</td>
+              <td style="padding:4px; color:#fff;"><strong>${escapeHtml(it.clientName)}</strong><br><span style="color:var(--text-muted); font-size:9.5px;">${escapeHtml(it.clientContact)}</span></td>
+              <td style="padding:4px; color:#38bdf8;">${escapeHtml(it.category)}</td>
+              <td style="padding:4px; color:#cbd5e1;">${escapeHtml(it.details)}</td>
+              <td style="padding:4px; text-align:right; white-space:nowrap;">
+                <a href="https://wa.me/${waIntl}?text=${encodeURIComponent(followUpMsg)}" target="_blank" class="btn btn-success btn-xs" style="text-decoration:none;">WA ↗</a>
+                <button type="button" class="btn btn-danger btn-xs" onclick="deleteMikeInquiry('${escapeHtml(it.id)}')">✕</button>
+              </td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+async function deleteMikeInquiry(id) {
+  try {
+    const res = await fetch('presets_api.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete_inquiry', id })
+    }).then(r => r.json());
+    if (res && res.ok) {
+      savedInquiriesList = res.inquiries || [];
+      renderInquiriesLogTable();
+      document.getElementById('statInquiryCount').textContent = savedInquiriesList.length;
+      showToast('Rekod dipadam', '#f59e0b');
+    }
+  } catch (e) {}
+}
+
+function exportInquiriesCsv() {
+  if (!savedInquiriesList || savedInquiriesList.length === 0) {
+    showToast('Tiada rekod pertanyaan untuk dieksport', '#f59e0b');
+    return;
+  }
+  const rows = [['ID', 'CreatedAt', 'ClientName', 'ClientContact', 'Category', 'Details', 'Channel']];
+  savedInquiriesList.forEach(it => {
+    rows.push([it.id, it.createdAt, it.clientName, it.clientContact, it.category, it.details, it.channel]);
+  });
+  const csv = rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\r\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `MegaOBS_Inquiries_${Date.now()}.csv`;
+  a.click();
+  showToast('Dieksport ke CSV!', '#10b981');
+}
+
+function downloadMikeVCard() {
+  const c = aboutContactData;
+  const vcf = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    `FN:${c.creatorName || 'MIKE'} (${c.website || 'pprz.net'})`,
+    `N:${c.creatorName || 'MIKE'};;;;`,
+    `ORG:MegaOBS Studio & ${c.website || 'pprz.net'}`,
+    'TITLE:Web Design, App Dev & Electronic IoT Developer',
+    `TEL;TYPE=CELL,VOICE,WHATSAPP:+${c.whatsappIntl || '60166841604'}`,
+    `EMAIL;TYPE=INTERNET:${c.email || 'mikex16@gmail.com'}`,
+    `URL:${c.websiteUrl || 'https://pprz.net'}`,
+    'NOTE:Just call me MIKE! Custom Website Design, App Development & Electronic/IoT Remote Control Projects.',
+    'END:VCARD'
+  ].join('\r\n');
+
+  const blob = new Blob([vcf], { type: 'text/vcard;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `MIKE_${(c.website || 'pprz_net').replace(/[^a-z0-9]/gi, '_')}.vcf`;
+  a.click();
+  showToast('Kad Kontak MIKE (.vcf) dimuat turun!', '#10b981');
+}
+
+function copyAttributionHeaderBlock() {
+  const headerTxt = [
+    '/**',
+    ' * ============================================================================',
+    ' * MEGA OBS STUDIO — Unified One-Screen Church Broadcast, HUD & Lyric System',
+    ' * Author / Creator : MIKE / mikex16 (https://pprz.net | https://github.com/mikex16/MegaOBSStudio)',
+    ' * Contact          : WhatsApp Only: 0166841604 | Email: mikex16@gmail.com',
+    ' * License          : MIT License with Attribution Requirement (Do not remove author credit).',
+    ' * Disclaimer       : Provided "AS-IS" without warranty. Use at your own risk.',
+    ' * ============================================================================',
+    ' */'
+  ].join('\n');
+
+  if (fallbackCopyText(headerTxt)) {
+    showToast('Header Kredit Rasmi disalin ke papan keratan!', '#10b981');
+  }
+}
+
+async function exportFullMegaObsBackup() {
+  try {
+    const res = await fetch('presets_api.php?action=export_backup&_=' + Date.now()).then(r => r.json());
+    if (!res || !res.ok || !res.bundle) return;
+    const blob = new Blob([JSON.stringify(res.bundle, null, 2)], { type: 'application/json;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `MegaOBS_FullBackup_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    showToast('Full MegaOBS Backup (.json) dimuat turun!', '#10b981');
+  } catch (e) {
+    showToast('Gagal mengeksport backup', '#ef4444');
+  }
+}
+
+function importFullMegaObsBackup(inputEl) {
+  const file = inputEl.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (ev) => {
+    try {
+      const bundle = JSON.parse(String(ev.target.result || '{}'));
+      const res = await fetch('presets_api.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'import_backup', bundle })
+      }).then(r => r.json());
+
+      if (res && res.ok) {
+        showToast('Backup sistem berjaya dipulihkan!', '#10b981');
+        initHudPresets();
+        loadInitialLyricAndHudState();
+        loadAboutAndContactData();
+      } else {
+        showToast(res?.error || 'Fail backup tidak sah', '#ef4444');
+      }
+    } catch (err) {
+      showToast('Ralat membaca fail JSON backup', '#ef4444');
+    }
+    inputEl.value = '';
+  };
+  reader.readAsText(file);
 }
 function closeModalById(id) {
   document.getElementById(id).classList.remove('open');

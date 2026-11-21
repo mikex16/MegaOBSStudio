@@ -304,6 +304,155 @@ switch ($action) {
         break;
     }
 
+    case 'get_about_data': {
+        $contactFile = $dataDir . '/about_contact.json';
+        $inquiriesFile = $dataDir . '/contact_inquiries.json';
+
+        $contact = file_exists($contactFile) ? (json_decode((string)@file_get_contents($contactFile), true) ?: []) : [];
+        $inquiries = file_exists($inquiriesFile) ? (json_decode((string)@file_get_contents($inquiriesFile), true) ?: []) : [];
+
+        $dbFiles = glob(__DIR__ . '/databases/*.db') ?: [];
+        echo json_encode([
+            'ok' => true,
+            'contact' => $contact,
+            'inquiries' => array_values($inquiries),
+            'stats' => [
+                'sqliteDbCount' => count($dbFiles),
+                'scripturePresetCount' => count($presets['scripturePresets'] ?? []),
+                'sermonPresetCount' => count($presets['sermonPresets'] ?? []),
+                'tickerPresetCount' => count($presets['tickerPresets'] ?? []),
+                'inquiryCount' => count($inquiries)
+            ]
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        break;
+    }
+
+    case 'save_contact_profile': {
+        $contactFile = $dataDir . '/about_contact.json';
+        $existing = file_exists($contactFile) ? (json_decode((string)@file_get_contents($contactFile), true) ?: []) : [];
+        $profile = is_array($req['profile'] ?? null) ? $req['profile'] : [];
+
+        $cleanWa = preg_replace('/[^0-9]/', '', (string)($profile['whatsapp'] ?? ($existing['whatsapp'] ?? '0166841604')));
+        $waIntl = $cleanWa;
+        if (str_starts_with($waIntl, '0')) {
+            $waIntl = '6' . $waIntl;
+        }
+
+        $web = trim((string)($profile['website'] ?? ($existing['website'] ?? 'pprz.net')));
+        $webUrl = $web;
+        if ($webUrl !== '' && !preg_match('#^https?://#i', $webUrl)) {
+            $webUrl = 'https://' . $webUrl;
+        }
+
+        $updated = array_merge($existing, [
+            'creatorName'  => trim((string)($profile['creatorName'] ?? ($existing['creatorName'] ?? 'MIKE'))),
+            'handle'       => trim((string)($profile['handle'] ?? ($existing['handle'] ?? 'mikex16'))),
+            'greetingTag'  => trim((string)($profile['greetingTag'] ?? ($existing['greetingTag'] ?? 'Just Call Me "MIKE"'))),
+            'website'      => $web,
+            'websiteUrl'   => $webUrl,
+            'whatsapp'     => trim((string)($profile['whatsapp'] ?? ($existing['whatsapp'] ?? '0166841604'))),
+            'whatsappIntl' => $waIntl,
+            'email'        => trim((string)($profile['email'] ?? ($existing['email'] ?? 'mikex16@gmail.com'))),
+            'promoBm'      => trim((string)($profile['promoBm'] ?? ($existing['promoBm'] ?? ''))),
+            'promoEn'      => trim((string)($profile['promoEn'] ?? ($existing['promoEn'] ?? ''))),
+            'updatedAt'    => date('c')
+        ]);
+
+        file_put_contents($contactFile, json_encode($updated, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        echo json_encode([
+            'ok' => true,
+            'message' => 'Contact & Service Profile saved!',
+            'contact' => $updated
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        break;
+    }
+
+    case 'save_inquiry': {
+        $inquiriesFile = $dataDir . '/contact_inquiries.json';
+        $inquiries = file_exists($inquiriesFile) ? (json_decode((string)@file_get_contents($inquiriesFile), true) ?: []) : [];
+        if (!is_array($inquiries)) $inquiries = [];
+
+        $inq = is_array($req['inquiry'] ?? null) ? $req['inquiry'] : [];
+        $newRecord = [
+            'id'            => 'inq_' . bin2hex(random_bytes(4)),
+            'clientName'    => trim((string)($inq['clientName'] ?? 'Tetamu / Guest')),
+            'clientContact' => trim((string)($inq['clientContact'] ?? '-')),
+            'category'      => trim((string)($inq['category'] ?? 'Website / App / IoT')),
+            'details'       => trim((string)($inq['details'] ?? '')),
+            'channel'       => trim((string)($inq['channel'] ?? 'Local Log')),
+            'createdAt'     => date('Y-m-d H:i:s')
+        ];
+        array_unshift($inquiries, $newRecord);
+        file_put_contents($inquiriesFile, json_encode(array_values($inquiries), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+
+        echo json_encode([
+            'ok' => true,
+            'message' => 'Inquiry recorded!',
+            'record' => $newRecord,
+            'inquiries' => array_values($inquiries)
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        break;
+    }
+
+    case 'delete_inquiry': {
+        $inquiriesFile = $dataDir . '/contact_inquiries.json';
+        $inquiries = file_exists($inquiriesFile) ? (json_decode((string)@file_get_contents($inquiriesFile), true) ?: []) : [];
+        $id = trim((string)($req['id'] ?? ''));
+        $inquiries = array_values(array_filter($inquiries, fn($it) => ($it['id'] ?? '') !== $id));
+        file_put_contents($inquiriesFile, json_encode($inquiries, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        echo json_encode([
+            'ok' => true,
+            'inquiries' => $inquiries
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        break;
+    }
+
+    case 'export_backup': {
+        $contactFile   = $dataDir . '/about_contact.json';
+        $inquiriesFile = $dataDir . '/contact_inquiries.json';
+        $hudStateFile  = $dataDir . '/church_state.json';
+        $obsCfgFile    = __DIR__ . '/obs_config.json';
+
+        $bundle = [
+            'app'             => 'MegaOBS Studio',
+            'author'          => 'MIKE (mikex16) - https://pprz.net',
+            'exportedAt'      => date('c'),
+            'church_presets'  => $presets,
+            'about_contact'   => file_exists($contactFile) ? (json_decode((string)@file_get_contents($contactFile), true) ?: []) : [],
+            'inquiries'       => file_exists($inquiriesFile) ? (json_decode((string)@file_get_contents($inquiriesFile), true) ?: []) : [],
+            'church_state'    => file_exists($hudStateFile) ? (json_decode((string)@file_get_contents($hudStateFile), true) ?: []) : [],
+            'obs_lyric_config'=> file_exists($obsCfgFile) ? (json_decode((string)@file_get_contents($obsCfgFile), true) ?: []) : [],
+        ];
+        echo json_encode(['ok' => true, 'bundle' => $bundle], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        break;
+    }
+
+    case 'import_backup': {
+        $bundle = is_array($req['bundle'] ?? null) ? $req['bundle'] : [];
+        if (empty($bundle)) {
+            http_response_code(400);
+            echo json_encode(['ok' => false, 'error' => 'Invalid backup bundle']);
+            exit;
+        }
+        if (isset($bundle['church_presets']) && is_array($bundle['church_presets'])) {
+            saveChurchPresets($bundle['church_presets']);
+        }
+        if (isset($bundle['about_contact']) && is_array($bundle['about_contact'])) {
+            file_put_contents($dataDir . '/about_contact.json', json_encode($bundle['about_contact'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        }
+        if (isset($bundle['inquiries']) && is_array($bundle['inquiries'])) {
+            file_put_contents($dataDir . '/contact_inquiries.json', json_encode($bundle['inquiries'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        }
+        if (isset($bundle['church_state']) && is_array($bundle['church_state'])) {
+            file_put_contents($dataDir . '/church_state.json', json_encode($bundle['church_state'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        }
+        if (isset($bundle['obs_lyric_config']) && is_array($bundle['obs_lyric_config'])) {
+            file_put_contents(__DIR__ . '/obs_config.json', json_encode($bundle['obs_lyric_config'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        }
+        echo json_encode(['ok' => true, 'message' => 'Full system backup restored!'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        break;
+    }
+
     default:
         http_response_code(400);
         echo json_encode(['ok' => false, 'error' => "Unknown action: {$action}"]);

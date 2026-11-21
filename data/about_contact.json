@@ -1,0 +1,41 @@
+{
+    "creatorName": "MIKE",
+    "handle": "mikex16",
+    "greetingTag": "Just Call Me \"MIKE\"",
+    "website": "pprz.net",
+    "websiteUrl": "https://pprz.net",
+    "whatsapp": "0166841604",
+    "whatsappIntl": "60166841604",
+    "whatsappNote": "WhatsApp Only",
+    "email": "mikex16@gmail.com",
+    "githubUrl": "https://github.com/mikex16/MegaOBSStudio.git",
+    "promoBm": "Jemput layari laman web rasmi baru saya di pprz.net! Saya menerima tempahan pembangunan projek kustom — bermula daripada reka bentuk laman web (Website Design), membuat aplikasi (Web / Mobile / Desktop App), sehinggalah membangunkan projek elektronik untuk mengawal sesuatu peralatan atau sistem secara IoT (Internet of Things). Hubungi saya, MIKE!",
+    "promoEn": "Visit my new official website at pprz.net! Open for custom project commissions & freelance orders — ranging from Website Design and Custom Application Development to Electronic Hardware Engineering & IoT (Internet of Things) Remote Control Systems. Feel free to reach out — just call me MIKE!",
+    "services": [
+        {
+            "id": "srv_web",
+            "icon": "🌐",
+            "titleBm": "Reka Bentuk Website & Sistem Web",
+            "titleEn": "Website Design & Web Systems",
+            "descBm": "Laman web korporat, portal gereja/organisasi, e-dagang, sistem pengurusan pangkalan data & dashboard kustom.",
+            "descEn": "Corporate websites, church/organization portals, e-commerce, database management systems & custom web dashboards."
+        },
+        {
+            "id": "srv_app",
+            "icon": "📱",
+            "titleBm": "Pembangunan Aplikasi (Web / Mobile / Desktop)",
+            "titleEn": "Custom App & Software Development",
+            "descBm": "Aplikasi mudah alih Android/iOS, perisian automasi siaran LIVE (seperti MegaOBS), dan aplikasi operasi dalaman.",
+            "descEn": "Mobile apps, LIVE broadcast automation tools (like MegaOBS), and custom cross-platform desktop/web applications."
+        },
+        {
+            "id": "srv_iot",
+            "icon": "🔌",
+            "titleBm": "Projek Elektronik & Kawalan Jauh IoT",
+            "titleEn": "Electronic & IoT Remote Control Projects",
+            "descBm": "Pembangunan litar mikropengawal (ESP32/Arduino/Raspberry Pi), sensor pintar, dan sistem kawalan peralatan elektrik/industri dari jauh melalui Internet (IoT).",
+            "descEn": "Custom microcontroller hardware (ESP32/Arduino/Raspberry Pi), smart sensors, and remote equipment automation via IoT."
+        }
+    ],
+    "updatedAt": "2026-11-22T00:12:00+08:00"
+}
