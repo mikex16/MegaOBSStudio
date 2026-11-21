@@ -1446,20 +1446,21 @@ body.scene-is-overlay .church-bottom-bar {
 
 /* Scripture HUD Box */
 .church-scripture-hud {
+  --scripture-font-size: 32px;
   position: absolute;
   bottom: 60px;
   left: 50%;
   transform: translateX(-50%) translateY(120%);
-  width: 82%;
-  max-width: 1400px;
-  background: rgba(10, 16, 30, 0.92);
+  width: 86%;
+  max-width: 1520px;
+  background: rgba(10, 16, 30, 0.94);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 1px solid var(--border-gold);
-  border-top: 3px solid var(--primary-gold);
+  border: 1.5px solid var(--border-gold);
+  border-top: 4px solid var(--primary-gold);
   border-radius: 16px;
-  padding: 22px 36px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), var(--shadow-gold-sm);
+  padding: 22px 38px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), var(--shadow-gold-sm);
   opacity: 0;
   transition: bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
   z-index: 22;
@@ -1512,28 +1513,107 @@ body.scene-is-overlay .church-bottom-bar {
   gap: 8px;
   background: linear-gradient(90deg, var(--gold-dark), var(--primary-gold));
   color: #0b0f19;
-  font-size: 0.85rem;
+  font-size: calc(var(--scripture-font-size, 32px) * 0.62);
   font-weight: 800;
   letter-spacing: 2px;
-  padding: 4px 16px;
-  border-radius: 4px;
+  padding: 5px 18px;
+  border-radius: 6px;
   text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: font-size 0.25s ease;
 }
 
 .scripture-version-tag {
-  font-size: 0.75rem;
+  font-size: calc(var(--scripture-font-size, 32px) * 0.54);
+  font-weight: 800;
   color: var(--primary-gold);
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(var(--primary-gold-rgb), 0.3);
+  transition: font-size 0.25s ease;
 }
 
 .scripture-body-text {
-  font-family: var(--font-serif);
-  font-size: 1.45rem;
-  font-style: italic;
-  line-height: 1.55;
+  font-family: var(--font-sans);
+  font-size: var(--scripture-font-size, 32px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.45;
   color: #ffffff;
-  letter-spacing: 0.4px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.92);
+  transition: font-size 0.25s ease;
+}
+
+/* Font Family Variants for Scripture Verse HUD */
+.church-scripture-hud[data-verse-font="sans"] .scripture-body-text {
+  font-family: var(--font-sans);
+}
+.church-scripture-hud[data-verse-font="display"] .scripture-body-text {
+  font-family: var(--font-display);
+}
+.church-scripture-hud[data-verse-font="serif"] .scripture-body-text {
+  font-family: var(--font-serif);
+}
+.church-scripture-hud[data-verse-font="classic"] .scripture-body-text {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* Visual & Text Style Variants for Scripture Verse HUD */
+.church-scripture-hud[data-verse-style="bold-glass"] .scripture-body-text {
+  font-style: normal;
+  font-weight: 700;
+}
+.church-scripture-hud[data-verse-style="italic-glass"] .scripture-body-text {
+  font-style: italic;
+  font-weight: 600;
+}
+.church-scripture-hud[data-verse-style="caps-bold"] .scripture-body-text {
+  font-style: normal;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.church-scripture-hud[data-verse-style="royal-banner"] {
+  width: 92%;
+  max-width: 1680px;
+  background: linear-gradient(135deg, rgba(7, 13, 28, 0.97) 0%, rgba(18, 32, 64, 0.96) 100%);
+  border: 2px solid var(--primary-gold);
+  text-align: center;
+}
+.church-scripture-hud[data-verse-style="royal-banner"] .scripture-hud-header {
+  justify-content: center;
+  gap: 14px;
+}
+.church-scripture-hud[data-verse-style="royal-banner"] .scripture-body-text {
+  font-style: normal;
+  font-weight: 700;
+}
+.church-scripture-hud[data-verse-style="cinema-outline"] {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-align: center;
+  padding: 12px 24px;
+}
+.church-scripture-hud[data-verse-style="cinema-outline"] .scripture-hud-header {
+  justify-content: center;
+  gap: 12px;
+}
+.church-scripture-hud[data-verse-style="cinema-outline"] .scripture-body-text {
+  font-style: normal;
+  font-weight: 800;
+  text-shadow:
+    -2px -2px 0 #000,
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000,
+     0px  4px 16px rgba(0, 0, 0, 0.98),
+     0px  0px 28px rgba(0, 0, 0, 0.9);
 }
 
 /* Worship Song Lyrics Lower-Third */

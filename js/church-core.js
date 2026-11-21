@@ -60,6 +60,9 @@
         scriptureVersion: defScripture.version || 'Alkitab TB',
         scriptureText: defScripture.text || 'Tetapi engkau, hai Betlehem Efrata, hai yang terkecil di antara kaum-kaum Yehuda, dari padamu akan bangkit bagi-Ku seorang yang akan memerintah Israel, yang permulaannya sudah sejak purbakala, sejak dahulu kala.',
         scriptureVisible: false,
+        scriptureFontSize: 32,
+        scriptureFontFamily: 'sans',
+        scriptureStyle: 'bold-glass',
 
         // Worship Lyrics HUD Overlay
         worshipSongTitle: defSong.title || 'Malam Kudus (Silent Night)',
@@ -221,6 +224,7 @@
             'theme', 'churchName', 'serviceTitle', 'sermonTitle', 'sermonSeries',
             'speakerName', 'speakerRole', 'sermonScripture', 'scriptureRef',
             'scriptureVersion', 'scriptureText', 'scriptureVisible',
+            'scriptureFontSize', 'scriptureFontFamily', 'scriptureStyle',
             'worshipSongTitle', 'worshipArtist', 'worshipLine1', 'worshipLine2',
             'worshipVisible', 'speakerLtVisible', 'givingLtVisible', 'tickerText', 'tickerBadge',
             'tickerVisible', 'tickerFontSize', 'tickerDuration', 'givingBank', 'givingAccount', 'givingName',
@@ -355,7 +359,8 @@
         'tickerText', 'tickerBadge', 'tickerFontSize', 'tickerDuration',
         'sermonTitle', 'sermonSeries', 'speakerName',
         'speakerRole', 'sermonScripture', 'scriptureRef', 'scriptureVersion',
-        'scriptureText', 'worshipSongTitle', 'worshipArtist', 'worshipLine1', 'worshipLine2',
+        'scriptureText', 'scriptureFontSize', 'scriptureFontFamily', 'scriptureStyle',
+        'worshipSongTitle', 'worshipArtist', 'worshipLine1', 'worshipLine2',
         'breakTitle', 'breakDesc', 'givingBank', 'givingAccount', 'givingName', 'givingRef',
         'givingQrSize', 'givingPosMode', 'givingPosX', 'givingPosY',
         'lyricOnScreen', 'lyricPosition', 'lyricFontSize', 'lyricLineCount'
@@ -451,6 +456,9 @@
           if (msg.ref) this.state.scriptureRef = msg.ref;
           if (msg.text) this.state.scriptureText = msg.text;
           if (msg.version) this.state.scriptureVersion = msg.version;
+          if (msg.scriptureFontSize) this.state.scriptureFontSize = Number(msg.scriptureFontSize);
+          if (msg.scriptureFontFamily) this.state.scriptureFontFamily = msg.scriptureFontFamily;
+          if (msg.scriptureStyle) this.state.scriptureStyle = msg.scriptureStyle;
           this.applyDomBindings();
           this.activateLowerThird('scripture');
           break;
@@ -693,6 +701,10 @@
       const scriptureHud = document.getElementById('scriptureHud');
       if (scriptureHud) {
         scriptureHud.classList.toggle('visible', !!this.state.scriptureVisible);
+        const scSize = Math.max(18, Math.min(72, Number(this.state.scriptureFontSize || 32)));
+        scriptureHud.style.setProperty('--scripture-font-size', `${scSize}px`);
+        scriptureHud.setAttribute('data-verse-font', this.state.scriptureFontFamily || 'sans');
+        scriptureHud.setAttribute('data-verse-style', this.state.scriptureStyle || 'bold-glass');
       }
 
       const worshipHud = document.getElementById('worshipHud');

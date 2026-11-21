@@ -124,6 +124,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($data['ref'])) $state['scriptureRef'] = $data['ref'];
             if (isset($data['text'])) $state['scriptureText'] = $data['text'];
             if (isset($data['version'])) $state['scriptureVersion'] = $data['version'];
+            if (isset($data['scriptureFontSize'])) $state['scriptureFontSize'] = (int)$data['scriptureFontSize'];
+            if (isset($data['scriptureFontFamily'])) $state['scriptureFontFamily'] = (string)$data['scriptureFontFamily'];
+            if (isset($data['scriptureStyle'])) $state['scriptureStyle'] = (string)$data['scriptureStyle'];
             $state['scriptureVisible'] = true;
             $state['tickerVisible'] = false;
             $state['speakerLtVisible'] = false;

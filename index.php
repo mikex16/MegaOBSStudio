@@ -1375,10 +1375,49 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
                 </div>
                 <div class="field-group">
                   <label class="field-label">Verse Text (Ayat Firman)</label>
-                  <textarea id="hudScriptureText" class="textarea-compact" rows="4">Tetapi engkau, hai Betlehem Efrata, hai yang terkecil di antara kaum-kaum Yehuda, dari padamu akan bangkit bagi-Ku seorang yang akan memerintah Israel, yang permulaannya sudah sejak purbakala, sejak dahulu kala.</textarea>
+                  <textarea id="hudScriptureText" class="textarea-compact" rows="3">Tetapi engkau, hai Betlehem Efrata, hai yang terkecil di antara kaum-kaum Yehuda, dari padamu akan bangkit bagi-Ku seorang yang akan memerintah Israel, yang permulaannya sudah sejak purbakala, sejak dahulu kala.</textarea>
                 </div>
+
+                <!-- Verse Phone Readability: Text Size, Font Family & Style Controls -->
+                <div style="background:#080c15; border:1px solid var(--border); border-radius:6px; padding:7px 8px; display:flex; flex-direction:column; gap:6px;">
+                  <div class="field-group">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                      <label class="field-label">Verse Text Size (Phone Readability): <span id="scriptureSizeValText" style="color:var(--gold); font-family:var(--font-mono);">32px</span></label>
+                      <div style="display:flex; gap:3px;">
+                        <button type="button" class="btn btn-xs" onclick="setQuickScriptureSize(24)" title="Small (24px)">S</button>
+                        <button type="button" class="btn btn-xs" onclick="setQuickScriptureSize(32)" title="Medium Default (32px)">M</button>
+                        <button type="button" class="btn btn-xs" onclick="setQuickScriptureSize(40)" title="Large Phone-Friendly (40px)">L</button>
+                        <button type="button" class="btn btn-xs" onclick="setQuickScriptureSize(50)" title="Extra Large (50px)">XL</button>
+                      </div>
+                    </div>
+                    <input type="range" id="hudScriptureFontSize" min="20" max="64" step="1" value="32" oninput="onScriptureStyleChange()" style="width:100%; accent-color:var(--gold); cursor:pointer;">
+                  </div>
+
+                  <div class="grid-2">
+                    <div class="field-group">
+                      <label class="field-label">Jenis Tulisan (Font Family)</label>
+                      <select id="hudScriptureFontFamily" class="select-compact" onchange="onScriptureStyleChange()">
+                        <option value="sans" selected>Modern Sans (Jelas di Telefon)</option>
+                        <option value="display">Broadcast Bold (Outfit)</option>
+                        <option value="classic">Classic Serif (Georgia)</option>
+                        <option value="serif">Sacred Cinzel (Klasik)</option>
+                      </select>
+                    </div>
+                    <div class="field-group">
+                      <label class="field-label">Gaya Paparan (Verse Style)</label>
+                      <select id="hudScriptureStyle" class="select-compact" onchange="onScriptureStyleChange()">
+                        <option value="bold-glass" selected>Bold Glass Card (Tegak &amp; Tebal)</option>
+                        <option value="italic-glass">Classic Italic Glass</option>
+                        <option value="royal-banner">Royal Gold Banner (Lebar Penuh)</option>
+                        <option value="cinema-outline">Cinema Subtitle (Tanpa Kotak)</option>
+                        <option value="caps-bold">ALL CAPS Broadcast Bold</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
                 <div style="display:flex; gap:4px;">
-                  <button class="btn btn-gold" style="flex:1;" onclick="pushHudScriptureLive()">⚡ Push & Show Verse Live</button>
+                  <button class="btn btn-gold" style="flex:1;" onclick="pushHudScriptureLive()">⚡ Push &amp; Show Verse Live</button>
                   <button class="btn btn-danger btn-sm" onclick="toggleHudLt('scripture', false)">Hide</button>
                 </div>
               </div>
@@ -1821,26 +1860,29 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
 </div>
 
 <!-- ============================================================================
-     MODAL 5: ABOUT US, CHURCH LIVE MINISTRY PURPOSE, LICENSE & SOURCES
+     MODAL 5: ABOUT US, CONTACT US (MIKE), SERVICES, LICENSE & SOURCES (BM + EN)
      ============================================================================ -->
 <div class="modal-backdrop" id="aboutUsModal">
-  <div class="modal-card" style="width:720px; max-width:95vw;">
+  <div class="modal-card" style="width:780px; max-width:96vw; max-height:92vh; overflow-y:auto;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:10px;">
       <div style="display:flex; align-items:center; gap:10px;">
         <div class="brand-logo" style="width:36px; height:36px; font-size:11px;">MEGA</div>
         <div>
           <strong style="font-size:14px; color:#fff;">MEGA OBS STUDIO — Unified One-Screen Church Broadcast System</strong>
-          <div style="font-size:11px; color:var(--gold); font-weight:700;">Created by mikex16 • Co-developed with Antigravity AI</div>
+          <div style="font-size:11px; color:var(--gold); font-weight:700;">Created by MIKE (mikex16) • Co-developed with Antigravity AI</div>
         </div>
       </div>
       <button class="btn btn-sm" onclick="closeModalById('aboutUsModal')">✕</button>
     </div>
 
-    <!-- 1. Tujuan Projek Sukarela (About Us) -->
-    <div style="background:linear-gradient(135deg, rgba(30,58,138,0.28), rgba(15,23,42,0.85)); border:1px solid rgba(245,194,66,0.4); border-radius:7px; padding:12px 14px; display:flex; flex-direction:column; gap:6px;">
-      <div style="font-size:11.5px; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:0.5px;">⛪ Tentang Projek Ini (About Us & Ministry Purpose)</div>
-      <p style="font-size:12px; color:#e2e8f0; line-height:1.55;">
-        Aplikasi <strong>MegaOBS Studio</strong> ini dibuat secara <strong>sukarela</strong> untuk kegunaan gereja supaya urusan siaran langsung (<strong>"LIVE"</strong>) menjadi lebih mudah, kemas, dan dapat dikawal sepenuhnya dalam <strong>satu skrin oleh seorang operator sahaja</strong> (menggabungkan Kawalan Jauh OBS Studio, HUD Lower-Third Gereja, serta Pangkalan Data Lirik Lagu &amp; Easyslides Multicast).
+    <!-- 1. Tujuan Projek Sukarela / About Us & Ministry Purpose (BM + EN) -->
+    <div style="background:linear-gradient(135deg, rgba(30,58,138,0.28), rgba(15,23,42,0.85)); border:1px solid rgba(245,194,66,0.4); border-radius:7px; padding:11px 14px; display:flex; flex-direction:column; gap:6px;">
+      <div style="font-size:11.5px; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:0.5px;">⛪ Tentang Projek Ini / About Us &amp; Ministry Purpose</div>
+      <p style="font-size:11.8px; color:#e2e8f0; line-height:1.5;">
+        🇲🇾 <strong>BM:</strong> Aplikasi <strong>MegaOBS Studio</strong> ini dibangunkan secara <strong>sukarela</strong> untuk kegunaan gereja supaya urusan siaran langsung (<strong>"LIVE"</strong>) menjadi lebih mudah, kemas, dan dapat dikawal sepenuhnya dalam <strong>satu skrin oleh seorang operator sahaja</strong> (menggabungkan Kawalan Jauh OBS Studio, HUD Lower-Third Gereja, serta Pangkalan Data Lirik Lagu &amp; Easyslides Multicast).
+      </p>
+      <p style="font-size:11.3px; color:#94a3b8; line-height:1.5; border-top:1px dashed rgba(148,163,184,0.2); padding-top:5px;">
+        🇬🇧 <strong>EN:</strong> <strong>MegaOBS Studio</strong> was created <strong>voluntarily</strong> for church media ministry to make <strong>"LIVE"</strong> broadcasting easier, cleaner, and fully controllable on a <strong>single screen by a single operator</strong> (unifying OBS Studio Remote Control, Church Broadcast HUD &amp; Lower-Thirds, and the 28-SQLite Lyric Database &amp; Easyslides Multicast engine).
       </p>
       <div style="display:flex; align-items:center; gap:8px; margin-top:2px; flex-wrap:wrap;">
         <span style="font-size:11px; color:var(--text-muted);">GitHub Repository:</span>
@@ -1848,39 +1890,86 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
       </div>
     </div>
 
-    <!-- 2. Syarat Lesen Open Source (MIT with Attribution) -->
-    <div style="background:#0a101d; border:1px solid var(--border); border-left:4px solid #3b82f6; border-radius:6px; padding:11px 14px; display:flex; flex-direction:column; gap:5px;">
-      <div style="font-size:11px; font-weight:800; color:#60a5fa; text-transform:uppercase; letter-spacing:0.5px;">📜 Lesen Penggunaan Terbuka (Open Source License & Attribution)</div>
-      <p style="font-size:11.5px; color:#cbd5e1; line-height:1.5;">
-        Sesiapa sahaja (gereja, pelayanan media, atau individu) <strong>bebas menggunakan, mengubah suai, dan berkongsi aplikasi/tools ini secara percuma</strong> di bawah <em>MIT License with Attribution Requirement</em>, <strong>selagi mereka bersetuju untuk TIDAK membuang nama pencipta asal (<code>mikex16</code> / <code>MegaOBSStudio</code>)</strong> di dalam setiap skrip yang kami tulis serta pada ruangan kredit ini.
+    <!-- 2. Hubungi Kami & Tempahan Projek / Contact Us & Custom Development Services (MIKE) -->
+    <div style="background:linear-gradient(135deg, rgba(16,185,129,0.14), rgba(15,23,42,0.92)); border:1px solid rgba(16,185,129,0.45); border-left:4px solid #10b981; border-radius:7px; padding:12px 14px; display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+        <div style="font-size:11.5px; font-weight:800; color:#34d399; text-transform:uppercase; letter-spacing:0.5px;">📞 Hubungi Kami &amp; Tempahan Projek / Contact Us &amp; Custom Services</div>
+        <span style="background:rgba(245,194,66,0.18); border:1px solid var(--gold); color:var(--gold); font-size:10.5px; font-weight:800; padding:2px 8px; border-radius:99px;">👋 Just Call Me "MIKE"</span>
+      </div>
+
+      <!-- Contact Details Bar -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div style="background:#080d18; border:1px solid rgba(16,185,129,0.35); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px;">
+          <div>
+            <div style="font-size:9.5px; font-weight:800; color:#34d399; text-transform:uppercase;">💬 WhatsApp (WhatsApp Only)</div>
+            <div style="font-size:13px; font-weight:800; color:#fff; font-family:var(--font-mono);">0166841604</div>
+          </div>
+          <a href="https://wa.me/60166841604" target="_blank" class="btn btn-success btn-xs" style="text-decoration:none;">Chat WhatsApp ↗</a>
+        </div>
+        <div style="background:#080d18; border:1px solid rgba(59,130,246,0.35); border-radius:6px; padding:8px 10px; display:flex; align-items:center; justify-content:space-between; gap:8px;">
+          <div>
+            <div style="font-size:9.5px; font-weight:800; color:#60a5fa; text-transform:uppercase;">✉️ Email Address</div>
+            <div style="font-size:12.5px; font-weight:800; color:#fff; font-family:var(--font-mono);">mikex16@gmail.com</div>
+          </div>
+          <a href="mailto:mikex16@gmail.com" class="btn btn-primary btn-xs" style="text-decoration:none;">Send Email ↗</a>
+        </div>
+      </div>
+
+      <!-- Custom Development Services Ad (BM + EN) -->
+      <div style="background:rgba(8,13,24,0.75); border:1px solid rgba(255,255,255,0.08); border-radius:6px; padding:9px 11px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:2px;">
+          <span style="background:rgba(59,130,246,0.18); border:1px solid rgba(59,130,246,0.45); color:#93c5fd; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">🌐 Website Design &amp; Web Systems</span>
+          <span style="background:rgba(139,92,246,0.18); border:1px solid rgba(139,92,246,0.45); color:#c4b5fd; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">📱 Custom App &amp; Software Dev</span>
+          <span style="background:rgba(245,158,11,0.18); border:1px solid rgba(245,158,11,0.45); color:#fcd34d; font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px;">🔌 Electronic &amp; IoT Remote Control Projects</span>
+        </div>
+        <p style="font-size:11.5px; color:#e2e8f0; line-height:1.5;">
+          🇲🇾 <strong>BM:</strong> Saya menerima tempahan pembangunan projek kustom — bermula daripada <strong>reka bentuk laman web (Website Design)</strong>, <strong>membuat aplikasi (Web / Mobile / Desktop App)</strong>, sehinggalah <strong>membangunkan projek elektronik untuk mengawal sesuatu peralatan atau sistem secara IoT (Internet of Things)</strong>. Hubungi saya, <strong>MIKE</strong>!
+        </p>
+        <p style="font-size:11.2px; color:#94a3b8; line-height:1.45; border-top:1px dashed rgba(148,163,184,0.2); padding-top:4px;">
+          🇬🇧 <strong>EN:</strong> Open for custom project commissions &amp; freelance orders — ranging from <strong>Website Design</strong> and <strong>Custom Application Development</strong> to <strong>Electronic Hardware Engineering &amp; IoT (Internet of Things) Remote Control Systems</strong>. Feel free to reach out — just call me <strong>MIKE</strong>!
+        </p>
+      </div>
+    </div>
+
+    <!-- 3. Syarat Lesen Open Source / Open Source License & Attribution (BM + EN) -->
+    <div style="background:#0a101d; border:1px solid var(--border); border-left:4px solid #3b82f6; border-radius:6px; padding:10px 14px; display:flex; flex-direction:column; gap:4px;">
+      <div style="font-size:11px; font-weight:800; color:#60a5fa; text-transform:uppercase; letter-spacing:0.5px;">📜 Lesen Penggunaan Terbuka / Open Source License &amp; Attribution</div>
+      <p style="font-size:11.3px; color:#cbd5e1; line-height:1.45;">
+        🇲🇾 <strong>BM:</strong> Sesiapa sahaja bebas menggunakan, mengubah suai, dan berkongsi aplikasi/tools ini secara percuma di bawah <em>MIT License with Attribution Requirement</em>, <strong>selagi mereka bersetuju untuk TIDAK membuang nama pencipta asal (<code>MIKE</code> / <code>mikex16</code> / <code>MegaOBSStudio</code>)</strong> di dalam setiap skrip yang kami tulis serta pada ruangan kredit ini.
+      </p>
+      <p style="font-size:11px; color:#94a3b8; line-height:1.45; border-top:1px dashed rgba(148,163,184,0.18); padding-top:4px;">
+        🇬🇧 <strong>EN:</strong> Anyone is free to use, modify, and distribute this software/tool free of charge under the <em>MIT License with Attribution Requirement</em>, <strong>provided that they agree NOT to remove the original creator's name and attribution headers (<code>MIKE</code> / <code>mikex16</code> / <code>MegaOBSStudio</code>)</strong> from any script or credit section.
       </p>
     </div>
 
-    <!-- 3. Penafian / Disclaimer (Gunakan Atas Risiko Sendiri) -->
-    <div style="background:rgba(245, 158, 11, 0.08); border:1px solid rgba(245, 158, 11, 0.35); border-left:4px solid var(--warn-amber); border-radius:6px; padding:11px 14px; display:flex; flex-direction:column; gap:5px;">
-      <div style="font-size:11px; font-weight:800; color:#fbbf24; text-transform:uppercase; letter-spacing:0.5px;">⚠️ Penafian (Disclaimer — Gunakan Atas Risiko Sendiri)</div>
-      <p style="font-size:11.5px; color:#fde68a; line-height:1.5;">
-        Aplikasi ini dihasilkan <strong>seadanya ("AS-IS")</strong> tanpa sebarang jaminan (<em>no warranty</em>) bahawa ia akan berfungsi 100% sempurna dalam semua keadaan atau perkakasan. Pihak pembangun tidak bertanggungjawab atas sebarang gangguan siaran atau kehilangan data. <strong>Sila uji terlebih dahulu dan gunakan atas risiko sendiri (Use at your own risk).</strong>
+    <!-- 4. Penafian / Disclaimer (BM + EN) -->
+    <div style="background:rgba(245, 158, 11, 0.08); border:1px solid rgba(245, 158, 11, 0.35); border-left:4px solid var(--warn-amber); border-radius:6px; padding:10px 14px; display:flex; flex-direction:column; gap:4px;">
+      <div style="font-size:11px; font-weight:800; color:#fbbf24; text-transform:uppercase; letter-spacing:0.5px;">⚠️ Penafian / Disclaimer (Gunakan Atas Risiko Sendiri / Use At Your Own Risk)</div>
+      <p style="font-size:11.3px; color:#fde68a; line-height:1.45;">
+        🇲🇾 <strong>BM:</strong> Aplikasi ini dihasilkan <strong>seadanya ("AS-IS")</strong> dan tiada jaminan ia akan berfungsi 100% sempurna dalam semua keadaan. <strong>Sila uji terlebih dahulu dan gunakan atas risiko sendiri.</strong>
+      </p>
+      <p style="font-size:11px; color:#fcd34d; opacity:0.88; line-height:1.45; border-top:1px dashed rgba(245,158,11,0.25); padding-top:4px;">
+        🇬🇧 <strong>EN:</strong> This software is provided <strong>"AS-IS"</strong> without any warranty of 100% uninterrupted functionality across all hardware or network environments. <strong>Please test thoroughly before live broadcast and use at your own risk.</strong>
       </p>
     </div>
 
-    <!-- 4. Senarai Sumber & Teknologi (Sources & Credits) -->
-    <div style="background:#0a101d; border:1px solid var(--border); border-radius:6px; padding:11px 14px; display:flex; flex-direction:column; gap:6px;">
-      <div style="font-size:11px; font-weight:800; color:#34d399; text-transform:uppercase; letter-spacing:0.5px;">📚 Sumber-Sumber &amp; Rujukan Teknologi (Sources &amp; Acknowledgments)</div>
-      <ul style="font-size:11.2px; color:#cbd5e1; line-height:1.6; padding-left:18px; display:grid; grid-template-columns:1fr 1fr; gap:4px 16px;">
-        <li><strong>OBS Studio &amp; OBS WebSocket v5</strong> (<code>obsproject.com</code>) — Kawalan jauh scene, kamera &amp; audio mixer.</li>
-        <li><strong>Easyslides 5.2</strong> (<code>easyslides.com</code>) — Skema SQLite <code>items</code> &amp; protokol TCP Multicast Port 9701.</li>
-        <li><strong>JRChord.com</strong> (<code>jrchord.com</code>) — Sumber lirik lagu rohani Kristian (diformat tanpa kord).</li>
-        <li><strong>LaguRohani.id</strong> (<code>lagurohani.id</code>) — Sumber koleksi lirik lagu pujian &amp; penyembahan.</li>
-        <li><strong>Alkitab.app Songbooks</strong> (<code>alkitab.app/songs</code>) — 23 Buku Nyanyian Kidung (KJ, PKJ, NKB, NKI, BN, GB, dll.).</li>
-        <li><strong>Alkitab Terjemahan Baru (TB)</strong> — Sumber petikan ayat-ayat Firman Tuhan pada HUD Gereja.</li>
-        <li><strong>Google Fonts &amp; HTML5 Canvas</strong> — Fon siaran (<em>Cinzel, Outfit, Plus Jakarta Sans, Inter</em>) &amp; grafik 60FPS.</li>
-        <li><strong>XAMPP Apache + PHP 8 SQLite</strong> — Pelayan aplikasi mandiri (standalone) tanpa kebergantungan luar.</li>
+    <!-- 5. Senarai Sumber & Teknologi (Sources & Credits) -->
+    <div style="background:#0a101d; border:1px solid var(--border); border-radius:6px; padding:10px 14px; display:flex; flex-direction:column; gap:5px;">
+      <div style="font-size:11px; font-weight:800; color:#34d399; text-transform:uppercase; letter-spacing:0.5px;">📚 Sumber-Sumber &amp; Rujukan Teknologi / Sources &amp; Acknowledgments</div>
+      <ul style="font-size:11px; color:#cbd5e1; line-height:1.55; padding-left:18px; display:grid; grid-template-columns:1fr 1fr; gap:3px 16px;">
+        <li><strong>OBS Studio &amp; OBS WebSocket v5</strong> (<code>obsproject.com</code>) — Remote scene, camera &amp; audio mixer control.</li>
+        <li><strong>Easyslides 5.2</strong> (<code>easyslides.com</code>) — SQLite <code>items</code> schema &amp; TCP Multicast Port 9701 protocol.</li>
+        <li><strong>JRChord.com</strong> (<code>jrchord.com</code>) — Christian worship song lyrics collection (chord-stripped).</li>
+        <li><strong>LaguRohani.id</strong> (<code>lagurohani.id</code>) — Praise &amp; worship lyrics database reference.</li>
+        <li><strong>Alkitab.app Songbooks</strong> (<code>alkitab.app/songs</code>) — 23 Christian Hymnal databases (KJ, PKJ, NKB, NKI, BN, etc.).</li>
+        <li><strong>Alkitab Terjemahan Baru (TB)</strong> — Scripture verse presets &amp; lower-third references.</li>
+        <li><strong>Google Fonts &amp; HTML5 Canvas</strong> — Broadcast typography (<em>Cinzel, Outfit, Plus Jakarta Sans, Inter</em>) &amp; 60FPS graphics.</li>
+        <li><strong>XAMPP Apache + PHP 8 SQLite</strong> — 100% standalone local server engine without external dependencies.</li>
       </ul>
     </div>
 
-    <div style="display:flex; justify-content:space-between; align-items:center; padding-top:4px;">
-      <span style="font-size:10.5px; color:var(--text-muted);">© 2026 <strong>mikex16</strong> • Dibangunkan untuk Pelayanan Media Gereja • Tuhan Yesus Memberkati!</span>
+    <div style="display:flex; justify-content:space-between; align-items:center; padding-top:4px; flex-wrap:wrap; gap:8px;">
+      <span style="font-size:10.5px; color:var(--text-muted);">© 2026 <strong>MIKE (mikex16)</strong> • WhatsApp: <strong>0166841604</strong> • Email: <strong>mikex16@gmail.com</strong> • Tuhan Yesus Memberkati!</span>
       <button class="btn btn-gold" onclick="closeModalById('aboutUsModal')">Tutup / Close</button>
     </div>
   </div>
@@ -3532,15 +3621,56 @@ function switchHudSubtab(paneId, btnEl) {
   if (pane) pane.classList.add('active');
 }
 
+let scriptureStyleDebounce = null;
+
 function pushHudScriptureLive() {
   const ref = document.getElementById('hudScriptureRef').value;
   const version = document.getElementById('hudScriptureVer').value;
   const text = document.getElementById('hudScriptureText').value;
+  const scriptureFontSize = Number(document.getElementById('hudScriptureFontSize')?.value || 32);
+  const scriptureFontFamily = document.getElementById('hudScriptureFontFamily')?.value || 'sans';
+  const scriptureStyle = document.getElementById('hudScriptureStyle')?.value || 'bold-glass';
+
   ['speakerLtVisible', 'scriptureVisible', 'worshipVisible', 'givingLtVisible', 'tickerVisible'].forEach(k => hudState[k] = false);
   hudState.scriptureVisible = true;
   renderHudControlsUi();
-  sendHudCommand({ action: 'PUSH_SCRIPTURE', ref, version, text });
+  sendHudCommand({
+    action: 'PUSH_SCRIPTURE',
+    ref,
+    version,
+    text,
+    scriptureFontSize,
+    scriptureFontFamily,
+    scriptureStyle
+  });
   showToast(`Scripture Live: ${ref}`, '#f5c242');
+}
+
+function onScriptureStyleChange() {
+  const fontSize = Number(document.getElementById('hudScriptureFontSize')?.value || 32);
+  const fontFamily = document.getElementById('hudScriptureFontFamily')?.value || 'sans';
+  const style = document.getElementById('hudScriptureStyle')?.value || 'bold-glass';
+
+  const valEl = document.getElementById('scriptureSizeValText');
+  if (valEl) valEl.textContent = `${fontSize}px`;
+
+  const payload = {
+    scriptureFontSize: fontSize,
+    scriptureFontFamily: fontFamily,
+    scriptureStyle: style
+  };
+  if (hudChannel) hudChannel.postMessage({ action: 'UPDATE_BULK', payload });
+
+  clearTimeout(scriptureStyleDebounce);
+  scriptureStyleDebounce = setTimeout(() => {
+    sendHudCommand({ action: 'UPDATE_BULK', payload });
+  }, 120);
+}
+
+function setQuickScriptureSize(px) {
+  const el = document.getElementById('hudScriptureFontSize');
+  if (el) el.value = px;
+  onScriptureStyleChange();
 }
 
 function pushHudSermonInfo(andShowSpeakerLt = false) {
@@ -3825,6 +3955,20 @@ function applyIncomingHudState(st) {
   if (s.tickerDuration && document.activeElement !== document.getElementById('hudTickerDuration')) {
     document.getElementById('hudTickerDuration').value = s.tickerDuration;
     document.getElementById('tickerSpeedValText').textContent = `${s.tickerDuration}s`;
+  }
+  if (s.scriptureFontSize && document.activeElement !== document.getElementById('hudScriptureFontSize')) {
+    const scSizeEl = document.getElementById('hudScriptureFontSize');
+    if (scSizeEl) scSizeEl.value = s.scriptureFontSize;
+    const scTxtEl = document.getElementById('scriptureSizeValText');
+    if (scTxtEl) scTxtEl.textContent = `${s.scriptureFontSize}px`;
+  }
+  if (s.scriptureFontFamily && document.activeElement !== document.getElementById('hudScriptureFontFamily')) {
+    const scFamEl = document.getElementById('hudScriptureFontFamily');
+    if (scFamEl) scFamEl.value = s.scriptureFontFamily;
+  }
+  if (s.scriptureStyle && document.activeElement !== document.getElementById('hudScriptureStyle')) {
+    const scStEl = document.getElementById('hudScriptureStyle');
+    if (scStEl) scStEl.value = s.scriptureStyle;
   }
 
   renderHudControlsUi();
