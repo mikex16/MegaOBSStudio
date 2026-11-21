@@ -73,6 +73,11 @@
 
         // Speaker Lower-Third
         speakerLtVisible: false,
+        speakerFontSize: 32,
+        speakerFontFamily: 'sans',
+        speakerStyle: 'glass-card',
+        speakerPos: 'bottom-left',
+        masterScalePreset: 'M',
 
         // Break Scene
         breakTitle: 'IBADAH AKAN BERSAMBUNG SEBENTAR LAGI',
@@ -225,6 +230,7 @@
             'speakerName', 'speakerRole', 'sermonScripture', 'scriptureRef',
             'scriptureVersion', 'scriptureText', 'scriptureVisible',
             'scriptureFontSize', 'scriptureFontFamily', 'scriptureStyle',
+            'speakerFontSize', 'speakerFontFamily', 'speakerStyle', 'speakerPos', 'masterScalePreset',
             'worshipSongTitle', 'worshipArtist', 'worshipLine1', 'worshipLine2',
             'worshipVisible', 'speakerLtVisible', 'givingLtVisible', 'tickerText', 'tickerBadge',
             'tickerVisible', 'tickerFontSize', 'tickerDuration', 'givingBank', 'givingAccount', 'givingName',
@@ -360,6 +366,7 @@
         'sermonTitle', 'sermonSeries', 'speakerName',
         'speakerRole', 'sermonScripture', 'scriptureRef', 'scriptureVersion',
         'scriptureText', 'scriptureFontSize', 'scriptureFontFamily', 'scriptureStyle',
+        'speakerFontSize', 'speakerFontFamily', 'speakerStyle', 'speakerPos', 'masterScalePreset',
         'worshipSongTitle', 'worshipArtist', 'worshipLine1', 'worshipLine2',
         'breakTitle', 'breakDesc', 'givingBank', 'givingAccount', 'givingName', 'givingRef',
         'givingQrSize', 'givingPosMode', 'givingPosX', 'givingPosY',
@@ -696,6 +703,11 @@
       const speakerLt = document.getElementById('speakerLowerThird');
       if (speakerLt) {
         speakerLt.classList.toggle('visible', !!this.state.speakerLtVisible);
+        const spSize = Math.max(18, Math.min(72, Number(this.state.speakerFontSize || 32)));
+        speakerLt.style.setProperty('--speaker-font-size', `${spSize}px`);
+        speakerLt.setAttribute('data-speaker-font', this.state.speakerFontFamily || 'sans');
+        speakerLt.setAttribute('data-speaker-style', this.state.speakerStyle || 'glass-card');
+        speakerLt.setAttribute('data-speaker-pos', this.state.speakerPos || 'bottom-left');
       }
 
       const scriptureHud = document.getElementById('scriptureHud');

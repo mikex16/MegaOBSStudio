@@ -174,6 +174,39 @@ function saveChurchPresets(array $presets): void {
     @rename($tmp, $presetsFile);
 }
 
+function getAdminAuthFile(): string {
+    global $dataDir;
+    return $dataDir . '/admin_auth.json';
+}
+
+function verifyDataMgrPassword(string $inputPw): bool {
+    $authFile = getAdminAuthFile();
+    $defaultPw = 'mike16';
+    if (!file_exists($authFile)) {
+        $init = [
+            'password_hash' => password_hash($defaultPw, PASSWORD_DEFAULT),
+            'updatedAt'     => date('c')
+        ];
+        file_put_contents($authFile, json_encode($init, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        return ($inputPw === $defaultPw);
+    }
+    $data = json_decode((string)@file_get_contents($authFile), true);
+    $hash = (string)($data['password_hash'] ?? '');
+    if ($hash === '') {
+        return ($inputPw === $defaultPw);
+    }
+    return password_verify($inputPw, $hash);
+}
+
+function setDataMgrPassword(string $newPw): void {
+    $authFile = getAdminAuthFile();
+    $init = [
+        'password_hash' => password_hash($newPw, PASSWORD_DEFAULT),
+        'updatedAt'     => date('c')
+    ];
+    file_put_contents($authFile, json_encode($init, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+}
+
 $rawInput = file_get_contents('php://input');
 $body = $rawInput !== '' ? (json_decode($rawInput, true) ?: []) : [];
 $req = array_merge($_GET, $_POST, $body);
@@ -327,7 +360,38 @@ switch ($action) {
         break;
     }
 
+    case 'verify_admin_password': {
+        $pw = trim((string)($req['adminPassword'] ?? ''));
+        if (verifyDataMgrPassword($pw)) {
+            echo json_encode(['ok' => true, 'message' => 'Akses Pengurusan Data dibuka!']);
+        } else {
+            echo json_encode(['ok' => false, 'error' => 'Password salah! Sila cuba lagi.']);
+        }
+        break;
+    }
+
+    case 'change_admin_password': {
+        $curPw = trim((string)($req['currentPassword'] ?? ''));
+        $newPw = trim((string)($req['newPassword'] ?? ''));
+        if (!verifyDataMgrPassword($curPw)) {
+            echo json_encode(['ok' => false, 'error' => 'Password semasa tidak sah!']);
+            exit;
+        }
+        if (strlen($newPw) < 4) {
+            echo json_encode(['ok' => false, 'error' => 'Password baru mestilah sekurang-kurangnya 4 aksara.']);
+            exit;
+        }
+        setDataMgrPassword($newPw);
+        echo json_encode(['ok' => true, 'message' => 'Password Pengurusan Data berjaya ditukar!']);
+        break;
+    }
+
     case 'save_contact_profile': {
+        $pw = trim((string)($req['adminPassword'] ?? ''));
+        if (!verifyDataMgrPassword($pw)) {
+            echo json_encode(['ok' => false, 'error' => 'Sesi terkunci atau password tidak sah!']);
+            exit;
+        }
         $contactFile = $dataDir . '/about_contact.json';
         $existing = file_exists($contactFile) ? (json_decode((string)@file_get_contents($contactFile), true) ?: []) : [];
         $profile = is_array($req['profile'] ?? null) ? $req['profile'] : [];
@@ -395,6 +459,11 @@ switch ($action) {
     }
 
     case 'delete_inquiry': {
+        $pw = trim((string)($req['adminPassword'] ?? ''));
+        if (!verifyDataMgrPassword($pw)) {
+            echo json_encode(['ok' => false, 'error' => 'Sesi terkunci atau password tidak sah!']);
+            exit;
+        }
         $inquiriesFile = $dataDir . '/contact_inquiries.json';
         $inquiries = file_exists($inquiriesFile) ? (json_decode((string)@file_get_contents($inquiriesFile), true) ?: []) : [];
         $id = trim((string)($req['id'] ?? ''));
@@ -428,6 +497,11 @@ switch ($action) {
     }
 
     case 'import_backup': {
+        $pw = trim((string)($req['adminPassword'] ?? ''));
+        if (!verifyDataMgrPassword($pw)) {
+            echo json_encode(['ok' => false, 'error' => 'Sesi terkunci atau password tidak sah!']);
+            exit;
+        }
         $bundle = is_array($req['bundle'] ?? null) ? $req['bundle'] : [];
         if (empty($bundle)) {
             http_response_code(400);

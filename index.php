@@ -1323,6 +1323,23 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
                 <span class="lt-status-tag">CLR</span>
               </button>
             </div>
+
+            <!-- Master All-Overlays Unified Size Preset Bar (Syncs Verse, Sermon, Ticker, QR & Lyric Together) -->
+            <div style="margin-top:5px; background:linear-gradient(135deg, rgba(245,194,66,0.12), rgba(15,23,42,0.92)); border:1px solid rgba(245,194,66,0.38); border-radius:6px; padding:5px 7px; display:flex; flex-direction:column; gap:4px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:4px;">
+                <span style="font-size:9px; font-weight:800; color:var(--gold); letter-spacing:0.4px;">📐 SKALA SEMUA OVERLAY SERENTAK (ALL-IN-ONE SIZE):</span>
+                <label style="font-size:8.8px; color:#cbd5e1; display:flex; align-items:center; gap:3px; cursor:pointer;" title="Tukar saiz tulisan Lirik Easyslides sekali gus">
+                  <input type="checkbox" id="chkSyncLyricMasterScale" checked style="accent-color:var(--gold);"> +Lirik
+                </label>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:3px;">
+                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="S" onclick="applyMasterOverlaySizePreset('S')" title="Small / TV (Verse 24px, Sermon 24px, Ticker 20px, QR 96px)">S (TV)</button>
+                <button type="button" class="btn btn-xs master-scale-btn active-toggle" data-scale-key="M" onclick="applyMasterOverlaySizePreset('M')" title="Medium / Standard HD (Verse 32px, Sermon 32px, Ticker 26px, QR 125px)">M (Std)</button>
+                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="L" onclick="applyMasterOverlaySizePreset('L')" title="Large / Mesra Telefon (Verse 40px, Sermon 40px, Ticker 34px, QR 175px)">L 📱</button>
+                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="XL" onclick="applyMasterOverlaySizePreset('XL')" title="Extra Large / Max Telefon (Verse 50px, Sermon 48px, Ticker 42px, QR 225px)">XL 🔥</button>
+                <button type="button" class="btn btn-xs master-scale-btn" data-scale-key="XXL" onclick="applyMasterOverlaySizePreset('XXL')" title="Ultra Large / Pentas (Verse 58px, Sermon 56px, Ticker 50px, QR 275px)">XXL</button>
+              </div>
+            </div>
           </div>
 
           <!-- Countdown Timer Strip -->
@@ -1455,9 +1472,61 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
                   <label class="field-label">Event / Series Subtitle</label>
                   <input type="text" id="hudSermonSeries" class="input-compact" value="Sambutan Natal & Graduasi PKK SIB Kawasan Papar 2026">
                 </div>
+
+                <!-- Sermon / Speaker Lower-Third Size, Position (Lower-Second) & Style Controls -->
+                <div style="background:#080c15; border:1px solid var(--border); border-radius:6px; padding:7px 8px; display:flex; flex-direction:column; gap:6px;">
+                  <div class="field-group">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                      <label class="field-label">Sermon Text Size: <span id="speakerSizeValText" style="color:var(--gold); font-family:var(--font-mono);">32px</span></label>
+                      <div style="display:flex; gap:3px;">
+                        <button type="button" class="btn btn-xs" onclick="setQuickSpeakerSize(24)" title="Small (24px)">S</button>
+                        <button type="button" class="btn btn-xs" onclick="setQuickSpeakerSize(32)" title="Medium Default (32px)">M</button>
+                        <button type="button" class="btn btn-xs" onclick="setQuickSpeakerSize(40)" title="Large Phone-Friendly (40px)">L</button>
+                        <button type="button" class="btn btn-xs" onclick="setQuickSpeakerSize(48)" title="Extra Large (48px)">XL</button>
+                      </div>
+                    </div>
+                    <input type="range" id="hudSpeakerFontSize" min="20" max="64" step="1" value="32" oninput="onSpeakerStyleChange()" style="width:100%; accent-color:var(--gold); cursor:pointer;">
+                  </div>
+
+                  <div class="field-group">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                      <label class="field-label">Kedudukan (Screen Position)</label>
+                      <button type="button" class="btn btn-xs" style="border-color:var(--gold); color:var(--gold); padding:1px 5px; font-size:8.5px;" onclick="moveSpeakerToLowerSecond()" title="Pindahkan ke Tengah-Tengah Bawah (Lower-Second Screen)">⌖ Lower-Second (Tengah Bawah)</button>
+                    </div>
+                    <select id="hudSpeakerPos" class="select-compact" onchange="onSpeakerStyleChange()">
+                      <option value="bottom-left" selected>↙ Kiri Bawah (Default Lower-Left)</option>
+                      <option value="lower-second">⬆ Lower-Second (Tengah-Tengah Bawah Tinggi)</option>
+                      <option value="bottom-center">⬇ Tengah Bawah (Bottom Center)</option>
+                      <option value="bottom-right">↘ Kanan Bawah (Lower-Right)</option>
+                    </select>
+                  </div>
+
+                  <div class="grid-2">
+                    <div class="field-group">
+                      <label class="field-label">Gaya Paparan (Sermon Style)</label>
+                      <select id="hudSpeakerStyle" class="select-compact" onchange="onSpeakerStyleChange()">
+                        <option value="glass-card" selected>Bold Glass Card (Lalai)</option>
+                        <option value="royal-banner">Royal Gold Banner</option>
+                        <option value="podium-plaque">Podium Center Plaque (Simetri)</option>
+                        <option value="cinema-minimal">Cinema Outline (Tanpa Kotak)</option>
+                        <option value="modern-pill">Modern Capsule Pill</option>
+                      </select>
+                    </div>
+                    <div class="field-group">
+                      <label class="field-label">Jenis Tulisan (Font Family)</label>
+                      <select id="hudSpeakerFontFamily" class="select-compact" onchange="onSpeakerStyleChange()">
+                        <option value="sans" selected>Modern Sans (Jelas)</option>
+                        <option value="display">Broadcast Bold (Outfit)</option>
+                        <option value="classic">Classic Serif (Georgia)</option>
+                        <option value="serif">Sacred Cinzel (Klasik)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
                 <div style="display:flex; gap:4px;">
                   <button class="btn btn-gold" style="flex:1;" onclick="pushHudSermonInfo(false)">💾 Update Info</button>
-                  <button class="btn btn-primary" style="flex:1;" onclick="pushHudSermonInfo(true)">🎤 Push & Show Speaker LT</button>
+                  <button class="btn btn-primary" style="flex:1;" onclick="pushHudSermonInfo(true)">🎤 Push &amp; Show Speaker LT</button>
                 </div>
               </div>
 
@@ -2184,9 +2253,36 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
     </div>
 
     <!-- =========================================================================
-         TAB 4: PENGURUSAN DATA & PROFIL (DATA MANAGER, PROFILE EDITOR & BACKUP)
+         TAB 4: PENGURUSAN DATA & PROFIL (PASSWORD PROTECTED DATA MANAGER)
          ========================================================================= -->
     <div class="about-tab-pane" id="aboutTabPane-data">
+      <!-- PASSWORD LOCK SCREEN (DEFAULT VIEW UNTIL UNLOCKED) -->
+      <div id="dataMgrLockScreen" style="background:linear-gradient(135deg, rgba(30,58,138,0.25), #0a101d); border:1px solid rgba(245,194,66,0.45); border-radius:8px; padding:26px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px;">
+        <div style="width:46px; height:46px; border-radius:50%; background:rgba(245,194,66,0.16); border:1.5px solid var(--gold); display:flex; align-items:center; justify-content:center; font-size:20px;">🔒</div>
+        <div>
+          <div style="font-size:13px; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:0.6px;">Ruangan Pengurusan Data Terkunci (Admin Protected)</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">Sila masukkan kata laluan pentadbir (Admin Password) untuk mengurus profil, log tempahan, atau memulihkan backup sistem.</div>
+        </div>
+        <div style="display:flex; gap:6px; width:100%; max-width:340px; margin-top:4px;">
+          <input type="password" id="dataMgrPasswordInput" class="input-compact" placeholder="Masukkan Password Admin..." style="flex:1; text-align:center; font-size:12px;" onkeydown="if(event.key==='Enter') unlockDataMgrTab()">
+          <button type="button" class="btn btn-gold btn-sm" onclick="unlockDataMgrTab()">🔓 Buka Kunci</button>
+        </div>
+      </div>
+
+      <!-- UNLOCKED DATA MANAGER CONTENT -->
+      <div id="dataMgrUnlockedContent" style="display:none; flex-direction:column; gap:10px;">
+        <!-- Admin Session Security Bar & Password Changer -->
+        <div style="background:#080d18; border:1px solid rgba(16,185,129,0.4); border-radius:6px; padding:7px 12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="color:#34d399; font-size:11px; font-weight:800;">🔓 Akses Pentadbir Aktif (Unlocked)</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:5px; flex-wrap:wrap;">
+            <input type="password" id="newAdminPwInput" class="input-compact" placeholder="Password Baru (min 4 aksara)" style="width:165px; font-size:10.5px;">
+            <button type="button" class="btn btn-xs" style="border-color:var(--gold); color:var(--gold);" onclick="changeDataMgrPassword()">🔑 Tukar Password</button>
+            <button type="button" class="btn btn-danger btn-xs" onclick="lockDataMgrTab()">🔒 Kunci Semula</button>
+          </div>
+        </div>
+
       <!-- 1. System Data Summary & 1-Click Full Backup / Restore -->
       <div style="background:#0a101d; border:1px solid var(--border); border-left:4px solid var(--gold); border-radius:7px; padding:11px 14px; display:flex; flex-direction:column; gap:8px;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
@@ -2272,6 +2368,7 @@ $baseUrl = "{$scheme}://{$hostHeader}{$basePath}";
         <div id="inquiriesLogContainer" style="max-height:130px; overflow-y:auto; font-size:11px; color:var(--text-muted);">
           Tiada rekod pertanyaan disimpan lagi.
         </div>
+      </div>
       </div>
     </div>
 
@@ -3989,13 +4086,19 @@ function setQuickScriptureSize(px) {
   onScriptureStyleChange();
 }
 
+let speakerStyleDebounce = null;
+
 function pushHudSermonInfo(andShowSpeakerLt = false) {
   const payload = {
     sermonTitle: document.getElementById('hudSermonTitle').value,
     speakerName: document.getElementById('hudSpeakerName').value,
     speakerRole: document.getElementById('hudSpeakerRole').value,
     sermonScripture: document.getElementById('hudSermonScripture').value,
-    sermonSeries: document.getElementById('hudSermonSeries').value
+    sermonSeries: document.getElementById('hudSermonSeries').value,
+    speakerFontSize: Number(document.getElementById('hudSpeakerFontSize')?.value || 32),
+    speakerPos: document.getElementById('hudSpeakerPos')?.value || 'bottom-left',
+    speakerStyle: document.getElementById('hudSpeakerStyle')?.value || 'glass-card',
+    speakerFontFamily: document.getElementById('hudSpeakerFontFamily')?.value || 'sans'
   };
   sendHudCommand({ action: 'UPDATE_BULK', payload });
   if (andShowSpeakerLt) {
@@ -4003,6 +4106,117 @@ function pushHudSermonInfo(andShowSpeakerLt = false) {
   } else {
     showToast('Updated Sermon & Speaker Info', '#10b981');
   }
+}
+
+function onSpeakerStyleChange() {
+  const fontSize = Number(document.getElementById('hudSpeakerFontSize')?.value || 32);
+  const pos = document.getElementById('hudSpeakerPos')?.value || 'bottom-left';
+  const style = document.getElementById('hudSpeakerStyle')?.value || 'glass-card';
+  const fontFamily = document.getElementById('hudSpeakerFontFamily')?.value || 'sans';
+
+  const valEl = document.getElementById('speakerSizeValText');
+  if (valEl) valEl.textContent = `${fontSize}px`;
+
+  const payload = {
+    speakerFontSize: fontSize,
+    speakerPos: pos,
+    speakerStyle: style,
+    speakerFontFamily: fontFamily
+  };
+  if (hudChannel) hudChannel.postMessage({ action: 'UPDATE_BULK', payload });
+
+  clearTimeout(speakerStyleDebounce);
+  speakerStyleDebounce = setTimeout(() => {
+    sendHudCommand({ action: 'UPDATE_BULK', payload });
+  }, 120);
+}
+
+function setQuickSpeakerSize(px) {
+  const el = document.getElementById('hudSpeakerFontSize');
+  if (el) el.value = px;
+  onSpeakerStyleChange();
+}
+
+function moveSpeakerToLowerSecond() {
+  const posEl = document.getElementById('hudSpeakerPos');
+  if (posEl) posEl.value = 'lower-second';
+  onSpeakerStyleChange();
+  pushHudSermonInfo(true);
+  showToast('Sermon Lower-Third dipindahkan ke Lower-Second (Tengah-Tengah Bawah)!', '#f5c242');
+}
+
+/* ============================================================================
+ * MASTER OVERLAY SIZE PRESET (SYNCS ALL LIVE OVERLAYS IN ONE CLICK)
+ * ============================================================================ */
+const MASTER_OVERLAY_SCALE_PRESETS = {
+  S:   { label: 'S (TV / Kecil)',        verse: 24, sermon: 24, ticker: 20, qr: 96,  lyric: 34 },
+  M:   { label: 'M (Standard HD)',       verse: 32, sermon: 32, ticker: 26, qr: 125, lyric: 42 },
+  L:   { label: 'L (Mesra Telefon 📱)',  verse: 40, sermon: 40, ticker: 34, qr: 175, lyric: 50 },
+  XL:  { label: 'XL (Max Telefon 📱🔥)', verse: 50, sermon: 48, ticker: 42, qr: 225, lyric: 60 },
+  XXL: { label: 'XXL (Pentas / Ultra)',  verse: 58, sermon: 56, ticker: 50, qr: 275, lyric: 70 }
+};
+
+function applyMasterOverlaySizePreset(presetKey) {
+  const p = MASTER_OVERLAY_SCALE_PRESETS[presetKey];
+  if (!p) return;
+
+  // 1. Update Verse Slider & Readout
+  const scEl = document.getElementById('hudScriptureFontSize');
+  const scTxt = document.getElementById('scriptureSizeValText');
+  if (scEl) scEl.value = p.verse;
+  if (scTxt) scTxt.textContent = `${p.verse}px`;
+
+  // 2. Update Sermon / Speaker Slider & Readout
+  const spEl = document.getElementById('hudSpeakerFontSize');
+  const spTxt = document.getElementById('speakerSizeValText');
+  if (spEl) spEl.value = p.sermon;
+  if (spTxt) spTxt.textContent = `${p.sermon}px`;
+
+  // 3. Update Ticker Slider & Readout
+  const tkEl = document.getElementById('hudTickerFontSize');
+  const tkTxt = document.getElementById('tickerSizeValText');
+  if (tkEl) tkEl.value = p.ticker;
+  if (tkTxt) tkTxt.textContent = `${p.ticker}px`;
+
+  // 4. Update QR Size Slider & Readout
+  const qrEl = document.getElementById('hudGivingQrSize');
+  const qrTxt = document.getElementById('qrSizeValText');
+  if (qrEl) qrEl.value = p.qr;
+  if (qrTxt) qrTxt.textContent = `${p.qr}px`;
+
+  // Highlight active Master Preset Button
+  document.querySelectorAll('.master-scale-btn').forEach(btn => {
+    btn.classList.toggle('active-toggle', btn.getAttribute('data-scale-key') === presetKey);
+  });
+
+  // 5. Broadcast & Sync all Church HUD Overlay sizes immediately
+  const payload = {
+    scriptureFontSize: p.verse,
+    speakerFontSize: p.sermon,
+    tickerFontSize: p.ticker,
+    givingQrSize: p.qr,
+    masterScalePreset: presetKey
+  };
+  if (hudChannel) hudChannel.postMessage({ action: 'UPDATE_BULK', payload });
+  sendHudCommand({ action: 'UPDATE_BULK', payload });
+
+  // 6. Optional: Also sync Easyslides Lyric Font Size if checkbox is checked
+  const syncLyric = document.getElementById('chkSyncLyricMasterScale')?.checked;
+  if (syncLyric) {
+    const lyrEl = document.getElementById('cfgLyricFontSize');
+    if (lyrEl) {
+      lyrEl.value = p.lyric;
+      if (typeof saveLyricOverlayStyle === 'function') {
+        saveLyricOverlayStyle();
+      }
+    }
+  }
+
+  showToast(
+    `📐 Skala Semua Overlay [${p.label}]: Verse ${p.verse}px • Sermon ${p.sermon}px • Ticker ${p.ticker}px • QR ${p.qr}px` +
+    (syncLyric ? ` • Lirik ${p.lyric}px` : ''),
+    '#f5c242'
+  );
 }
 
 let tickerStyleDebounce = null;
@@ -4285,6 +4499,29 @@ function applyIncomingHudState(st) {
   if (s.scriptureStyle && document.activeElement !== document.getElementById('hudScriptureStyle')) {
     const scStEl = document.getElementById('hudScriptureStyle');
     if (scStEl) scStEl.value = s.scriptureStyle;
+  }
+  if (s.speakerFontSize && document.activeElement !== document.getElementById('hudSpeakerFontSize')) {
+    const spSizeEl = document.getElementById('hudSpeakerFontSize');
+    if (spSizeEl) spSizeEl.value = s.speakerFontSize;
+    const spTxtEl = document.getElementById('speakerSizeValText');
+    if (spTxtEl) spTxtEl.textContent = `${s.speakerFontSize}px`;
+  }
+  if (s.speakerPos && document.activeElement !== document.getElementById('hudSpeakerPos')) {
+    const spPosEl = document.getElementById('hudSpeakerPos');
+    if (spPosEl) spPosEl.value = s.speakerPos;
+  }
+  if (s.speakerStyle && document.activeElement !== document.getElementById('hudSpeakerStyle')) {
+    const spStEl = document.getElementById('hudSpeakerStyle');
+    if (spStEl) spStEl.value = s.speakerStyle;
+  }
+  if (s.speakerFontFamily && document.activeElement !== document.getElementById('hudSpeakerFontFamily')) {
+    const spFamEl = document.getElementById('hudSpeakerFontFamily');
+    if (spFamEl) spFamEl.value = s.speakerFontFamily;
+  }
+  if (s.masterScalePreset) {
+    document.querySelectorAll('.master-scale-btn').forEach(btn => {
+      btn.classList.toggle('active-toggle', btn.getAttribute('data-scale-key') === s.masterScalePreset);
+    });
   }
 
   renderHudControlsUi();
@@ -4712,6 +4949,73 @@ let aboutContactData = {
   promoEn: ''
 };
 let savedInquiriesList = [];
+let currentDataMgrPassword = '';
+
+async function unlockDataMgrTab() {
+  const pwInput = document.getElementById('dataMgrPasswordInput');
+  const pw = (pwInput?.value || '').trim();
+  if (!pw) {
+    showToast('Sila masukkan password admin!', '#f59e0b');
+    return;
+  }
+  try {
+    const res = await fetch('presets_api.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'verify_admin_password', adminPassword: pw })
+    }).then(r => r.json());
+
+    if (res && res.ok) {
+      currentDataMgrPassword = pw;
+      if (pwInput) pwInput.value = '';
+      document.getElementById('dataMgrLockScreen').style.display = 'none';
+      document.getElementById('dataMgrUnlockedContent').style.display = 'flex';
+      showToast('🔓 Akses Pengurusan Data dibuka!', '#10b981');
+    } else {
+      showToast(res?.error || 'Password salah!', '#ef4444');
+    }
+  } catch (e) {
+    showToast('Ralat mengesahkan password', '#ef4444');
+  }
+}
+
+function lockDataMgrTab() {
+  currentDataMgrPassword = '';
+  const lockEl = document.getElementById('dataMgrLockScreen');
+  const unlEl  = document.getElementById('dataMgrUnlockedContent');
+  if (lockEl) lockEl.style.display = 'flex';
+  if (unlEl) unlEl.style.display = 'none';
+  showToast('🔒 Pengurusan Data dikunci semula', '#f59e0b');
+}
+
+async function changeDataMgrPassword() {
+  const newPw = (document.getElementById('newAdminPwInput')?.value || '').trim();
+  if (newPw.length < 4) {
+    showToast('Password baru mestilah sekurang-kurangnya 4 aksara', '#f59e0b');
+    return;
+  }
+  try {
+    const res = await fetch('presets_api.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'change_admin_password',
+        currentPassword: currentDataMgrPassword,
+        newPassword: newPw
+      })
+    }).then(r => r.json());
+
+    if (res && res.ok) {
+      currentDataMgrPassword = newPw;
+      document.getElementById('newAdminPwInput').value = '';
+      showToast('🔑 Password Pengurusan Data berjaya dikemas kini!', '#10b981');
+    } else {
+      showToast(res?.error || 'Gagal menukar password', '#ef4444');
+    }
+  } catch (e) {
+    showToast('Ralat menukar password', '#ef4444');
+  }
+}
 
 function openAboutUsModal(initialTab = 'license') {
   document.getElementById('aboutUsModal').classList.add('open');
@@ -4829,13 +5133,15 @@ async function saveMikeContactProfile() {
     const res = await fetch('presets_api.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'save_contact_profile', profile })
+      body: JSON.stringify({ action: 'save_contact_profile', profile, adminPassword: currentDataMgrPassword })
     }).then(r => r.json());
 
     if (res && res.ok) {
       aboutContactData = { ...aboutContactData, ...res.contact };
       applyAboutContactProfileDom();
       showToast('Profil Hubungi Kami & Iklan disimpan!', '#10b981');
+    } else {
+      showToast(res?.error || 'Gagal menyimpan profil', '#ef4444');
     }
   } catch (e) {
     showToast('Gagal menyimpan profil', '#ef4444');
@@ -4932,13 +5238,15 @@ async function deleteMikeInquiry(id) {
     const res = await fetch('presets_api.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'delete_inquiry', id })
+      body: JSON.stringify({ action: 'delete_inquiry', id, adminPassword: currentDataMgrPassword })
     }).then(r => r.json());
     if (res && res.ok) {
       savedInquiriesList = res.inquiries || [];
       renderInquiriesLogTable();
       document.getElementById('statInquiryCount').textContent = savedInquiriesList.length;
       showToast('Rekod dipadam', '#f59e0b');
+    } else {
+      showToast(res?.error || 'Gagal memadam rekod', '#ef4444');
     }
   } catch (e) {}
 }
@@ -5028,7 +5336,7 @@ function importFullMegaObsBackup(inputEl) {
       const res = await fetch('presets_api.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'import_backup', bundle })
+        body: JSON.stringify({ action: 'import_backup', bundle, adminPassword: currentDataMgrPassword })
       }).then(r => r.json());
 
       if (res && res.ok) {

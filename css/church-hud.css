@@ -1378,23 +1378,24 @@ body.scene-is-overlay .church-bottom-bar {
   pointer-events: none;
 }
 
-/* Speaker Lower-Third */
+/* Speaker & Sermon Lower-Third */
 .church-lower-third-speaker {
+  --speaker-font-size: 32px;
   position: absolute;
   bottom: 80px;
   left: 80px;
   display: flex;
   align-items: center;
-  background: linear-gradient(90deg, rgba(10, 16, 30, 0.94) 0%, rgba(14, 22, 42, 0.88) 85%, rgba(14, 22, 42, 0) 100%);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: linear-gradient(90deg, rgba(10, 16, 30, 0.95) 0%, rgba(14, 22, 42, 0.90) 88%, rgba(14, 22, 42, 0) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-left: 5px solid var(--primary-gold);
-  padding: 16px 40px 16px 24px;
+  padding: 16px 42px 16px 24px;
   border-radius: 0 14px 14px 0;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.78);
   transform: translateX(-120%);
   opacity: 0;
-  transition: bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  transition: bottom 0.42s cubic-bezier(0.16, 1, 0.3, 1), left 0.42s cubic-bezier(0.16, 1, 0.3, 1), right 0.42s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
   z-index: 20;
 }
 
@@ -1403,45 +1404,200 @@ body.scene-is-overlay .church-bottom-bar {
   opacity: 1;
 }
 
+/* Position Variant: Lower-Second Screen (Tengah-Tengah Bawah / Raised Lower-Center) */
+.church-lower-third-speaker[data-speaker-pos="lower-second"] {
+  left: 50%;
+  right: auto;
+  bottom: 148px;
+  border-left: 4px solid var(--primary-gold);
+  border-right: 4px solid var(--primary-gold);
+  border-radius: 14px;
+  background: rgba(10, 16, 30, 0.95);
+  padding: 16px 34px;
+  transform: translateX(-50%) translateY(120%);
+}
+.church-lower-third-speaker[data-speaker-pos="lower-second"].visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Position Variant: Bottom-Center (Tengah Bawah) */
+.church-lower-third-speaker[data-speaker-pos="bottom-center"] {
+  left: 50%;
+  right: auto;
+  bottom: 72px;
+  border-left: 4px solid var(--primary-gold);
+  border-right: 4px solid var(--primary-gold);
+  border-radius: 14px;
+  background: rgba(10, 16, 30, 0.95);
+  padding: 16px 34px;
+  transform: translateX(-50%) translateY(120%);
+}
+.church-lower-third-speaker[data-speaker-pos="bottom-center"].visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Position Variant: Bottom-Right (Kanan Bawah) */
+.church-lower-third-speaker[data-speaker-pos="bottom-right"] {
+  left: auto;
+  right: 80px;
+  bottom: 80px;
+  border-left: none;
+  border-right: 5px solid var(--primary-gold);
+  border-radius: 14px 0 0 14px;
+  background: linear-gradient(270deg, rgba(10, 16, 30, 0.95) 0%, rgba(14, 22, 42, 0.90) 88%, rgba(14, 22, 42, 0) 100%);
+  padding: 16px 24px 16px 42px;
+  transform: translateX(120%);
+}
+.church-lower-third-speaker[data-speaker-pos="bottom-right"].visible {
+  transform: translateX(0);
+}
+
 .lt-speaker-avatar {
-  width: 52px;
-  height: 52px;
+  width: calc(var(--speaker-font-size, 32px) * 1.85);
+  height: calc(var(--speaker-font-size, 32px) * 1.85);
   border-radius: 50%;
   border: 2px solid var(--primary-gold);
-  background: rgba(var(--primary-gold-rgb), 0.2);
+  background: rgba(var(--primary-gold-rgb), 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--primary-gold);
   margin-right: 18px;
+  flex-shrink: 0;
+  transition: width 0.25s ease, height 0.25s ease;
 }
 
 .lt-speaker-avatar svg {
-  width: 28px;
-  height: 28px;
+  width: calc(var(--speaker-font-size, 32px) * 0.98);
+  height: calc(var(--speaker-font-size, 32px) * 0.98);
   fill: currentColor;
 }
 
 .lt-speaker-details {
   display: flex;
   flex-direction: column;
+  gap: 3px;
+}
+
+.lt-sermon-header-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lt-sermon-badge {
+  font-family: var(--font-display);
+  font-size: calc(var(--speaker-font-size, 32px) * 0.56);
+  font-weight: 800;
+  color: var(--primary-gold);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  transition: font-size 0.25s ease;
+}
+
+.lt-sermon-ref-pill {
+  background: linear-gradient(90deg, var(--gold-dark), var(--primary-gold));
+  color: #0b0f19;
+  font-family: var(--font-display);
+  font-size: calc(var(--speaker-font-size, 32px) * 0.48);
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 2px 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  transition: font-size 0.25s ease;
 }
 
 .lt-speaker-name {
-  font-family: var(--font-serif);
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: var(--speaker-font-size, 32px);
+  font-weight: 800;
   color: #ffffff;
-  letter-spacing: 1.2px;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.8px;
+  line-height: 1.18;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  transition: font-size 0.25s ease;
 }
 
 .lt-speaker-title {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--primary-gold);
-  letter-spacing: 1.5px;
+  font-size: calc(var(--speaker-font-size, 32px) * 0.52);
+  font-weight: 700;
+  color: #cbd5e1;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
+  transition: font-size 0.25s ease;
+}
+
+/* Font Family Variants for Speaker / Sermon Lower-Third */
+.church-lower-third-speaker[data-speaker-font="sans"] .lt-speaker-name {
+  font-family: var(--font-sans);
+}
+.church-lower-third-speaker[data-speaker-font="display"] .lt-speaker-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+.church-lower-third-speaker[data-speaker-font="serif"] .lt-speaker-name {
+  font-family: var(--font-serif);
+}
+.church-lower-third-speaker[data-speaker-font="classic"] .lt-speaker-name {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* Visual Style Variants for Speaker / Sermon Lower-Third */
+.church-lower-third-speaker[data-speaker-style="royal-banner"] {
+  background: linear-gradient(90deg, rgba(6, 10, 22, 0.96) 0%, rgba(20, 32, 62, 0.96) 50%, rgba(6, 10, 22, 0.96) 100%);
+  border-top: 3px solid var(--primary-gold);
+  border-bottom: 3px solid var(--primary-gold);
+  border-left: 6px solid var(--primary-gold);
+  border-right: 6px solid var(--primary-gold);
+  border-radius: 12px;
+  padding: 18px 36px;
+}
+
+.church-lower-third-speaker[data-speaker-style="podium-plaque"] {
+  background: linear-gradient(145deg, rgba(12, 19, 36, 0.96), rgba(6, 10, 20, 0.96));
+  border: 2px solid var(--primary-gold);
+  border-radius: 16px;
+  padding: 18px 38px;
+  text-align: center;
+  justify-content: center;
+}
+.church-lower-third-speaker[data-speaker-style="podium-plaque"] .lt-speaker-avatar {
+  display: none;
+}
+.church-lower-third-speaker[data-speaker-style="podium-plaque"] .lt-speaker-details {
+  align-items: center;
+}
+.church-lower-third-speaker[data-speaker-style="podium-plaque"] .lt-sermon-header-row {
+  justify-content: center;
+}
+
+.church-lower-third-speaker[data-speaker-style="cinema-minimal"] {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 8px 16px;
+}
+.church-lower-third-speaker[data-speaker-style="cinema-minimal"] .lt-speaker-name,
+.church-lower-third-speaker[data-speaker-style="cinema-minimal"] .lt-sermon-badge,
+.church-lower-third-speaker[data-speaker-style="cinema-minimal"] .lt-speaker-title {
+  text-shadow:
+    -2px -2px 0 #000,
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000,
+     0 5px 16px rgba(0, 0, 0, 0.98);
+}
+
+.church-lower-third-speaker[data-speaker-style="modern-pill"] {
+  background: rgba(8, 13, 26, 0.95);
+  border: 2px solid var(--primary-gold);
+  border-radius: 999px;
+  padding: 12px 34px 12px 16px;
 }
 
 /* Scripture HUD Box */

@@ -333,6 +333,10 @@
           <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zm5 9a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
         </div>
         <div class="lt-speaker-details">
+          <div class="lt-sermon-header-row">
+            <span class="lt-sermon-badge data-sermon-title">Aku Kecil, Aku Berharga</span>
+            <span class="lt-sermon-ref-pill data-sermon-scripture">Mikha 5:1-3</span>
+          </div>
           <span class="lt-speaker-name data-speaker-name">Pta. Tinggih Sulog</span>
           <span class="lt-speaker-title data-speaker-role">Pengkhotbah &bull; Mikha 5:1â€“3</span>
         </div>
