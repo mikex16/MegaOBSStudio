@@ -5,113 +5,94 @@
     "show_running": true,
     "is_black": false,
     "is_clear": false,
-    "cur_slide_no": 14,
-    "total_slides": 14,
+    "cur_slide_no": 7,
+    "total_slides": 10,
     "alert_text": "",
     "item": {
-        "remote_item_id": 10,
+        "remote_item_id": 2,
         "type": "D",
-        "title1": "TERBUKALAH SURGA - BN 176",
-        "title2": "Na Mungkap Do Surgo (BL No. 3)",
-        "author": "BN 176",
-        "copyright": "Buku Nyanyian HKBP (c) Huria Kristen Batak Protestan",
-        "songkey": "B",
+        "title1": "TERCURAH DARAH TUHANKU - KK 242",
+        "title2": "",
+        "author": "KK 242",
+        "copyright": "Kidung Keesaan (C) Yayasan Musik Gereja Indonesia (YAMUGER)",
+        "songkey": "C",
         "capo": "-1",
         "slides": [
             {
                 "slide_no": 1,
                 "section": "Verse 1",
-                "region1": "TERBUKALAH SORGA, SEBAB APAKAH?\nS’BAB YESUS T’LAH DATANG MEMBUKAKANNYA",
+                "region1": "TERCURAH DARAH TUHANKU DI BUKIT GOLGOTA;\nYANG MAU BERTOBAT, DITEBUS, TERHAPUS DOSANYA,",
                 "region2": ""
             },
             {
                 "slide_no": 2,
                 "section": "Verse 1",
-                "region1": "S’BAB YESUS T’LAH DATANG MEMBUKAKANNYA",
+                "region1": "TERHAPUS DOSANYA, TERHAPUS DOSANYA,\nYANG MAU BERTOBAT, DITEBUS, TERHAPUS DOSANYA.",
                 "region2": ""
             },
             {
                 "slide_no": 3,
                 "section": "Verse 2",
-                "region1": "DIA SUDAH MENANGGUNG MAUT DI GOLGOTA\nMENEBUS DOSAMU DENGAN DARAH-NYA",
+                "region1": "PENYAMUN YANG DI SISI-NYA DIB’RI ANUGERAH;\nPUN AKU YANG PENUH CELA DIBASUH DARAH-NYA,",
                 "region2": ""
             },
             {
                 "slide_no": 4,
                 "section": "Verse 2",
-                "region1": "MENEBUS DOSAMU DENGAN DARAH-NYA",
+                "region1": "TERHAPUS DOSANYA, TERHAPUS DOSANYA,\nYANG MAU BERTOBAT, DITEBUS, TERHAPUS DOSANYA.",
                 "region2": ""
             },
             {
                 "slide_no": 5,
                 "section": "Verse 3",
-                "region1": "JIWAKU DATANGLAH PADA TUHANMU\nHATI-NYA GEMBIRA MENYAMBUT ENGKAU",
+                "region1": "YA ANAK DOMBA, DARAH-MU TAK HILANG KUASANYA,\nSEHINGGA S’LAMAT UMAT-MU DAN SUCI S’LAMANYA,",
                 "region2": ""
             },
             {
                 "slide_no": 6,
                 "section": "Verse 3",
-                "region1": "HATI-NYA GEMBIRA MENYAMBUT ENGKAU",
+                "region1": "DAN SUCI S’LAMANYA, DAN SUCI S’LAMANYA,\nSEHINGGA S’LAMAT UMAT-MU DAN SUCI S’LAMANYA.",
                 "region2": ""
             },
             {
                 "slide_no": 7,
                 "section": "Verse 4",
-                "region1": "BAGAIKAN KESUMBA MERAH DOSAMU\nDARAH-NYA TERCURAH MENGUDUSKANMU",
+                "region1": "SEJAK KUPANDANG SALIB-MU DENGAN IMAN TEGUH,\nKUPUJI KASIH-MU TERUS SEUMUR HIDUPKU,",
                 "region2": ""
             },
             {
                 "slide_no": 8,
                 "section": "Verse 4",
-                "region1": "DARAH-NYA TERCURAH MENGUDUSKANMU",
+                "region1": "SEUMUR HIDUPKU, SEUMUR HIDUPKU,\nKUPUJI KASIH-MU TERUS SEUMUR HIDUPKU.",
                 "region2": ""
             },
             {
                 "slide_no": 9,
                 "section": "Verse 5",
-                "region1": "DI KALA JIWAMU LETIH DAN LESU\nSERAHKAN PADA-NYA PERGUMULANMU",
+                "region1": "DAN JIKA NANTI LIDAHKU TAK LAGI BERGERAK,\nTETAP KUPUJI KUASA-MU DI SURGA-MU KELAK,",
                 "region2": ""
             },
             {
                 "slide_no": 10,
                 "section": "Verse 5",
-                "region1": "SERAHKAN PADA-NYA PERGUMULANMU",
-                "region2": ""
-            },
-            {
-                "slide_no": 11,
-                "section": "Verse 6",
-                "region1": "DERITA DAN LARA DISEMBUHKAN-NYA\nLANGKAHMU DIBIMBING KE SURGA BAKA",
-                "region2": ""
-            },
-            {
-                "slide_no": 12,
-                "section": "Verse 6",
-                "region1": "LANGKAHMU DIBIMBING KE SURGA BAKA",
-                "region2": ""
-            },
-            {
-                "slide_no": 13,
-                "section": "Verse 7",
-                "region1": "YA YESUS, ENGKAULAH WARISAN KEKAL\nBERI SUKACITA DAMAI YANG KEKAL",
-                "region2": ""
-            },
-            {
-                "slide_no": 14,
-                "section": "Verse 7",
-                "region1": "BERI SUKACITA DAMAI YANG KEKAL",
+                "region1": "DI SURGA-MU KELAK, DI SURGA-MU KELAK,\nTETAP KUPUJI KUASA-MU DI SURGA-MU KELAK.",
                 "region2": ""
             }
         ]
     },
     "active_slide": {
-        "slide_no": 14,
-        "section": "Verse 7",
-        "region1": "BERI SUKACITA DAMAI YANG KEKAL",
+        "slide_no": 7,
+        "section": "Verse 4",
+        "region1": "SEJAK KUPANDANG SALIB-MU DENGAN IMAN TEGUH,\nKUPUJI KASIH-MU TERUS SEUMUR HIDUPKU,",
         "region2": ""
     },
-    "next_slide": null,
-    "updated_at_ms": 1795281839987,
+    "next_slide": {
+        "slide_no": 8,
+        "section": "Verse 4",
+        "region1": "SEUMUR HIDUPKU, SEUMUR HIDUPKU,\nKUPUJI KASIH-MU TERUS SEUMUR HIDUPKU.",
+        "region2": ""
+    },
+    "updated_at_ms": 1795335102738,
     "daemon_running": false,
     "daemon_pid": 18288,
     "host": "127.0.0.1",

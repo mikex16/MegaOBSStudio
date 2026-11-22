@@ -1,6 +1,6 @@
 {
-    "version": 135,
-    "lastUpdated": 1795281907,
+    "version": 180,
+    "lastUpdated": 1795335084,
     "givingPosMode": "top-right",
     "givingQrSize": 222,
     "givingPosX": 50,
@@ -14,8 +14,8 @@
     "givingAccount": "3235424420",
     "givingName": "SIB PEKAN PAPAR",
     "givingRef": "Persembahan \/ Perpuluhan",
-    "tickerText": "Shalom & Selamat Datang kepada semua Ibu Bapa, Guru-Guru Sekolah Minggu, dan Kanak-Kanak PKK SIB Kawasan Papar \u2022 Sila pastikan telefon bimbit anda berada dalam mod senyap sepanjang ibadah berlangsung.",
-    "tickerBadge": "SELAMAT DATANG",
+    "tickerText": "Shalom! Selamat Datang ke Kebaktian Natal & Graduasi PKK SIB Kawasan Papar 2026 \u2022 Tema: 'Aku Kecil, Aku Berharga' (Mikha 5:1\u20133) \u2022 Tempat: Gereja SIB Kayau \u2022 Pengkhotbah: Pta. Tinggih Sulog \u2022 Tarikh: 22 Nov 2026 (Ahad 9.30 Pagi) \u2022 Warna Baju: Biru \u2022 Pengerusi PKK: Welter Lainor \u2022 Tuhan Yesus Memberkati!",
+    "tickerBadge": "INFO NATAL & PKK",
     "tickerFontSize": 26,
     "tickerDuration": 58,
     "scriptureRef": "Mikha 5:1\u20133",
@@ -41,5 +41,13 @@
     "speakerPos": "lower-second",
     "speakerStyle": "glass-card",
     "speakerFontFamily": "serif",
-    "scene": "overlay"
+    "scene": "overlay",
+    "headerVisible": true,
+    "headerFontSize": 24,
+    "headerOpacity": 0.84,
+    "headerStyle": "royal-gradient",
+    "headerShowLive": true,
+    "headerShowClock": true,
+    "headerShowCenterPill": true,
+    "liveBadgeText": "LIVE"
 }

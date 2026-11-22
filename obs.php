@@ -42,6 +42,8 @@
       height: 100vh;
       overflow: hidden;
       background: transparent !important;
+      border: none !important;
+      outline: none !important;
       font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
@@ -55,6 +57,8 @@
       align-items: center;
       padding: 48px 80px;
       position: relative;
+      border: none !important;
+      outline: none !important;
       transition: all 0.25s ease;
     }
 
@@ -77,6 +81,8 @@
       min-width: 640px;
       text-align: center;
       opacity: 1;
+      border: none !important;
+      outline: none !important;
       transform: translateY(0);
       transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -87,21 +93,28 @@
       pointer-events: none;
     }
 
-    /* Theme 1: Frosted Glass Card (glass) */
+    /* Theme 1: Frosted Glass Card (glass) — Clean & Borderless (No Thin Line) */
     .theme-glass .lyric-box {
       background: rgba(15, 23, 42, var(--bg-opacity));
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-bottom: 4px solid var(--accent-color);
+      border: none !important;
+      outline: none !important;
       border-radius: 16px;
       padding: 22px 44px 26px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, calc(var(--bg-opacity) * 0.55));
+    }
+
+    /* When opacity is set to 0, hide all box backgrounds and shadows completely */
+    .no-bg-box .lyric-box {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
     }
 
     /* Theme 2: Cinema Outline / Transparent (cinema) */
     .theme-cinema .lyric-box {
-      background: transparent;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
       padding: 12px 24px;
     }
 
@@ -116,7 +129,7 @@
          0px  0px 24px rgba(0, 0, 0, 0.85);
     }
 
-    /* Theme 3: Full-Width Worship Gradient Bar (gradient) */
+    /* Theme 3: Full-Width Worship Gradient Bar (gradient) — Seamless Eased Feather Without Top Border Line */
     .theme-gradient.overlay-viewport {
       padding: 0;
     }
@@ -124,9 +137,41 @@
     .theme-gradient .lyric-box {
       width: 100vw;
       max-width: 100vw;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.0) 0%, rgba(15, 23, 42, var(--bg-opacity)) 28%, rgba(9, 14, 28, 0.95) 100%);
-      border-top: 2px solid rgba(255, 255, 255, 0.12);
-      padding: 38px 80px 42px;
+      background: linear-gradient(
+        180deg,
+        rgba(9, 14, 28, 0) 0%,
+        rgba(9, 14, 28, 0) 12%,
+        rgba(9, 14, 28, calc(var(--bg-opacity) * 0.18)) 32%,
+        rgba(9, 14, 28, calc(var(--bg-opacity) * 0.55)) 60%,
+        rgba(9, 14, 28, var(--bg-opacity)) 100%
+      );
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      padding: 46px 80px 44px;
+    }
+
+    .theme-gradient.pos-center .lyric-box {
+      background: linear-gradient(
+        180deg,
+        rgba(9, 14, 28, 0) 0%,
+        rgba(9, 14, 28, 0) 10%,
+        rgba(12, 18, 34, var(--bg-opacity)) 38%,
+        rgba(12, 18, 34, var(--bg-opacity)) 62%,
+        rgba(9, 14, 28, 0) 90%,
+        rgba(9, 14, 28, 0) 100%
+      );
+    }
+
+    .theme-gradient.pos-top .lyric-box {
+      background: linear-gradient(
+        0deg,
+        rgba(9, 14, 28, 0) 0%,
+        rgba(9, 14, 28, 0) 12%,
+        rgba(9, 14, 28, calc(var(--bg-opacity) * 0.18)) 32%,
+        rgba(9, 14, 28, calc(var(--bg-opacity) * 0.55)) 60%,
+        rgba(9, 14, 28, var(--bg-opacity)) 100%
+      );
     }
 
     /* Theme 4: Full-Screen Stage Monitor (stage) */
@@ -172,13 +217,13 @@
     }
 
     .song-title-pill {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(15, 23, 42, 0.55);
       color: rgba(255, 255, 255, 0.92);
       font-size: 14px;
       font-weight: 600;
       padding: 3px 12px;
       border-radius: 999px;
-      backdrop-filter: blur(6px);
+      border: none !important;
     }
 
     .theme-cinema .song-title-pill {
@@ -330,7 +375,8 @@
       const bgOpacity = cfg.bg_opacity ?? 0.78;
 
       const vp = document.getElementById('viewport');
-      vp.className = `overlay-viewport theme-${theme} pos-${pos}`;
+      const noBgClass = (Number(bgOpacity) <= 0.02) ? ' no-bg-box' : '';
+      vp.className = `overlay-viewport theme-${theme} pos-${pos}${noBgClass}`;
 
       document.documentElement.style.setProperty('--font-size', `${fontSize}px`);
       document.documentElement.style.setProperty('--text-color', textColor);
